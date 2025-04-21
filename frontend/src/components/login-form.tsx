@@ -72,7 +72,7 @@ export function LoginForm({
                   {/* Remember Me */}
                   <label className="flex items-center gap-2">
                     <input type="checkbox" className="form-checkbox" />
-                    <span className="font-medium text-gray-800">Remember Me</span>
+                    <span className="text-gray-800">Remember Me</span>
                   </label>
 
                   {/* Forgot password */}
