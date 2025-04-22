@@ -1,33 +1,29 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { useState, useEffect } from "react"
-import type { EmblaCarouselType } from "embla-carousel"
-import { Search } from "lucide-react"
-import { Button } from "../ui/button"
-import { Input } from "../ui/input"
-import { Card, CardContent } from "@/components/ui/card"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel"
+import * as React from "react";
+import { useState, useEffect } from "react";
+import type { EmblaCarouselType } from "embla-carousel";
+import { Search } from "lucide-react";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 export default function HeroSection() {
-  const [embla, setEmbla] = useState<EmblaCarouselType | null>(null)
+  const [embla, setEmbla] = useState<EmblaCarouselType | null>(null);
 
   // ✅ Auto-scroll effect
   useEffect(() => {
-    if (!embla) return
+    if (!embla) return;
 
     const interval = setInterval(() => {
-      if (!embla) return
-      const nextIndex = (embla.selectedScrollSnap() + 1) % embla.scrollSnapList().length
-      embla.scrollTo(nextIndex)
-    }, 3000)
+      if (!embla) return;
+      const nextIndex = (embla.selectedScrollSnap() + 1) % embla.scrollSnapList().length;
+      embla.scrollTo(nextIndex);
+    }, 3000);
 
-    return () => clearInterval(interval)
-  }, [embla])
+    return () => clearInterval(interval);
+  }, [embla]);
 
   return (
     <section className="w-full min-h-70 py-20 px-8 bg-gray-50">
@@ -38,8 +34,8 @@ export default function HeroSection() {
             Find a job that suits your interest & skills.
           </h1>
           <p className="text-gray-600 text-lg mb-10">
-            Aliquam vitae turpis in diam convallis finibus in at risus. Nullam
-            in scelerisque leo, eget sollicitudin velit vestibulum.
+            Aliquam vitae turpis in diam convallis finibus in at risus. Nullam in scelerisque leo,
+            eget sollicitudin velit vestibulum.
           </p>
 
           <div className="relative bg-white rounded-md shadow-sm">
@@ -90,6 +86,5 @@ export default function HeroSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
- 

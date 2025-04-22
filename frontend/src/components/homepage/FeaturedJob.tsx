@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import JobCard from "./JobCard";
- 
+
 export default function FeaturedJob() {
   return (
     <section className="w-full h-auto py-14 px-8 mb-5">
