@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Language extends Model
+{
+    protected $fillable = [
+        'language',
+        'proficiency_level',
+        'applicant_id',
+    ];
+
+    public function applicant()
+    {
+        return $this->belongsTo(Applicant::class);
+    }
+}
