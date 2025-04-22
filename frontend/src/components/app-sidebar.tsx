@@ -15,47 +15,51 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-
-// This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: Command,
-      plan: "Enterprise",
-    },
-  ],
-  navMain: [
-    {
-      title: "Dashboard",
-      url: "#",
-      icon: Home,
-      isActive: true,
-    },
-    {
-      title: "Browse Job",
-      url: "#",
-      icon: Search,
-    },
-    {
-      title: "My Applications",
-      url: "#",
-      icon: Folder,
-    },
-    {
-      title: "Saved Jobs",
-      url: "#",
-      icon: Bookmark,
-    },
-  ],
-};
+import { usePathname } from "next/navigation";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname();
+  const data = {
+    user: {
+      name: "shadcn",
+      email: "m@example.com",
+      avatar: "/avatars/shadcn.jpg",
+    },
+    teams: [
+      {
+        name: "Acme Inc",
+        logo: Command,
+        plan: "Enterprise",
+      },
+    ],
+    navMain: [
+      {
+        title: "Dashboard",
+        url: "/dashboard",
+        icon: Home,
+        isActive: pathname === "/dashboard",
+      },
+      {
+        title: "Browse Job",
+        url: "/browse-jobs",
+        icon: Search,
+        isActive: pathname === "/browse-jobs",
+      },
+      {
+        title: "My Applications",
+        url: "/my-applications",
+        icon: Folder,
+        isActive: pathname === "/my-applications",
+      },
+      {
+        title: "Saved Jobs",
+        url: "/saved-jobs",
+        icon: Bookmark,
+        isActive: pathname === "/saved-jobs",
+      },
+    ],
+  };
+
   return (
     <Sidebar className="border-r-0" {...props}>
       <SidebarHeader>
