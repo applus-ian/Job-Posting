@@ -26,14 +26,12 @@ import {
                 <p>123 Corporate Blvd, Suite 100, Business City</p>
                 </div>
             </div>
-  
+
+
             {/* Right Section - Footer Nav Links */}
             <div className="flex items-center gap-25 text-sm text-white">
             <a href="#" className="hover:underline">About</a>
-            <a href="#" className="flex items-center gap-1 font-semibold text-white hover:underline">
-                <span>→</span>
-                <span>Contact</span>
-            </a>
+            <a href="#" className="hover:underline">Contact</a>
             <a href="#" className="hover:underline">Browse Jobs</a>
             <a href="#" className="hover:underline">Blog</a>
             </div>
