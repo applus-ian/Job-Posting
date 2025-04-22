@@ -2,14 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CalendarIcon, BriefcaseIcon, DollarSignIcon } from "lucide-react";
 import CustomBadge from "../job/CustomBadge";
- 
+
 export default function JobCard() {
   const title = "Frontend Developer";
   const badgeText = "Full-Time";
   const salary = "$60,000 - $80,000";
   const employmentType = "Remote";
   const expirationDate = "April 30, 2025";
- 
+
   return (
     <div className="w-full flex flex-col mt-6">
       <Card>
@@ -23,7 +23,7 @@ export default function JobCard() {
                   <CustomBadge label={employmentType} status="tag" />
                 </div>
               </div>
- 
+
               <div className="flex flex-col sm:flex-row gap-3 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">
                   <DollarSignIcon className="h-4 w-4" />
@@ -46,4 +46,3 @@ export default function JobCard() {
     </div>
   );
 }
- 

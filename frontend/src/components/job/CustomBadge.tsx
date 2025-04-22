@@ -1,13 +1,14 @@
+"use client";
 import { Badge } from "../ui/badge";
 import clsx from "clsx";
- 
+
 const statusStyles = {
   tag: {
     text: "text-[#FF6900]",
     bg: "bg-[#FFEEE3]",
   },
 };
- 
+
 export default function CustomBadge({
   label,
   status,
@@ -22,5 +23,3 @@ export default function CustomBadge({
     </Badge>
   );
 }
- 
- 

@@ -1,22 +1,18 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Menu, X} from 'lucide-react'
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="bg-white border-b w-full">
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4 md:px-2">
         <div className="flex items-center">
           {/* Logo */}
-            <img
-                src="/Logo.png"
-                alt="Applus Logo"
-                className="h-8 w-auto"
-            />
+          <img src="/Logo.png" alt="Applus Logo" className="h-8 w-auto" />
         </div>
 
         {/* Desktop nav */}
@@ -33,10 +29,10 @@ export default function Header() {
         </div>
 
         <div className="hidden lg:flex gap-x-2">
-            {/* Sign In / CTA Button */}
-            <Button variant="outline">Sign In</Button>
-            {/* Sign Up / CTA Button */}
-            <Button>Sign Up</Button>
+          {/* Sign In / CTA Button */}
+          <Button variant="outline">Sign In</Button>
+          {/* Sign Up / CTA Button */}
+          <Button>Sign Up</Button>
         </div>
 
         {/* Mobile menu button */}
@@ -53,11 +49,7 @@ export default function Header() {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
               {/* Logo */}
-                <img
-                    src="/Logo.png"
-                    alt="Applus Logo"
-                    className="h-8 w-auto"
-                />
+              <img src="/Logo.png" alt="Applus Logo" className="h-8 w-auto" />
             </div>
             <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
               <X className="w-5 h-5" />
@@ -66,26 +58,23 @@ export default function Header() {
 
           <div className="flex flex-col space-y-4">
             <a href="#" className="text-sm font-medium text-gray-700 hover:text-orange-600">
-                Home
+              Home
             </a>
             <a href="#" className="text-sm font-medium text-gray-700 hover:text-orange-600">
-                About Us
+              About Us
             </a>
             <a href="#" className="text-sm font-medium text-gray-700 hover:text-orange-600">
-                Browse Jobs
+              Browse Jobs
             </a>
-            <div className='gap-y-2'>
-                <Button variant="outline" className="w-full mt-4">
-                    Sign In
-                </Button>
-                <Button className="w-full mt-4">
-                    Sign Up
-                </Button>
+            <div className="gap-y-2">
+              <Button variant="outline" className="w-full mt-4">
+                Sign In
+              </Button>
+              <Button className="w-full mt-4">Sign Up</Button>
             </div>
           </div>
         </div>
       )}
     </header>
-  )
+  );
 }
- 
