@@ -34,6 +34,14 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-5">
           {/* Content goes here  */}
+          <div className="flex flex-col gap-1 px-1">
+            <h1 className="text-xl font-semibold">
+              Hello, Sayde Marie P. Elegino
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Ready to find your next opportunity? Explore jobs or check your application updates.
+            </p>
+          </div>
           {children}
         </div>
       </SidebarInset>

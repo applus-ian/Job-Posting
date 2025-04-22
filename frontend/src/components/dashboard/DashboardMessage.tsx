@@ -18,11 +18,10 @@ export function DashboardMessage() {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <div>
-            <h6 className="text-lg font-semibold text-gray-100">John Doe</h6>
-            <p className="text-sm text-gray-100">Your profile is incompleted.</p>
+            <h6 className="text-lg font-semibold text-gray-100">Sayde Marie P. Elegino</h6>
+            <p className="text-sm text-gray-100">Your profile editing is not completed.</p>
             <p className="text-sm text-gray-100">
-              Please complete your personal information or upload your resume or cover letter to
-              proceed.
+              Complete your profile editing & build your custom Resume
             </p>
           </div>
         </div>
