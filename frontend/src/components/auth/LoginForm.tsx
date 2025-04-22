@@ -61,9 +61,12 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                   </label>
 
                   {/* Forgot password */}
-                  <a href="#" className="text-orange-500 font-medium hover:underline">
-                    Forgot password
-                  </a>
+                  <Link
+                    href={"/forgot-password"}
+                    className="text-orange-500 font-medium hover:underline"
+                  >
+                    Forgot password?
+                  </Link>
                 </div>
 
                 {/* Sign In Button */}
