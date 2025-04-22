@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Eye, EyeOff, ArrowRight } from "lucide-react"
@@ -24,7 +25,7 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="px-6">
         <CardHeader className="text-left pt-6">
-          <CardTitle className="text-xl mb-2">Sign In</CardTitle>
+          <CardTitle className="text-3xl font-bold mb-2">Sign In</CardTitle>
           <CardDescription>
             Don&apos;t have an account?{" "}
             <a
@@ -71,7 +72,7 @@ export function LoginForm({
                 <div className="flex flex-wrap items-center justify-between text-sm gap-y-2 px-1">
                   {/* Remember Me */}
                   <label className="flex items-center gap-2">
-                    <input type="checkbox" className="form-checkbox" />
+                    <Checkbox />
                     <span className="text-gray-800">Remember Me</span>
                   </label>
 
@@ -87,7 +88,7 @@ export function LoginForm({
                 {/* Sign In Button */}
                 <Button
                   type="submit"
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold"
+                  className="w-full text-white font-semibold"
                 >
                   Sign In
                   <ArrowRight className="ml-2 w-4 h-4" />
