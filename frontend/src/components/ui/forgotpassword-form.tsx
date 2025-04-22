@@ -24,7 +24,7 @@ export function ForgotPasswordForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="px-6">
         <CardHeader className="text-left pt-6">
-          <CardTitle className="text-xl mb-2">Forgot Password</CardTitle>
+          <CardTitle className="text-3xl font-bold mb-2">Forgot Password</CardTitle>
           <CardDescription>
             Go back to{" "}
             <a
@@ -60,7 +60,7 @@ export function ForgotPasswordForm({
                {/* Reset Password Button */}
                 <Button
                   type="submit"
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold"
+                  className="w-full text-white font-semibold"
                 >
                   Reset Password
                   <ArrowRight className="ml-2 w-4 h-4" />
