@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CalendarIcon, BriefcaseIcon, DollarSignIcon } from "lucide-react";
-import CustomBadge from "../job/CustomBadge";
+import CustomBadge from "../badges/CustomBadge";
 
 export default function JobCard() {
   const title = "Frontend Developer";

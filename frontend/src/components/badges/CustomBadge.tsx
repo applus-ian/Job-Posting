@@ -7,6 +7,10 @@ const statusStyles = {
     text: "text-[#FF6900]",
     bg: "bg-[#FFEEE3]",
   },
+  success: {
+    text: "text-[#00730D]",
+    bg: "bg-[#B6FFB2]",
+  },
 };
 
 export default function CustomBadge({
