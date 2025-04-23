@@ -2,16 +2,22 @@
 
 import JobCard from "./JobCard";
 
+// Updated Job interface to match JobBoard
 interface Job {
   id: number;
   title: string;
-  company: string;
-  location: string;
+  application: number;
+  vacant: number;
+  department: string;
+  category: string;
   type: string;
+  workSetup: string;
   salary: string;
+  postedAt: string;
   description: string;
   responsibilities: string[];
   requirements: string[];
+  tags: string[];
 }
 
 interface JobListProps {

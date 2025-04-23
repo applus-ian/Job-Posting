@@ -7,15 +7,38 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 
+// Define Job interface
+interface Job {
+  id: number;
+  title: string;
+  application: number;
+  vacant: number;
+  department: string;
+  category: string;
+  type: string;
+  workSetup: string;
+  salary: string;
+  postedAt: string;
+  description: string;
+  responsibilities: string[];
+  requirements: string[];
+  tags: string[];
+}
+
 // Sample job data
-const jobsData = [
+const jobsData: Job[] = [
   {
     id: 1,
     title: "Senior Frontend Developer",
-    company: "TechCorp Inc.",
-    location: "San Francisco, CA",
+    application: 12,
+    vacant: 1,
+    department: "IT Department",
+    category: "Programmer",
     type: "Full-time",
+    workSetup: "Onsite",
     salary: "$120,000 - $150,000",
+    postedAt: "1d",
+    tags: ["React", "JavaScript", "CSS", "Frontend"],
     description: "We're looking for an experienced Frontend Developer to join our team.",
     responsibilities: [
       "Develop and maintain responsive web applications",
@@ -33,10 +56,15 @@ const jobsData = [
   {
     id: 2,
     title: "UX/UI Designer",
-    company: "Creative Solutions",
-    location: "New York, NY",
+    application: 3,
+    vacant: 5,
+    department: "Design Department",
+    category: "Designer",
     type: "Full-time",
+    workSetup: "Hybrid",
     salary: "$90,000 - $120,000",
+    postedAt: "10m",
+    tags: ["Figma", "Wireframes", "User Research", "Prototyping"],
     description: "Join our design team to create beautiful and intuitive user experiences.",
     responsibilities: [
       "Create user-centered designs by understanding business requirements",
@@ -54,10 +82,15 @@ const jobsData = [
   {
     id: 3,
     title: "Backend Developer",
-    company: "DataSystems",
-    location: "Remote",
+    application: 5,
+    vacant: 2,
+    department: "IT Department",
+    category: "Backend Developer",
     type: "Contract",
+    workSetup: "Remote",
     salary: "$80 - $100 per hour",
+    postedAt: "10d",
+    tags: ["Node.js", "Databases", "APIs", "Cloud"],
     description: "We need a skilled Backend Developer to help build our data processing systems.",
     responsibilities: [
       "Design and implement scalable backend services",
@@ -75,10 +108,15 @@ const jobsData = [
   {
     id: 4,
     title: "Product Manager",
-    company: "InnovateTech",
-    location: "Austin, TX",
+    application: 21,
+    vacant: 5,
+    department: "Product Department",
+    category: "Manager",
     type: "Full-time",
+    workSetup: "Onsite",
     salary: "$110,000 - $140,000",
+    postedAt: "30m",
+    tags: ["Agile", "Roadmaps", "Leadership", "Strategy"],
     description: "Lead our product development efforts and drive innovation.",
     responsibilities: [
       "Define product vision, strategy, and roadmap",
@@ -96,10 +134,15 @@ const jobsData = [
   {
     id: 5,
     title: "DevOps Engineer",
-    company: "CloudTech Solutions",
-    location: "Seattle, WA",
+    application: 44,
+    vacant: 8,
+    department: "Engineering",
+    category: "DevOps",
     type: "Full-time",
+    workSetup: "Hybrid",
     salary: "$130,000 - $160,000",
+    postedAt: "1d",
+    tags: ["AWS", "Kubernetes", "CI/CD", "Monitoring"],
     description: "Help us build and maintain our cloud infrastructure and deployment pipelines.",
     responsibilities: [
       "Design and implement CI/CD pipelines",
@@ -116,12 +159,13 @@ const jobsData = [
   },
 ];
 
+
 export function JobBoard() {
   const [selectedJob, setSelectedJob] = useState(jobsData[0]);
   const [showDetail, setShowDetail] = useState(false);
   const isMobile = useIsMobile();
 
-  const handleSelectJob = (job) => {
+  const handleSelectJob = (job: Job) => {
     setSelectedJob(job);
     if (isMobile) {
       setShowDetail(true);
