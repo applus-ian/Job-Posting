@@ -10,6 +10,11 @@ import {
 } from "./ui/breadcrumb";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "./ui/sidebar";
 
+// Temporary user data (should be replaced with real backend data)
+const user = {
+  name: "Sayde Marie P. Elegino",
+};
+
 export function SidebarLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
@@ -33,10 +38,10 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-5">
-          {/* Content goes here  */}
+          {/* Greeting Section */}
           <div className="flex flex-col gap-1 px-1">
             <h1 className="text-xl font-semibold">
-              Hello, Sayde Marie P. Elegino
+              Hello, {user.name}
             </h1>
             <p className="text-sm text-muted-foreground">
               Ready to find your next opportunity? Explore jobs or check your application updates.

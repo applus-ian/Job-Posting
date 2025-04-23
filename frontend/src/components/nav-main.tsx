@@ -24,6 +24,7 @@ export function NavMain({
       {items.map((item) => (
         <SidebarMenuItem key={item.title}>
           <SidebarMenuButton
+            size="lg"
             asChild
             isActive={item.isActive}
             className={cn(
@@ -33,11 +34,11 @@ export function NavMain({
                 : "hover:bg-[rgba(255,105,0,0.2)]"
             )}
           >
-            <a href={item.url} className="flex items-center justify-between w-full">
+            <a href={item.url} className="flex items-center justify-between w-full h-full">
               <div className="flex items-center gap-3">
                 <item.icon
                   className={cn(
-                    "h-4 w-4",
+                    "h-5 w-5",
                     item.isActive ? "text-orange-600 stroke-orange-600" : "text-gray-600"
                   )}
                 />
