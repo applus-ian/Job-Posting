@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { Bookmark, Command, Folder, GalleryVerticalEnd, Home, Search } from "lucide-react";
+import Image from "next/image";
 
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "./nav-user";
@@ -62,29 +63,34 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar className="border-r-0" {...props}>
-      <SidebarHeader>
+      <SidebarHeader> 
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <a href="#">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <GalleryVerticalEnd className="size-4" />
-                </div>
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">Applus</span>
-                </div>
-              </a>
-            </SidebarMenuButton>
+          <SidebarMenuButton size="lg" asChild>
+            <a href="#" className="w-full">
+              <div className="px-15 py-4">
+                <Image
+                  src="/logo/Logo.png"
+                  alt="Applus Logo"
+                  width={100}    
+                  height={50}        
+                  className="object-contain h-auto"
+                />
+              </div>
+            </a>
+          </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <span className="text-xs text-muted-foreground ml-4 tracking-wide uppercase text-start">
+          Applicant Dashboard
+      </span>
+      <SidebarContent className="pl-4">
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
-
       <SidebarRail />
     </Sidebar>
   );
