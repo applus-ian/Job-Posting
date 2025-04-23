@@ -44,8 +44,8 @@ export function NavMain({
                 />
                 <span
                   className={cn(
-                    "font-medium text-base",
-                    item.isActive ? "text-orange-600" : "text-gray-800"
+                    "font-normal text-base",
+                    item.isActive ? "font-medium text-orange-600" : "text-gray-800"
                   )}
                 >
                   {item.title}

@@ -82,7 +82,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <span className="text-xs text-muted-foreground ml-6 mb-3 tracking-wide uppercase text-start">
+      <span className="text-xs text-muted-foreground ml-8 mb-3 tracking-wide uppercase text-start">
           Applicant Dashboard
       </span>
       <SidebarContent className="pl-4">
