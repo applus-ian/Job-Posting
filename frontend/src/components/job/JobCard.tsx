@@ -49,7 +49,7 @@ export default function JobCard({ job, onClick, isSelected }: JobCardProps) {
               <UsersRound className="h-4 w-4 mr-2" />
               <span>
                 {job.application} {job.application === 1 ? "Application" : "Applications"}
-            </span>
+              </span>
             </div>
             <div className="flex items-center">
               <UserPlus2 className="h-4 w-4 mr-2" />
@@ -77,8 +77,6 @@ export default function JobCard({ job, onClick, isSelected }: JobCardProps) {
               <span className="font-semibold break-words">{job.salary}</span>
             </div>
           </div>
-
-
         </div>
       </CardContent>
     </Card>

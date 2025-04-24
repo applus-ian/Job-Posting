@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Bookmark, Command, Folder, GalleryVerticalEnd, Home, Search } from "lucide-react";
+import { Bookmark, Command, Folder, Home, Search } from "lucide-react";
 
+import Image from "next/image";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "./nav-user";
 import {
@@ -66,12 +67,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <GalleryVerticalEnd className="size-4" />
-                </div>
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">Applus</span>
+              <a href="#" className="w-full">
+                <div className="px-15 py-4">
+                  <Image
+                    src="/logo/Logo.png"
+                    alt="Applus Logo"
+                    width={100}
+                    height={50}
+                    className="object-contain h-auto"
+                  />
                 </div>
               </a>
             </SidebarMenuButton>
