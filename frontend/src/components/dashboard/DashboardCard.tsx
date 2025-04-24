@@ -3,12 +3,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
+import CustomBadge from "../job/CustomBadge";
 
 import {
   MapPin,
   DollarSign,
-  CheckCircle,
-  CircleDot,
 } from "lucide-react";
 
 interface Application {
@@ -18,6 +17,8 @@ interface Application {
   salary: string;
   dateApplied: string;
   status: "Submitted" | "Reviewed";
+  jobType: string;
+  employmentType: string;
 }
 
 const sampleApplications: Application[] = [
@@ -28,6 +29,8 @@ const sampleApplications: Application[] = [
     salary: "$50k-80k/month",
     dateApplied: "April 7, 2025 19:28",
     status: "Submitted",
+    jobType: "Full-Time",
+    employmentType: "On-site",
   },
   {
     id: 2,
@@ -36,14 +39,18 @@ const sampleApplications: Application[] = [
     salary: "$50k-80k/month",
     dateApplied: "April 5, 2025 19:28",
     status: "Reviewed",
+    jobType: "Part-Time",
+    employmentType: "Remote",
   },
   {
     id: 3,
     title: "Frontend Developer",
-    location: "Remote",
+    location: "Mandaue City",
     salary: "$70k-100k/month",
     dateApplied: "April 3, 2025 10:10",
     status: "Reviewed",
+    jobType: "Full-Time",
+    employmentType: "Remote",
   },
 ];
 
@@ -52,7 +59,10 @@ export function RecentlyApplied() {
     <div className="mt-6 space-y-4">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-semibold">Recently Applied</h2>
-        <a href="my-applications/" className="flex items-center text-sm text-blue-600 hover:underline font-medium">
+        <a
+          href="my-applications/"
+          className="flex items-center text-sm text-blue-600 hover:underline font-medium"
+        >
           View All <ArrowRight className="ml-1 h-4 w-4" />
         </a>
       </div>
@@ -62,38 +72,37 @@ export function RecentlyApplied() {
           <Card key={app.id} className="shadow-sm border border-gray-200">
             <CardContent className="p-4 relative h-full flex flex-col justify-between">
               {/* Top Right Status */}
-              <div className="absolute top-0 right-4 text-xs font-medium">
-                {app.status === "Submitted" ? (
-                  <span className="flex items-center text-green-600">
-                    <CheckCircle className="w-3 h-3 mr-1" />
-                    Submitted
-                  </span>
-                ) : (
-                  <span className="flex items-center text-yellow-600">
-                    <CircleDot className="w-3 h-3 mr-1" />
-                    Reviewed
-                  </span>
-                )}
+              <div className="absolute -top-2 right-4 text-xs font-medium">
+                <CustomBadge label={app.status} status="tag" />
               </div>
 
-              {/* Title and Job Info */}
-              <div className="space-y-2">
-                <h3 className="text-base font-semibold hover:text-orange-600 cursor-pointer transition-colors">
-                  <a href="#"> {app.title} </a>
-                </h3>
-                <div className="text-sm text-muted-foreground space-y-1">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4" />
-                    <span>{app.location}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <DollarSign className="h-4 w-4" />
-                    <span>{app.salary}</span>
-                  </div>
+              {/* Title + Type + Remote */}
+              <div className="flex flex-wrap items-center justify-between gap-0">
+                <a
+                  href="#"
+                  className="hover:text-orange-600 transition-colors text-base font-semibold"
+                >
+                  {app.title}
+                </a>
+                <div className="flex items-center gap-1 text-sm">
+                  <CustomBadge label={app.jobType} status="tag" />
+                  <span className="text-muted-foreground">{app.employmentType}</span>
                 </div>
               </div>
 
-              {/* Date */}
+              {/* Location & Salary */}
+              <div className="text-sm text-muted-foreground mt-2 space-y-1">
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4" />
+                  <span>{app.location}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <DollarSign className="h-4 w-4" />
+                  <span>{app.salary}</span>
+                </div>
+              </div>
+
+              {/* Date Applied */}
               <div className="mt-4 flex justify-between items-center text-xs text-muted-foreground">
                 <p className="italic">Applied: {app.dateApplied}</p>
               </div>
