@@ -8,7 +8,7 @@ export default function MyApplicationPage() {
       <div className="flex flex-col gap-4 w-full">
         <Card>
           <CardHeader>
-            <CardTitle>My Application</CardTitle>
+            <CardTitle>Asdasd</CardTitle>
           </CardHeader>
           <CardContent></CardContent>
         </Card>

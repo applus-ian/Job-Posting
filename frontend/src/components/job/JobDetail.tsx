@@ -1,9 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { UsersRound, UserPlus2, Clock, DollarSign, Book } from "lucide-react";
+import { UsersRound, UserPlus2 } from "lucide-react";
 import { Bookmark } from "lucide-react";
-import CustomBadge from "../job/CustomBadge";
+import CustomBadge from "../badges/CustomBadge";
 
 interface Job {
   id: number;
@@ -35,7 +35,7 @@ export default function JobDetail({ job }: JobDetailProps) {
             <CardTitle className="text-lg">{job.title}</CardTitle>
           </div>
           <div className="w-auto flex flex-row gap-1">
-            <Bookmark  className="w-8 h-8 text-primary mt-1" strokeWidth={1} />
+            <Bookmark className="w-8 h-8 text-primary mt-1" strokeWidth={1} />
             <Button className="md:w-auto">Apply Now</Button>
           </div>
         </div>

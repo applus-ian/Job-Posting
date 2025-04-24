@@ -3,7 +3,7 @@
 import { useState } from "react";
 import JobList from "./JobList";
 import JobDetail from "./JobDetail";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useJobBoardMobile } from "@/hooks/use-jobboard-mobile";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 
@@ -159,11 +159,10 @@ const jobsData: Job[] = [
   },
 ];
 
-
 export function JobBoard() {
   const [selectedJob, setSelectedJob] = useState(jobsData[0]);
   const [showDetail, setShowDetail] = useState(false);
-  const isMobile = useIsMobile();
+  const isMobile = useJobBoardMobile();
 
   const handleSelectJob = (job: Job) => {
     setSelectedJob(job);

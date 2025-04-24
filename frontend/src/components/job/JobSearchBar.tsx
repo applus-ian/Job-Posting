@@ -1,21 +1,20 @@
-"use client"
+"use client";
 
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from "@/components/ui/select"
-import { MapPin, Search, Layers } from "lucide-react"
+} from "@/components/ui/select";
+import { MapPin, Search, Layers } from "lucide-react";
 
 export default function JobSearchBar() {
   return (
     <div className="bg-white rounded-xl shadow p-4 lg:p-2 w-full">
       <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-0 lg:divide-x">
-        
         {/* Job Title */}
         <div className="flex items-center gap-2 w-full lg:flex-1 px-3 py-2 lg:px-4 border rounded-md lg:border-none lg:rounded-none">
           <Search className="text-orange-500 w-5 h-5" />
@@ -60,5 +59,5 @@ export default function JobSearchBar() {
         </div>
       </div>
     </div>
-  )
+  );
 }

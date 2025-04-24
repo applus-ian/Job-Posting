@@ -5,10 +5,17 @@ import { ApplicationDetailCard } from "@/components/application/ApplicationDetai
 import { InterviewCard } from "@/components/application/InterviewCard";
 import { OfferCard } from "@/components/application/OfferCard";
 import { FileIcon, Calendar, LucideMail } from "lucide-react";
+import CustomBadge from "@/components/badges/CustomBadge";
 
 export default function Application() {
   return (
     <SidebarLayout>
+      <div className="flex">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Application for Front-End Developer</h1>
+          <CustomBadge label="Hired" status="success" />
+        </div>
+      </div>
       <Tabs defaultValue="application" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="application" className="flex items-center gap-2 text-gray-500">
