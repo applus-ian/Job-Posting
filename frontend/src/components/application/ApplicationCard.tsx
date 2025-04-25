@@ -52,37 +52,40 @@ const sampleApplications: Application[] = [
 export function ApplicationCard() {
   return (
     <div className="mt-6 space-y-4">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-5">
         <h2 className="text-lg font-semibold">Recently Applied</h2>
         <a
           href="my-applications/"
-          className="flex items-center text-sm text-blue-600 hover:underline font-medium"
+          className="flex items-center text-sm text-orange-500 hover:underline font-medium"
         >
           View All <ArrowRight className="ml-1 h-4 w-4" />
         </a>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xxl:grid-cols-3 gap-4">
         {sampleApplications.map((app) => (
-          <Card key={app.id} className="shadow-sm border border-gray-200">
+          <Card key={app.id} className="shadow-sm border border-gray-200 p-2">
             <CardContent className="p-4 relative h-full flex flex-col justify-between">
-              {/* Top Right Status */}
-              <div className="absolute -top-2 right-4 text-xs font-medium">
-                <CustomBadge label={app.status} status="tag" />
-              </div>
-
               {/* Title + Type + Remote */}
               <div className="flex flex-wrap items-center justify-between gap-0">
-                <a
-                  href="#"
-                  className="hover:text-orange-600 transition-colors text-base font-semibold"
-                >
-                  {app.title}
-                </a>
-                <div className="flex items-center gap-1 text-sm">
-                  <CustomBadge label={app.jobType} status="tag" />
-                  <span className="text-muted-foreground">{app.employmentType}</span>
+                <div className="flex flex-row justify-between w-full gap-4">
+                  <div className="w-[80%]">
+                    <a
+                      href="#"
+                      className=" hover:text-orange-600 transition-colors text-base font-semibold mb-2"
+                    >
+                      {app.title}
+                    </a>
+                  </div>
+                  <div className="w-auto">
+                    <CustomBadge label={app.status} status={app.status.toLowerCase()} />
+                  </div>
                 </div>
+                <div className="flex items-center gap-2 text-sm mt-2">
+                  <CustomBadge label={app.jobType} status="tag" />
+                  <CustomBadge label={app.employmentType} status="tag" />
+                </div>
+                
               </div>
 
               {/* Location & Salary */}
@@ -98,8 +101,8 @@ export function ApplicationCard() {
               </div>
 
               {/* Date Applied */}
-              <div className="mt-4 flex justify-between items-center text-xs text-muted-foreground">
-                <p className="italic">Applied: {app.dateApplied}</p>
+              <div className="mt-4 flex justify-between items-center text-muted-foreground">
+                <p className="italic text-xs">Applied: {app.dateApplied}</p>
               </div>
             </CardContent>
           </Card>

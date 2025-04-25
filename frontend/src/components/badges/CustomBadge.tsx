@@ -11,6 +11,14 @@ const statusStyles = {
     text: "text-[#00730D]",
     bg: "bg-[#B6FFB2]",
   },
+  submitted: {
+    text: "text-[#767F8C]",
+    bg: "bg-[rgba(118,127,140,0.2)]",
+  },
+  reviewed: {
+    text: "text-[#22069F]",
+    bg: "bg-[rgba(34,6,159,0.2)]",
+  },
 };
 
 export default function CustomBadge({

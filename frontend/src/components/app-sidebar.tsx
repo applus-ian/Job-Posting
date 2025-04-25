@@ -67,13 +67,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#" className="w-full">
-                <div className="px-15 py-4">
+              <a href="#" className="w-full flex justify-center my-2">
+                <div>
                   <Image
                     src="/logo/Logo.png"
                     alt="Applus Logo"
-                    width={100}
-                    height={50}
+                    width={120}
+                    height={70} 
                     className="object-contain h-auto"
                   />
                 </div>
