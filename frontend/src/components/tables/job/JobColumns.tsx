@@ -5,18 +5,26 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { MoreHorizontal, UsersIcon, ArrowUpDown } from "lucide-react";
-import CustomBadge from "../badges/CustomBadge";
+import CustomBadge from "../../badges/CustomBadge";
+
 export type JobPosting = {
   id: string;
   title: string;
-  role: string;
+  category: string;
+  department: string;
+  vacancies: number;
+  salary_min: number;
+  salary_max: number;
   status: "open" | "closed" | "draft";
   applicants: number;
+  employment_type: string;
+  employment_level: string;
+  work_setup: string;
 };
 
 export const columns: ColumnDef<JobPosting>[] = [
@@ -48,40 +56,41 @@ export const columns: ColumnDef<JobPosting>[] = [
         <Button
           variant={"ghost"}
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="group"
         >
-          Job Title{" "}
-          <ArrowUpDown
-            className="text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity"
-            size={10}
-          />
+          Job Title <ArrowUpDown className="text-gray-400" size={10} />
         </Button>
       );
     },
   },
   {
-    accessorKey: "role",
+    accessorKey: "department",
     header: ({ column }) => {
       return (
         <Button
           variant={"ghost"}
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="group"
         >
-          Role{" "}
-          <ArrowUpDown
-            className="text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity"
-            size={10}
-          />
+          Department <ArrowUpDown className="text-gray-400" size={10} />
         </Button>
       );
     },
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "salary_min",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant={"ghost"}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Salary <ArrowUpDown className="text-gray-400" size={10} />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
-      return <CustomBadge label={row.getValue("status")} status="success" />;
+      const min = row.original.salary_min;
+      const max = row.original.salary_max;
+      return `₱${min} - ₱${max}`;
     },
   },
   {
@@ -91,23 +100,45 @@ export const columns: ColumnDef<JobPosting>[] = [
         <Button
           variant={"ghost"}
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="group"
         >
-          Applicants{" "}
-          <ArrowUpDown
-            className="text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity"
-            size={10}
-          />
+          Applicants <ArrowUpDown className="text-gray-400" size={10} />
         </Button>
       );
     },
     cell: ({ row }) => {
       return (
         <div className="flex items-center gap-2">
-          <UsersIcon className="text-gray-500" size={14} /> {row.getValue("applicants")}
+          <UsersIcon className="text-gray-400" size={14} /> {row.getValue("applicants")}
         </div>
       );
     },
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      return <CustomBadge label={row.getValue("status")} status={row.getValue("status")} />;
+    },
+  },
+  {
+    accessorKey: "category",
+    header: () => null,
+    cell: () => null,
+  },
+  {
+    accessorKey: "employment_type",
+    header: () => null,
+    cell: () => null,
+  },
+  {
+    accessorKey: "employment_level",
+    header: () => null,
+    cell: () => null,
+  },
+  {
+    accessorKey: "work_setup",
+    header: () => null,
+    cell: () => null,
   },
   {
     id: "actions",
@@ -123,6 +154,7 @@ export const columns: ColumnDef<JobPosting>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuItem>Publish Job</DropdownMenuItem>
             <DropdownMenuItem>View Details</DropdownMenuItem>
+            <DropdownMenuItem>View Applicants</DropdownMenuItem>
             <DropdownMenuItem>Close Job</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

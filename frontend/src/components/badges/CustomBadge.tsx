@@ -11,6 +11,18 @@ const statusStyles = {
     text: "text-[#00730D]",
     bg: "bg-[#B6FFB2]",
   },
+  open: {
+    text: "text-[#00730D]",
+    bg: "bg-[#B6FFB2]",
+  },
+  draft: {
+    text: "text-[#424242]",
+    bg: "bg-[#E3E3E3]",
+  },
+  closed: {
+    text: "text-[#FF0000]",
+    bg: "bg-[#FFE6E6]",
+  },
 };
 
 export default function CustomBadge({
