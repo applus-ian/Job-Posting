@@ -12,6 +12,7 @@ class Document extends Model
         'type',
         'applicant_id',
         'application_id',
+        'offer_id',
     ];
 
     public function applicant()
@@ -22,5 +23,10 @@ class Document extends Model
     public function application()
     {
         return $this->belongsTo(Application::class);
+    }
+
+    public function offer()
+    {
+        return $this->belongsTo(Offer::class);
     }
 }

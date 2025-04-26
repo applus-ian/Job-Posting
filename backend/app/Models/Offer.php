@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Offer extends Model
 {
     protected $fillable = [
-        'salary',
-        'description',
-        'sent_at',
-        'start_date',
-        'expiry_date',
         'status',
-        'applicant_id',
+        'application_id',
     ];
 
-    public function applicant()
+    public function application()
     {
-        return $this->belongsTo(Applicant::class);
+        return $this->belongsTo(Application::class);
+    }
+
+    public function document()
+    {
+        return $this->hasMany(Document::class);
     }
 }

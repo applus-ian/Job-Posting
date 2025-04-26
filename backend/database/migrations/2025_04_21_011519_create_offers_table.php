@@ -12,13 +12,8 @@ return new class extends Migration {
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
-            $table->decimal('salary', 12, 2);
-            $table->text('description');
-            $table->date('sent_at');
-            $table->date('start_date');
-            $table->date('expiry_date');
-            $table->enum('status', ['draft', 'sent']);
-            $table->foreignId('applicant_id')->constrained('applicants')->onDelete('cascade');
+            $table->enum('status', ['draft', 'sent'])->default('draft');
+            $table->foreignId('application_id')->constrained('applications')->onDelete('cascade');
             $table->timestamps();
         });
     }

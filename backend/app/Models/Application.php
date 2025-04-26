@@ -32,4 +32,14 @@ class Application extends Model
     {
         return $this->hasOne(Interview::class);
     }
+
+    public function document()
+    {
+        return $this->hasMany(Document::class);
+    }
+
+    public function offer()
+    {
+        return $this->hasOne(Offer::class);
+    }
 }
