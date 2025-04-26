@@ -10,6 +10,9 @@ class Interview extends Model
         'schedule_date',
         'schedule_time',
         'mode',
+        'meeting_link',
+        'platform',
+        'location',
         'application_id',
     ];
 
