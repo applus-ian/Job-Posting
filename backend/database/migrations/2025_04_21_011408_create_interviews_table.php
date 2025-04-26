@@ -15,6 +15,9 @@ return new class extends Migration {
             $table->date('schedule_date');
             $table->time('schedule_time');
             $table->enum('mode', ['in_person', 'virtual']);
+            $table->string('meeting_link')->nullable();
+            $table->string('platform')->nullable();
+            $table->string('location')->nullable();
             $table->foreignId('application_id')->constrained('applications')->onDelete('cascade');
             $table->timestamps();
         });

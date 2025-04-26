@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Job extends Model
+class JobPosting extends Model
 {
     protected $fillable = [
         'title',
-        'job_role',
         'category',
         'description',
         'requirements',
         'vacancies',
+        'salary_type',
         'salary_min',
         'salary_max',
         'employment_type',

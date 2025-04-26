@@ -19,4 +19,9 @@ class Address extends Model
     {
         return $this->belongsTo(Applicant::class);
     }
+
+    public function jobPostings()
+    {
+        return $this->hasMany(JobPosting::class);
+    }
 }

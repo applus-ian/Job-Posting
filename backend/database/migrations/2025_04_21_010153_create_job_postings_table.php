@@ -10,14 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('job_postings', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('job_role');
             $table->string('category');
             $table->text('description');
             $table->text('requirements');
             $table->integer('vacancies');
+            $table->enum('salary_type', ['monthly', 'hourly', 'weekly', 'annually'])->default('monthly');
             $table->decimal('salary_min', 12, 2);
             $table->decimal('salary_max', 12, 2);
             $table->string('employment_type');
@@ -37,6 +37,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('job_postings');
     }
 };

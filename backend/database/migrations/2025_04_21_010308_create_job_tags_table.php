@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('job_tags', function (Blueprint $table) {
             $table->id();
             $table->string('tag');
-            $table->foreignId('job_id')->constrained('jobs')->onDelete('cascade');
+            $table->foreignId('job_posting_id')->constrained('job_postings')->onDelete('cascade');
             $table->timestamps();
         });
     }

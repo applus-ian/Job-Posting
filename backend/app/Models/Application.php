@@ -10,7 +10,7 @@ class Application extends Model
         'applied_date',
         'status',
         'applicant_id',
-        'job_id',
+        'job_posting_id',
     ];
 
     public function applicant()
@@ -18,9 +18,9 @@ class Application extends Model
         return $this->belongsTo(Applicant::class);
     }
 
-    public function job()
+    public function jobPosting()
     {
-        return $this->belongsTo(Job::class);
+        return $this->belongsTo(JobPosting::class);
     }
 
     public function applicationStatus()

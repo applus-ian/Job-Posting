@@ -8,11 +8,11 @@ class JobTag extends Model
 {
     protected $fillable = [
         'tag',
-        'job_id',
+        'job_posting_id',
     ];
 
-    public function job()
+    public function jobPosting()
     {
-        return $this->belongsTo(Job::class);
+        return $this->belongsTo(JobPosting::class);
     }
 }

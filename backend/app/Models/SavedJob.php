@@ -8,7 +8,7 @@ class SavedJob extends Model
 {
     protected $fillable = [
         'applicant_id',
-        'job_id',
+        'job_posting_id',
     ];
 
     public function applicant()
@@ -16,8 +16,8 @@ class SavedJob extends Model
         return $this->belongsTo(Applicant::class);
     }
 
-    public function job()
+    public function jobPosting()
     {
-        return $this->belongsTo(Job::class);
+        return $this->belongsTo(JobPosting::class);
     }
 }

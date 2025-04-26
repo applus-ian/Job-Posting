@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->date('applied_date');
             $table->enum('status', ['received', 'reviewed', 'interview', 'offer', 'hired']);
             $table->foreignId('applicant_id')->constrained('applicants')->onDelete('cascade');
-            $table->foreignId('job_id')->constrained('jobs')->onDelete('cascade');
+            $table->foreignId('job_posting_id')->constrained('job_postings')->onDelete('cascade');
             $table->timestamps();
         });
     }
