@@ -42,6 +42,13 @@ class NewPasswordController extends Controller
             }
         );
 
+        // Check if the password reset token is still valid
+        if ($status == Password::INVALID_TOKEN) {
+            return response()->json([
+                'message' => 'The password reset link is invalid or has expired. '
+            ], 422);
+        }
+
         if ($status != Password::PASSWORD_RESET) {
             throw ValidationException::withMessages([
                 'email' => [__($status)],
