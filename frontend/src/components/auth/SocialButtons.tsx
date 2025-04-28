@@ -1,11 +1,12 @@
-"use client";
 import { Button } from "../ui/button";
+import { handleSocialLogin } from "@/api/auth";
 
 export function SocialButtons() {
   return (
     <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
       {/* Facebook Button */}
       <Button
+        onClick={() => handleSocialLogin("facebook")}
         type="button"
         variant="outline"
         className="flex w-full sm:w-auto flex-1 items-center justify-center gap-2 border border-gray-300 bg-white text-xs font-normal rounded shadow-sm hover:bg-gray-100 transition whitespace-normal text-center px-4 py-2"
@@ -16,6 +17,7 @@ export function SocialButtons() {
 
       {/* Google Button */}
       <Button
+        onClick={() => handleSocialLogin("google")}
         type="button"
         variant="outline"
         className="flex w-full sm:w-auto flex-1 items-center justify-center gap-2 border border-gray-300 bg-white text-xs font-normal rounded shadow-sm hover:bg-gray-100 transition whitespace-normal text-center px-4 py-2"
