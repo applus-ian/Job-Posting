@@ -24,8 +24,7 @@ export function EducationCard() {
       <div className="flex items-center justify-between mb-4">
         <p className="text-xl">Educational Background</p>
         <Button
-          variant="outline"
-          size="sm"
+          variant={isEditing ? "destructive" : "default"}
           onClick={() => setIsEditing(!isEditing)}
           className="flex items-center gap-1"
         >
@@ -33,7 +32,6 @@ export function EducationCard() {
             <>Cancel</>
           ) : (
             <>
-              <Edit className="h-4 w-4" />
               Edit
             </>
           )}
@@ -43,7 +41,7 @@ export function EducationCard() {
         <Card key={index} className="border shadow-sm">
           <CardHeader className="pb-2 flex flex-row items-center justify-between">
             <div className="flex items-center gap-2">
-              <GraduationCap className="h-5 w-5 text-muted-foreground" />
+              <GraduationCap/>
               <CardTitle className="text-lg">Education #{index + 1}</CardTitle>
             </div>
             {isEditing && (
@@ -59,25 +57,30 @@ export function EducationCard() {
             )}
           </CardHeader>
           <CardContent className="p-4 pt-2">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block mb-1 font-medium">School Name *</label>
-                <Input disabled={!isEditing} placeholder="e.g. Stanford University" />
-              </div>
-              <div>
-                <label className="block mb-1 font-medium">Degree *</label>
-                <Input disabled={!isEditing} placeholder="e.g. Bachelor of Science" />
-              </div>
-              <div>
-                <label className="block mb-1 font-medium">Course *</label>
-                <Input disabled={!isEditing} placeholder="e.g. Computer Science" />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-4">
+              {/* Educ Info Fields */}
+              <div className="grid grid-cols-1 gap-4">
                 <div>
-                  <label className="block mb-1 font-medium">Start Year *</label>
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">School Name: </label>
+                  <Input disabled={!isEditing} placeholder="Cebu Technological University - Main Campus" type="text" className="text-xs lg:text-sm"/>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Degree: </label>
+                  <Input disabled={!isEditing} placeholder="Bachelor of Science" type="text" className="text-xs lg:text-sm"/>
+                </div>
+                <div>
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Course: </label>
+                  <Input disabled={!isEditing} placeholder="Information Systems" type="text" className="text-xs lg:text-sm" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div>
+                  <label className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Start Year</label>
                   <Select disabled={!isEditing}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select year" />
+                    <SelectTrigger className="w-[100%]">
+                      <SelectValue placeholder="2019"/>
                     </SelectTrigger>
                     <SelectContent className="max-h-[200px]">
                       {years.map((year) => (
@@ -89,10 +92,10 @@ export function EducationCard() {
                   </Select>
                 </div>
                 <div>
-                  <label className="block mb-1 font-medium">End Year *</label>
+                  <label className="text-[rgba(0,0,0,0.7)] text-xs ms-1">End Year</label>
                   <Select disabled={!isEditing}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select year" />
+                    <SelectTrigger className="w-[100%]">
+                      <SelectValue placeholder="2023" />
                     </SelectTrigger>
                     <SelectContent className="max-h-[200px]">
                       {years.map((year) => (
