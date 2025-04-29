@@ -1,4 +1,3 @@
-"use client";
 import { SidebarLayout } from "@/components/sidebar-layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ApplicationDetailCard } from "@/components/application/ApplicationDetailCard";

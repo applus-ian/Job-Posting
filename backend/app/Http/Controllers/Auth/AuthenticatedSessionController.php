@@ -23,7 +23,6 @@ class AuthenticatedSessionController extends Controller
 
         return response()->json([
             'user' => $user,
-            'applicant' => $user->applicant,
             'token' => $token
         ]);
     }

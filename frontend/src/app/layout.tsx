@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "./queryprovider";
+// import NextAuthProvider from "./nextauthprovider";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",

@@ -11,8 +11,8 @@ export type AuthCredentials = {
   last_name?: string;
   middle_name?: string;
   suffix?: string;
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
   password_confirmation?: string;
 };
 
