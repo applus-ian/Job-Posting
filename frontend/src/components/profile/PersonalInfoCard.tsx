@@ -34,7 +34,7 @@ export function PersonalInfoCard() {
         <Card>
           <CardContent className="space-y-6">
             {/* Profile Picture Section */}
-            <div className="flex flex-col items-center sm:items-start sm:flex-row gap-6 pb-6 border-b">
+            <div className="flex flex-col items-center sm:flex-row gap-6 pb-6 border-b">
               <div className="relative group">
                 <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-background shadow-md">
                   <img

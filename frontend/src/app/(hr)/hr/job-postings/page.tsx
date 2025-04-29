@@ -82,7 +82,7 @@ export default async function JobPostingPage() {
 
   return (
     <SidebarLayout>
-      <div className="mb-3">
+      <div className="mb-2">
         <p className="text-2xl font-medium">All Job Postings</p>
       </div>
       <JobTable columns={columns} data={data} />
