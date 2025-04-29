@@ -9,7 +9,10 @@ export default function FeaturedJob() {
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-gray-800">
           Featured Jobs
         </h2>
-        <Link href={"/browse-jobs"}>
+        <Link
+          href={"/find-jobs"}
+          className="text-sm font-medium text-gray-700 hover:text-orange-600"
+        >
           <span className="flex items-center gap-2 text-sm">
             View All <ArrowRight size={18} />
           </span>

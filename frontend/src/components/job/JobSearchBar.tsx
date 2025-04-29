@@ -54,7 +54,7 @@ export default function JobSearchBar() {
         {/* Button */}
         <div className="w-full lg:w-auto px-3 lg:px-4">
           <Button className="w-full lg:w-auto bg-orange-500 hover:bg-orange-600 text-white text-sm rounded-md px-6 py-2">
-            Find Job
+            Search
           </Button>
         </div>
       </div>

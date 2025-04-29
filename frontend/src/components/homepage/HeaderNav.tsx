@@ -3,9 +3,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
+import clsx from "clsx";
+import { usePathname } from "next/navigation";
 
-export default function Header() {
+export default function HeaderNav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="bg-white border-b w-full">
@@ -17,22 +21,45 @@ export default function Header() {
 
         {/* Desktop nav */}
         <div className="hidden lg:flex lg:gap-x-10 items-center w-[60%]">
-          <a href="#" className="text-sm font-medium text-gray-700 hover:text-orange-600">
+          <Link
+            href={"/"}
+            className={clsx(
+              "text-sm font-medium hover:text-orange-600",
+              pathname === "/" ? "text-orange-600" : "text-gray-700"
+            )}
+          >
             Home
-          </a>
-          <a href="#" className="text-sm font-medium text-gray-700 hover:text-orange-600">
+          </Link>
+          <Link
+            href={"/about-us"}
+            className={clsx(
+              "text-sm font-medium hover:text-orange-600",
+              pathname === "/about-us" ? "text-orange-600" : "text-gray-700"
+            )}
+          >
             About Us
-          </a>
-          <a href="#" className="text-sm font-medium text-gray-700 hover:text-orange-600">
-            Browse Jobs
-          </a>
+          </Link>
+          <Link
+            href={"/find-jobs"}
+            className={clsx(
+              "text-sm font-medium hover:text-orange-600",
+              pathname === "/find-jobs" ? "text-orange-600" : "text-gray-700"
+            )}
+          >
+            Find Jobs
+          </Link>
         </div>
 
         <div className="hidden lg:flex gap-x-2">
           {/* Sign In / CTA Button */}
-          <Button variant="outline">Sign In</Button>
+          <Link href="/login" passHref>
+            <Button variant="outline">Sign In</Button>
+          </Link>
+
           {/* Sign Up / CTA Button */}
-          <Button>Sign Up</Button>
+          <Link href="/register" passHref>
+            <Button>Sign Up</Button>
+          </Link>
         </div>
 
         {/* Mobile menu button */}
@@ -57,20 +84,45 @@ export default function Header() {
           </div>
 
           <div className="flex flex-col space-y-4">
-            <a href="#" className="text-sm font-medium text-gray-700 hover:text-orange-600">
+            <Link
+              href={"/"}
+              className={clsx(
+                "text-sm font-medium hover:text-orange-600",
+                pathname === "/" ? "text-orange-600" : "text-gray-700"
+              )}
+            >
               Home
-            </a>
-            <a href="#" className="text-sm font-medium text-gray-700 hover:text-orange-600">
+            </Link>
+            <Link
+              href={"/about-us"}
+              className={clsx(
+                "text-sm font-medium hover:text-orange-600",
+                pathname === "/about-us" ? "text-orange-600" : "text-gray-700"
+              )}
+            >
               About Us
-            </a>
-            <a href="#" className="text-sm font-medium text-gray-700 hover:text-orange-600">
-              Browse Jobs
-            </a>
+            </Link>
+            <Link
+              href={"/find-jobs"}
+              className={clsx(
+                "text-sm font-medium hover:text-orange-600",
+                pathname === "/find-jobs" ? "text-orange-600" : "text-gray-700"
+              )}
+            >
+              Find Jobs
+            </Link>
             <div className="gap-y-2">
-              <Button variant="outline" className="w-full mt-4">
-                Sign In
-              </Button>
-              <Button className="w-full mt-4">Sign Up</Button>
+              {/* Sign In / CTA Button */}
+              <Link href="/login" passHref>
+                <Button variant="outline" className="w-full mt-4">
+                  Sign In
+                </Button>
+              </Link>
+
+              {/* Sign Up / CTA Button */}
+              <Link href="/register" passHref>
+                <Button className="w-full mt-4">Sign Up</Button>
+              </Link>
             </div>
           </div>
         </div>

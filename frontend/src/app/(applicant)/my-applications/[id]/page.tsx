@@ -4,7 +4,6 @@ import { ApplicationDetailCard } from "@/components/application/ApplicationDetai
 import { InterviewCard } from "@/components/application/InterviewCard";
 import { OfferCard } from "@/components/application/OfferCard";
 import { FileIcon, Calendar, LucideMail } from "lucide-react";
-import CustomBadge from "@/components/badges/CustomBadge";
 
 export default function Application() {
   return (
@@ -12,7 +11,6 @@ export default function Application() {
       <div className="flex">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Application for Front-End Developer</h1>
-          <CustomBadge label="Hired" status="success" />
         </div>
       </div>
       <Tabs defaultValue="application" className="w-full">

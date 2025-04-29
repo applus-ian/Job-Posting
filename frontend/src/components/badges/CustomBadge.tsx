@@ -23,6 +23,22 @@ const statusStyles = {
     text: "text-[#FF0000]",
     bg: "bg-[#FFE6E6]",
   },
+  submitted: {
+    text: "text-[#74787D]",
+    bg: "bg-[#E2E2E2]",
+  },
+  interview: {
+    text: "text-[#005173]",
+    bg: "bg-[#C8F5FF]",
+  },
+  withdrawn: {
+    text: "text-[#FF0000]",
+    bg: "bg-[#FFE6E6]",
+  },
+  hired: {
+    text: "text-[#00730D]",
+    bg: "bg-[#B6FFB2]",
+  },
 };
 
 export default function CustomBadge({

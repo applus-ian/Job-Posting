@@ -65,7 +65,7 @@ export function ForgotPasswordForm({ className, ...props }: React.ComponentProps
                     )}
                   </Button>
                   <div className="flex justify-end">
-                    <Link href={"/login"} className="text-orange-500 font-medium hover:underline">
+                    <Link href={"/login"} className="text-orange-500 text-sm hover:underline">
                       ← Back to Login
                     </Link>
                   </div>
