@@ -1,41 +1,52 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
-import { ArrowRight } from "lucide-react";
 
-export function DashboardMessage() {
+import { XIcon } from "lucide-react";
+import { useState } from "react";
+
+interface DashboardMessageProps {
+  title: string;
+  content: string;
+  status?: "info" | "warning" | "success" | "error";
+}
+
+export function DashboardMessage({
+  title,
+  content,
+  status = "info",
+}: DashboardMessageProps) {
+  const [visible, setVisible] = useState(true);
+
+  if (!visible) return null;
+
+  const statusStyles = {
+    info: "bg-blue-50 border-blue-200",
+    warning: "bg-yellow-50 border-yellow-200",
+    success: "bg-green-50 border-green-200",
+    error: "bg-red-50 border-red-200",
+  };
+
+  const titleStyles = {
+    info: "text-blue-800",
+    warning: "text-yellow-800",
+    success: "text-green-800",
+    error: "text-red-800",
+  };
+
   return (
-    <Card className="px-5 py-5 shadow-sm bg-orange-500">
-      <CardContent className="p-0 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        {/* Left: Avatar and user info */}
-        <div className="flex items-center gap-4">
-          <Avatar className="w-16 h-16 hidden sm:flex rounded-full">
-            <AvatarImage
-              src="https://github.com/shadcn.png"
-              alt="@shadcn"
-              className="rounded-full object-cover"
-            />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <div>
-            <h6 className="text-lg font-semibold text-gray-100">John Doe</h6>
-            <p className="text-sm text-gray-100">Your profile is incompleted.</p>
-            <p className="text-sm text-gray-100">
-              Please complete your personal information or upload your resume or cover letter to
-              proceed.
-            </p>
-          </div>
+    <div className={`relative rounded-md border px-3 py-2 ${statusStyles[status]} shadow-sm`}>
+      <div className="flex items-start justify-between">
+        <div>
+          <h4 className={`text-xs font-medium ${titleStyles[status]}`}>{title}</h4>
+          <p className="mt-0.5 text-xs">{content}</p>
         </div>
-
-        {/* Right: Edit Button */}
-        <div className="ml-auto">
-          <Button variant="outline" className="text-orange-500 hover:text-orange-600">
-            Edit Profile
-            <ArrowRight />
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+        <button
+          onClick={() => setVisible(false)}
+          className="ml-4 rounded-full p-1 hover:bg-black/5"
+        >
+          <XIcon className="h-3 w-3" />
+          <span className="sr-only">Dismiss</span>
+        </button>
+      </div>
+    </div>
   );
 }
