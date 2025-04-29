@@ -14,7 +14,7 @@ export default function ChangePasswordForm() {
 
   return (
     <Card className="bg-transparent shadow-none border-none">
-      <CardContent className="p-6 space-y-6">
+      <CardContent className="px-6 space-y-6">
         <h2 className="text-xl font-semibold">Change Password</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -70,7 +70,7 @@ export default function ChangePasswordForm() {
           </div>
         </div>
 
-        <Button className="mt-4 w-fit bg-orange-500 hover:bg-orange-600">
+        <Button className="w-fit bg-orange-500 hover:bg-orange-600">
           Change Password
         </Button>
       </CardContent>

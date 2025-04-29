@@ -7,13 +7,13 @@ import DeleteAccountSection from "@/components/settings/DeleteAccountSection"
 export default function SettingsPage() {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-0">
-      <div className="border-b pb-1">
+      <div className="border-b">
         <ContactInformationForm />
       </div>
-      <div className="border-b pb-1 pt-1">
+      <div className="border-b">
         <ChangePasswordForm />
       </div>
-      <div className="pt-1">
+      <div>
         <DeleteAccountSection />
       </div>
     </div>
