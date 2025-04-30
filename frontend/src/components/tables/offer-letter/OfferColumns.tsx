@@ -15,52 +15,38 @@ import CustomBadge from "../../badges/CustomBadge";
 import {
   Mails,
   Eye,
-  XCircle,
-  CalendarClock,
-  MessageSquareText,
-  MailPlus,
+  SquarePen,
+  SendHorizonal,
 } from "lucide-react";
 
-type ActionLabels = "View Application" | "View Profile" | "Reject" | "Schedule Interview" | "Submit Feedback" | "Create Offer Letter" | "Reschedule Interview" | "View Reject Reason";
-
+type ActionLabels = "View Application" | "View Applicant Profile" | "Edit Offer Letter" | "Send Offer Letter" ;
 const actionIcons: Record<ActionLabels, React.ReactNode> = {
   "View Application": <Mails className="h-5 w-5 mr-2" />,
-  "View Profile": <Eye className="h-5 w-5 mr-2" />,
-  "Reject": <XCircle className="h-5 w-5 mr-2" />,
-  "Schedule Interview": <CalendarClock className="h-5 w-5 mr-2" />,
-  "Submit Feedback": <MessageSquareText className="h-5 w-5 mr-2" />,
-  "Create Offer Letter": <MailPlus className="h-5 w-5 mr-2" />,
-  "Reschedule Interview": <CalendarClock className="h-5 w-5 mr-2" />,
-  "View Reject Reason": <XCircle className="h-5 w-5 mr-2" />,
+  "View Applicant Profile": <Eye className="h-5 w-5 mr-2" />,
+  "Edit Offer Letter": <SquarePen className="h-5 w-5 mr-2" />,
+  "Send Offer Letter": <SendHorizonal className="h-5 w-5 mr-2" />,
 };
 
-export type ApplicationStatus =
-  | "Received"
-  | "Reviewed"
-  | "Interview"
-  | "Offer"
-  | "Hired"
-  | "Withdrawn"
-  | "No Show"
-  | "Rejected";
+export type OfferLetterStatus =
+  | "Sent"
+  | "Draft";
 
-export type ApplicationAction = {
+export type OfferLetterAction = {
   label: ActionLabels;
   value: string;
 };
 
-export type Applications = {
+export type OfferLetter = {
   id: string;
   name: string;
-  email: string;
   job_applied: string;
-  status: ApplicationStatus;
-  applied_date: string;
-  actions: ApplicationAction[];
+  status: OfferLetterStatus;
+  sent_at: string;
+  actions: OfferLetterAction[];
   profile_picture?: string;
 };
 
-export const columns: ColumnDef<Applications>[] = [
+export const columns: ColumnDef<OfferLetter>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -112,17 +98,6 @@ export const columns: ColumnDef<Applications>[] = [
     }    
   },  
   {
-    accessorKey: "email",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Email <ArrowUpDown className="ml-2 h-4 w-4 text-muted-foreground" />
-      </Button>
-    ),
-  },
-  {
     accessorKey: "job_applied",
     header: ({ column }) => (
       <Button
@@ -143,7 +118,7 @@ export const columns: ColumnDef<Applications>[] = [
     },
   },
   {
-    accessorKey: "applied_date",
+    accessorKey: "sent_at",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -153,7 +128,7 @@ export const columns: ColumnDef<Applications>[] = [
       </Button>
     ),
     cell: ({ row }) => {
-      const date = new Date(row.getValue("applied_date"));
+      const date = new Date(row.getValue("sent_at"));
       return date.toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
@@ -164,7 +139,7 @@ export const columns: ColumnDef<Applications>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const application = row.original;
+      const offer = row.original;
       const router = useRouter();
     
       return (
@@ -176,12 +151,12 @@ export const columns: ColumnDef<Applications>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            {application.actions.map((action) => (
+            {offer.actions.map((action) => (
               <DropdownMenuItem
                 key={action.value}
                 onClick={() => {
                   if (action.value === "view-application") {
-                    router.push(`applications/${application.id}`);
+                    router.push(`OfferLetter/${offer.id}`);
                   } else {
                     console.log(`Action: ${action.label}`);
                   }
