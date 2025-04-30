@@ -26,7 +26,7 @@ const statusActionsMap: Record<OfferLetterStatus, OfferLetterAction[]> = {
         id: "1",
         name: "John Doe",
         job_applied: "Software Engineer",
-        status: "Sent" as OfferLetterStatus,
+        status: "Draft" as OfferLetterStatus,
         sent_at: "November 25, 2024",
         profile_picture: "/profile pictures/Profile.png",
       },

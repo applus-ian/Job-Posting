@@ -155,8 +155,8 @@ export const columns: ColumnDef<OfferLetter>[] = [
               <DropdownMenuItem
                 key={action.value}
                 onClick={() => {
-                  if (action.value === "view-application") {
-                    router.push(`OfferLetter/${offer.id}`);
+                  if (action.value === "send-offer-letter") {
+                    router.push(`offer-letters/${offer.id}`);
                   } else {
                     console.log(`Action: ${action.label}`);
                   }
