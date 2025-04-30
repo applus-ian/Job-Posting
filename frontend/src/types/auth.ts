@@ -5,6 +5,7 @@ import {
   ForgotPasswordSchema,
   PasswordResetSchema,
 } from "@/schemas/auth";
+import React from "react";
 
 export type AuthCredentials = {
   first_name?: string;
@@ -34,3 +35,8 @@ export type RegisterFields = z.infer<typeof RegisterSchema>;
 export type ForgotPasswordField = z.infer<typeof ForgotPasswordSchema>;
 
 export type PasswordResetFields = z.infer<typeof PasswordResetSchema>;
+
+export type LogoutDialogProps = {
+  openDialog: boolean;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+};

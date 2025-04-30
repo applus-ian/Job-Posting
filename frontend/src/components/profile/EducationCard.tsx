@@ -28,20 +28,14 @@ export function EducationCard() {
           onClick={() => setIsEditing(!isEditing)}
           className="flex items-center gap-1"
         >
-          {isEditing ? (
-            <>Cancel</>
-          ) : (
-            <>
-              Edit
-            </>
-          )}
+          {isEditing ? <>Cancel</> : <>Edit</>}
         </Button>
       </div>
       {[1].map((_, index) => (
         <Card key={index} className="border shadow-sm">
           <CardHeader className="pb-2 flex flex-row items-center justify-between">
             <div className="flex items-center gap-2">
-              <GraduationCap/>
+              <GraduationCap />
               <CardTitle className="text-lg">Education #{index + 1}</CardTitle>
             </div>
             {isEditing && (
@@ -61,18 +55,39 @@ export function EducationCard() {
               {/* Educ Info Fields */}
               <div className="grid grid-cols-1 gap-4">
                 <div>
-                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">School Name: </label>
-                  <Input disabled={!isEditing} placeholder="Cebu Technological University - Main Campus" type="text" className="text-xs lg:text-sm"/>
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                    School Name:{" "}
+                  </label>
+                  <Input
+                    disabled={!isEditing}
+                    placeholder="Cebu Technological University - Main Campus"
+                    type="text"
+                    className="text-xs lg:text-sm"
+                  />
                 </div>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Degree: </label>
-                  <Input disabled={!isEditing} placeholder="Bachelor of Science" type="text" className="text-xs lg:text-sm"/>
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                    Degree:{" "}
+                  </label>
+                  <Input
+                    disabled={!isEditing}
+                    placeholder="Bachelor of Science"
+                    type="text"
+                    className="text-xs lg:text-sm"
+                  />
                 </div>
                 <div>
-                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Course: </label>
-                  <Input disabled={!isEditing} placeholder="Information Systems" type="text" className="text-xs lg:text-sm" />
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                    Course:{" "}
+                  </label>
+                  <Input
+                    disabled={!isEditing}
+                    placeholder="Information Systems"
+                    type="text"
+                    className="text-xs lg:text-sm"
+                  />
                 </div>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -80,7 +95,7 @@ export function EducationCard() {
                   <label className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Start Year</label>
                   <Select disabled={!isEditing}>
                     <SelectTrigger className="w-[100%]">
-                      <SelectValue placeholder="2019"/>
+                      <SelectValue placeholder="2019" />
                     </SelectTrigger>
                     <SelectContent className="max-h-[200px]">
                       {years.map((year) => (

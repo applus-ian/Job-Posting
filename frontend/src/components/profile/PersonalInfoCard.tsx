@@ -19,15 +19,8 @@ export function PersonalInfoCard() {
           onClick={() => setIsEditing(!isEditing)}
           className="flex items-center gap-1"
         >
-          {isEditing ? (
-            <>Cancel</>
-          ) : (
-            <>
-              Edit
-            </>
-          )}
+          {isEditing ? <>Cancel</> : <>Edit</>}
         </Button>
-        
       </div>
       <div className="w-full mt-4">
         <Card>
@@ -51,21 +44,23 @@ export function PersonalInfoCard() {
                 )}
               </div>
               <div className="space-y-2 text-center sm:text-left">
-                {!isEditing &&(
+                {!isEditing && (
                   <div>
                     {/* Name */}
                     <h3 className="text-md lg:text-xl font-semibold">Sayde Marie P. Elegino</h3>
                     {/* Bio */}
                     <p className="text-xs lg:text-sm text-muted-foreground max-w-md">
-                      Aliquam vitae turpis in diam convallis finibus in at risus. Nullam in scelerisque leo, eget sollicitudin velit vestibulum.
+                      Aliquam vitae turpis in diam convallis finibus in at risus. Nullam in
+                      scelerisque leo, eget sollicitudin velit vestibulum.
                     </p>
                   </div>
                 )}
-                {isEditing &&(
+                {isEditing && (
                   <div>
                     <h3 className="text-md lg:text-xl font-semibold">Upload Profile Picture</h3>
                     <p className="text-xs lg:text-sm text-muted-foreground max-w-lg">
-                      Click below to upload a formal profile picture (JPEG, PNG, or JPG) to update your profile.
+                      Click below to upload a formal profile picture (JPEG, PNG, or JPG) to update
+                      your profile.
                     </p>
                   </div>
                 )}
@@ -83,31 +78,73 @@ export function PersonalInfoCard() {
             {isEditing && (
               <div className="grid grid-cols-1 lg:grid-cols-8 gap-4">
                 <div className="lg:col-span-3">
-                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">First Name: </label>
-                  <Input disabled={!isEditing} placeholder="Sayde Marie" type="text" className="text-xs lg:text-sm"/>
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                    First Name:{" "}
+                  </label>
+                  <Input
+                    disabled={!isEditing}
+                    placeholder="Sayde Marie"
+                    type="text"
+                    className="text-xs lg:text-sm"
+                  />
                 </div>
                 <div className="lg:col-span-3">
-                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Last Name: </label>
-                  <Input disabled={!isEditing} placeholder="Elegino" type="text" className="text-xs lg:text-sm"/>
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                    Last Name:{" "}
+                  </label>
+                  <Input
+                    disabled={!isEditing}
+                    placeholder="Elegino"
+                    type="text"
+                    className="text-xs lg:text-sm"
+                  />
                 </div>
                 <div>
-                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">M.I: </label>
-                  <Input disabled={!isEditing} placeholder="P." type="text" className="text-xs lg:text-sm"/>
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                    M.I:{" "}
+                  </label>
+                  <Input
+                    disabled={!isEditing}
+                    placeholder="P."
+                    type="text"
+                    className="text-xs lg:text-sm"
+                  />
                 </div>
                 <div>
-                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Suffix: </label>
-                  <Input disabled={!isEditing} placeholder=" " type="text" className="text-xs lg:text-sm"/>
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                    Suffix:{" "}
+                  </label>
+                  <Input
+                    disabled={!isEditing}
+                    placeholder=" "
+                    type="text"
+                    className="text-xs lg:text-sm"
+                  />
                 </div>
               </div>
             )}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Email Address: </label>
-                <Input disabled={!isEditing} placeholder="smp.elegino@gmail" type="email" className="text-xs lg:text-sm"/>
+                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                  Email Address:{" "}
+                </label>
+                <Input
+                  disabled={!isEditing}
+                  placeholder="smp.elegino@gmail"
+                  type="email"
+                  className="text-xs lg:text-sm"
+                />
               </div>
               <div>
-                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Phone Number: </label>
-                <Input disabled={!isEditing} placeholder="09123456789" type="number" className="text-xs lg:text-sm" />
+                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                  Phone Number:{" "}
+                </label>
+                <Input
+                  disabled={!isEditing}
+                  placeholder="09123456789"
+                  type="number"
+                  className="text-xs lg:text-sm"
+                />
               </div>
             </div>
 
@@ -116,26 +153,61 @@ export function PersonalInfoCard() {
             <p className="text-xs lg:text-sm">Address</p>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               <div>
-                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Country: </label>
-                <Input disabled={!isEditing} placeholder="Philippines" type="text" className="text-xs lg:text-sm"/>
+                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                  Country:{" "}
+                </label>
+                <Input
+                  disabled={!isEditing}
+                  placeholder="Philippines"
+                  type="text"
+                  className="text-xs lg:text-sm"
+                />
               </div>
               <div className="md:col-span-2">
-                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Street: </label>
-                <Input disabled={!isEditing} placeholder="Camagung, Lahug" type="text" className="text-xs lg:text-sm"/>
+                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                  Street:{" "}
+                </label>
+                <Input
+                  disabled={!isEditing}
+                  placeholder="Camagung, Lahug"
+                  type="text"
+                  className="text-xs lg:text-sm"
+                />
               </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               <div>
-                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">ZIP Code: </label>
-                <Input disabled={!isEditing} placeholder="6000" type="number" className="text-xs lg:text-sm"/>
+                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                  ZIP Code:{" "}
+                </label>
+                <Input
+                  disabled={!isEditing}
+                  placeholder="6000"
+                  type="number"
+                  className="text-xs lg:text-sm"
+                />
               </div>
               <div>
-                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">City: </label>
-                <Input disabled={!isEditing} placeholder="Cebu City" type="text" className="text-xs lg:text-sm"/>
+                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                  City:{" "}
+                </label>
+                <Input
+                  disabled={!isEditing}
+                  placeholder="Cebu City"
+                  type="text"
+                  className="text-xs lg:text-sm"
+                />
               </div>
               <div>
-                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Province/State: </label>
-                <Input disabled={!isEditing} placeholder="Cebu" type="text" className="text-xs lg:text-sm"/>
+                <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                  Province/State:{" "}
+                </label>
+                <Input
+                  disabled={!isEditing}
+                  placeholder="Cebu"
+                  type="text"
+                  className="text-xs lg:text-sm"
+                />
               </div>
             </div>
             {isEditing && (
