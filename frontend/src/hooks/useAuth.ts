@@ -52,7 +52,7 @@ export function useAuth() {
   const logoutMutation = useMutation({
     mutationFn: logoutUser,
     onSuccess: () => {
-      router.push("/login");
+      router.push("/");
     },
     onError: () => {
       console.log("Something went wrong!");

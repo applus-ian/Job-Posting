@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('full_name');
             $table->string(column: 'phone_number');
+            $table->string('relationship');
             $table->foreignId('applicant_id')->constrained('applicants')->onDelete('cascade');
             $table->timestamps();
         });

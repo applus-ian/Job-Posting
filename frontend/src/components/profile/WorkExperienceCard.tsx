@@ -31,20 +31,14 @@ export function WorkExperienceCard() {
           onClick={() => setIsEditing(!isEditing)}
           className="flex items-center gap-1"
         >
-          {isEditing ? (
-            <>Cancel</>
-          ) : (
-            <>
-              Edit
-            </>
-          )}
+          {isEditing ? <>Cancel</> : <>Edit</>}
         </Button>
       </div>
       {[1].map((_, index) => (
         <Card key={index} className="border shadow-sm">
           <CardHeader className="pb-2 flex flex-row items-center justify-between">
             <div className="flex items-center gap-2">
-              <Briefcase/>
+              <Briefcase />
               <CardTitle className="text-sm lg:text-lg">Work Experience #{index + 1}</CardTitle>
             </div>
             {isEditing && (
@@ -64,18 +58,34 @@ export function WorkExperienceCard() {
               {/* Work Info Fields */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Company: </label>
-                  <Input disabled={!isEditing} placeholder="Applus Velosi" type="text" className="text-xs lg:text-sm"/>
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                    Company:{" "}
+                  </label>
+                  <Input
+                    disabled={!isEditing}
+                    placeholder="Applus Velosi"
+                    type="text"
+                    className="text-xs lg:text-sm"
+                  />
                 </div>
                 <div>
-                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Role/Position: </label>
-                  <Input disabled={!isEditing} placeholder="UI/UX Designer" type="text" className="text-xs lg:text-sm" />
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                    Role/Position:{" "}
+                  </label>
+                  <Input
+                    disabled={!isEditing}
+                    placeholder="UI/UX Designer"
+                    type="text"
+                    className="text-xs lg:text-sm"
+                  />
                 </div>
               </div>
 
               <div className="grid grid-cols-1">
                 <div>
-                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Description: </label>
+                  <label htmlFor="" className="text-[rgba(0,0,0,0.7)] text-xs ms-1">
+                    Description:{" "}
+                  </label>
                   <Textarea
                     disabled={!isEditing}
                     placeholder="As a **UI/UX Designer**, I specialize in creating visually appealing and user-friendly
@@ -93,7 +103,7 @@ export function WorkExperienceCard() {
                   <label className="text-[rgba(0,0,0,0.7)] text-xs ms-1">Start Year</label>
                   <Select disabled={!isEditing}>
                     <SelectTrigger className="w-[100%]">
-                      <SelectValue placeholder="2019"/>
+                      <SelectValue placeholder="2019" />
                     </SelectTrigger>
                     <SelectContent className="max-h-[200px]">
                       {years.map((year) => (

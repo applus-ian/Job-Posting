@@ -2,7 +2,7 @@ import Axios from "axios";
 import Cookie from "js-cookie";
 
 const axios = Axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
