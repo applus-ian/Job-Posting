@@ -81,11 +81,12 @@ export function AllApplicationTable<T>({ columns, data }: AllApplicationTablePro
                     column={table.getColumn("status")}
                     title="Status"
                     options={[
-                      { label: "Submitted", value: "submitted" },
+                      { label: "Received", value: "received" },
+                      { label: "Reviewed", value: "reviewed" },
                       { label: "Interview", value: "interview" },
-                      { label: "Withdrawn", value: "withdrawn" },
                       { label: "Offered", value: "offered" },
                       { label: "Hired", value: "hired" },
+                      { label: "Rejected", value: "rejected" },
                     ]}
                   />
                 )}

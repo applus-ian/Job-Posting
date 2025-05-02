@@ -8,11 +8,28 @@ import {
 } from "../../ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { MoreHorizontal, ArrowUpDown, Mails, Eye, XCircle, CalendarClock, MessageSquareText, } from "lucide-react";
 import CustomBadge from "../../badges/CustomBadge";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+
+type ActionLabels =
+  | "View Application"
+  | "View Applicant Profile"
+  | "Reject"
+  | "Schedule Interview"
+  | "Submit Feedback"
+  | "View Reject Reason";
+
+const actionIcons: Record<ActionLabels, React.ReactNode> = {
+  "View Application": <Mails className="h-5 w-5 mr-2" />,
+  "View Applicant Profile": <Eye className="h-5 w-5 mr-2" />,
+  "Reject": <XCircle className="h-5 w-5 mr-2" />,
+  "Schedule Interview": <CalendarClock className="h-5 w-5 mr-2" />,
+  "Submit Feedback": <MessageSquareText className="h-5 w-5 mr-2" />,
+  "View Reject Reason": <XCircle className="h-5 w-5 mr-2" />,
+};
 
 export type AllApplication = {
   id: string;
@@ -37,7 +54,7 @@ export type AllApplication = {
     phone: string;
     expected_salary: number;
   };
-  status: "submitted" | "interview" | "withdrawn" | "offered" | "hired";
+  status: "received" | "reviewed" | "interview" | "offered" | "hired" | "rejected";
   applied_date: string;
 };
 
@@ -198,7 +215,46 @@ export function useAllApplicationColumns(): ColumnDef<AllApplication>[] {
     },
     {
       id: "actions",
-      cell: () => {
+      cell: ({ row }) => {
+        const status = row.original.status;
+    
+        const actionMap: Record<
+          AllApplication["status"],
+          { label: string; onClick: () => void }[]
+        > = {
+          received: [
+            { label: "View Application", onClick: () => router.push(`/applications/${row.original.id}`) },
+            { label: "View Applicant Profile", onClick: () => console.log("View Profile") },
+            { label: "Reject", onClick: () => console.log("Reject") },
+          ],
+          reviewed: [
+            { label: "View Application", onClick: () => router.push(`/applications/${row.original.id}`) },
+            { label: "View Applicant Profile", onClick: () => console.log("View Profile") },
+            { label: "Schedule Interview", onClick: () => console.log("Schedule Interview") },
+            { label: "Reject", onClick: () => console.log("Reject") },
+          ],
+          interview: [
+            { label: "View Application", onClick: () => router.push(`/applications/${row.original.id}`) },
+            { label: "View Applicant Profile", onClick: () => console.log("View Profile") },
+            { label: "Submit Feedback", onClick: () => console.log("Submit Feedback") },
+          ],
+          offered: [
+            { label: "View Application", onClick: () => router.push(`/applications/${row.original.id}`) },
+            { label: "View Applicant Profile", onClick: () => console.log("View Profile") },
+          ],
+          hired: [
+            { label: "View Application", onClick: () => router.push(`/applications/${row.original.id}`) },
+            { label: "View Applicant Profile", onClick: () => console.log("View Profile") },
+          ],
+          rejected: [
+            { label: "View Application", onClick: () => router.push(`/applications/${row.original.id}`) },
+            { label: "View Applicant Profile", onClick: () => console.log("View Profile") },
+            { label: "View Reject Reason", onClick: () => console.log("View Reject Reason") },
+          ],
+        };
+    
+        const actions = actionMap[status] || [];
+    
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -208,14 +264,15 @@ export function useAllApplicationColumns(): ColumnDef<AllApplication>[] {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => router.push("/my-applications/1")}>
-                View Application
-              </DropdownMenuItem>
-              <DropdownMenuItem>Withdraw Application</DropdownMenuItem>
+              {actions.map((action, index) => (
+                <DropdownMenuItem key={index} onClick={action.onClick}>
+                  {actionIcons[action.label as ActionLabels]} {action.label}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
         );
       },
-    },
+    },    
   ];
 }
