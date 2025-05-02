@@ -9,6 +9,7 @@ class Application extends Model
     protected $fillable = [
         'applied_date',
         'status',
+        'expected_salary',
         'applicant_id',
         'job_posting_id',
     ];
