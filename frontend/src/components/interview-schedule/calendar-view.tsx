@@ -4,14 +4,11 @@ import { cn } from '@/lib/utils';
 import { format, addDays, startOfMonth, startOfWeek, endOfMonth, addMonths, subMonths } from 'date-fns';
 import { ChevronRight, ChevronLeft, X } from 'lucide-react';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { InterviewData } from './sample-data';
 
 // Export these types so they can be imported in other files
-export type Interview = {
-  date: Date;
-  time: string;
-  name: string;
-  bgColor?: string;
-};
+export type Interview = InterviewData;
 
 export type CalendarViewProps = {
   currentMonth: Date;
@@ -20,6 +17,8 @@ export type CalendarViewProps = {
 };
 
 export function CalendarView({ currentMonth, interviews, onMonthChange }: CalendarViewProps) {
+  const router = useRouter();
+  
   // State for modal
   const [selectedDay, setSelectedDay] = useState<Date | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -206,8 +205,23 @@ export function CalendarView({ currentMonth, interviews, onMonthChange }: Calend
                 <div key={idx} className="py-2 px-1 border-b border-gray-100 last:border-0">
                   <div className="flex justify-between items-center">
                     <div className="font-medium text-sm">{interview.name}</div>
-                    <div className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
-                      {interview.time}
+                    <div className="flex items-center">
+                      {/* Time display moved closer to the button */}
+                      <div className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded mr-2">
+                        {interview.time}
+                      </div>
+                      {/* View Details Button - Allows users to see more information about the interview */}
+                      <button 
+                        className="text-xs bg-orange-500 hover:bg-orange-400 text-white px-2 py-1 rounded-md transition-colors"
+                        onClick={(e) => {
+                          // Prevent the click from bubbling up to parent elements
+                          e.stopPropagation();
+                          // Navigate to interview details page
+                          router.push(`/view-application/${interview.id}`);
+                        }}
+                      >
+                        Interview Details
+                      </button>
                     </div>
                   </div>
                 </div>

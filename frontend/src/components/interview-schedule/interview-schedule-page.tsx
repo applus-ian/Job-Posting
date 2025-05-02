@@ -10,172 +10,71 @@ import { SidebarLayout } from '@/components/sidebar-layout';
 import { CalendarView, Interview as CalendarInterview } from './calendar-view';
 import { ListView } from './list-view';
 import { Card } from '@/components/ui/card';
+import { InterviewScheduleModal, InterviewFormData } from './interview-schedule-modal';
+import { sampleInterviews } from './sample-data';
 
 // Define interview type, extending the CalendarInterview type
-type Interview = CalendarInterview & {
-  // Additional fields used in list view
-  status?: 'pending' | 'upcoming' | 'completed' | 'canceled';
-  jobTitle?: string;
-  company?: string;
-  interviewType?: 'in-person' | 'video' | 'phone';
-};
+type Interview = CalendarInterview;
 
 export default function InterviewSchedule() {
+  // State for modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   const [currentMonth, setCurrentMonth] = useState(new Date(2025, 0, 1)); // January 2025
   const [view, setView] = useState<'calendar' | 'list'>('calendar');
+  
+  // State for interviews (initialized with sample data)
+  const [interviews, setInterviews] = useState<Interview[]>(sampleInterviews);
 
   // Handler for month change from CalendarView
   const handleMonthChange = (newMonth: Date) => {
     setCurrentMonth(newMonth);
   };
 
-  // Mock interview data
-  const interviews: Interview[] = [
-    { 
-      date: new Date(2025, 0, 2), 
-      time: '7:00AM', 
-      name: 'Mike Minoza', 
+  // Handler for scheduling interview
+  const handleScheduleInterview = (data: InterviewFormData) => {
+    console.log('Scheduled interview:', data);
+    // In a real application, you would send this data to an API
+    // and then update the interviews list with the new interview
+    
+    // Create a new interview object
+    const newInterview: Interview = {
+      id: `int-${interviews.length + 1}`.padStart(6, '0'),
+      date: new Date(data.date),
+      time: data.time,
+      name: data.applicant.split('-')[0].replace(/-/g, ' '), // Extract name from the value
+      jobTitle: data.applicant.split('-').slice(1).join(' ').replace(/-/g, ' '), // Extract position
       status: 'upcoming',
-      jobTitle: 'Frontend Developer',
-      interviewType: 'video'
-    },
-    { 
-      date: new Date(2025, 0, 3), 
-      time: '7:00AM', 
-      name: 'John Smith', 
-      status: 'pending',
-      jobTitle: 'UX Designer',
-      interviewType: 'in-person'
-    },
-    { 
-      date: new Date(2025, 0, 3), 
-      time: '7:00AM', 
-      name: 'Sarah Johnson', 
-      status: 'completed',
-      jobTitle: 'Project Manager',
-      interviewType: 'phone'
-    },
-    { 
-      date: new Date(2025, 0, 4), 
-      time: '7:00AM', 
-      name: 'Chris Lee', 
-      status: 'upcoming',
-      jobTitle: 'Backend Developer',
-      interviewType: 'video'
-    },
-    { 
-      date: new Date(2025, 0, 4), 
-      time: '7:00AM', 
-      name: 'Alex Wong', 
-      status: 'canceled',
-      jobTitle: 'Product Manager',
-      interviewType: 'in-person'
-    },
-    { 
-      date: new Date(2025, 0, 5), 
-      time: '7:00AM', 
-      name: 'Mike Minoza', 
-      status: 'upcoming',
-      jobTitle: 'DevOps Engineer',
-      interviewType: 'video'
-    },
-    { 
-      date: new Date(2025, 0, 8), 
-      time: '7:00AM', 
-      name: 'Mike Minoza', 
-      bgColor: 'bg-green-100',
-      status: 'upcoming',
-      jobTitle: 'Software Engineer',
-      interviewType: 'video'
-    },
-    { 
-      date: new Date(2025, 0, 11), 
-      time: '7:00AM', 
-      name: 'Mike Minoza',
-      status: 'upcoming',
-      jobTitle: 'Full Stack Developer',
-      interviewType: 'video'
-    },
-    { 
-      date: new Date(2025, 0, 14), 
-      time: '7:00AM', 
-      name: 'Mike Minoza',
-      status: 'pending',
-      jobTitle: 'QA Engineer',
-      interviewType: 'in-person'
-    },
-    { 
-      date: new Date(2025, 0, 17), 
-      time: '7:00AM', 
-      name: 'Mike Minoza',
-      status: 'upcoming',
-      jobTitle: 'UI Developer',
-      interviewType: 'video'
-    },
-    { 
-      date: new Date(2025, 0, 20), 
-      time: '7:00AM', 
-      name: 'Mike Minoza',
-      status: 'upcoming',
-      jobTitle: 'Mobile Developer',
-      interviewType: 'video'
-    },
-    { 
-      date: new Date(2025, 0, 21), 
-      time: '7:00AM', 
-      name: 'Mike Minoza',
-      status: 'completed',
-      jobTitle: 'Data Analyst',
-      interviewType: 'phone'
-    },
-    { 
-      date: new Date(2025, 0, 24), 
-      time: '7:00AM', 
-      name: 'Mike Minoza',
-      status: 'upcoming',
-      jobTitle: 'System Architect',
-      interviewType: 'video'
-    },
-    { 
-      date: new Date(2025, 0, 25), 
-      time: '7:00AM', 
-      name: 'Mike Minoza',
-      status: 'pending',
-      jobTitle: 'Cloud Engineer',
-      interviewType: 'video'
-    },
-    { 
-      date: new Date(2025, 0, 26), 
-      time: '7:00AM', 
-      name: 'Mike Minoza',
-      status: 'upcoming',
-      jobTitle: 'Network Engineer',
-      interviewType: 'in-person'
-    },
-    { 
-      date: new Date(2025, 0, 26), 
-      time: '7:00AM', 
-      name: 'Mike Minoza',
-      status: 'canceled',
-      jobTitle: 'Security Analyst',
-      interviewType: 'phone'
-    },
-    { 
-      date: new Date(2025, 0, 31), 
-      time: '7:00AM', 
-      name: 'Mike Minoza',
-      status: 'upcoming',
-      jobTitle: 'Technical Lead',
-      interviewType: 'video'
-    },
-  ];
-  
+      interviewType: data.mode || 'video', // Default to video if no mode is selected
+      address: data.address,
+      meetingLink: data.meetingLink
+    };
+    
+    // Add the new interview to the list
+    setInterviews([...interviews, newInterview]);
+  };
+
   return (
     <SidebarLayout>
       <div className="flex flex-col space-y-2 w-full px-4 md:px-0 md:max-w-7xl mx-auto">
+        {/* search bar - positioned to the right */}
+        <div className="flex justify-end mb-2 ">
+          <div className="flex items-center gap-2 w-[300px]">
+            <div className="relative flex-1 sm:flex-auto">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Input 
+                placeholder="Search Applicant" 
+                className="pl-9 h-8 rounded-sm border-gray-200 bg-white text-xs w-full" 
+              />
+            </div>
+            <Button variant="outline" size="icon" className="h-8 w-8 rounded-sm border-gray-200 flex-shrink-0">
+              <Filter className="h-4 w-4 text-gray-400" />
+            </Button>
+          </div>
+        </div>
+        
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-2">
-          <div className="bg-gray-200 p-0.5 rounded-sm flex w-full sm:w-auto">
+          <div className="bg-gray-200 p-0.5 rounded-sm flex w-full lg:w-full">
             <button
               onClick={() => setView('calendar')}
               className={cn(
@@ -200,18 +99,6 @@ export default function InterviewSchedule() {
             </button>
           </div>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <div className="relative flex-1 sm:flex-auto">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <Input 
-                placeholder="Search Applicant" 
-                className="pl-9 h-8 rounded-sm border-gray-200 bg-white text-xs w-full" 
-              />
-            </div>
-            <Button variant="outline" size="icon" className="h-8 w-8 rounded-sm border-gray-200 flex-shrink-0">
-              <Filter className="h-4 w-4 text-gray-400" />
-            </Button>
-          </div>
         </div>
 
         {/* Main Content */}
@@ -233,6 +120,13 @@ export default function InterviewSchedule() {
           </Card>
         </div>
       </div>
+
+      {/* Interview Schedule Modal */}
+      <InterviewScheduleModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSchedule={handleScheduleInterview}
+      />
     </SidebarLayout>
   );
 }
