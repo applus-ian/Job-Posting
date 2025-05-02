@@ -101,6 +101,7 @@ export function useAllApplicationColumns(): ColumnDef<AllApplication>[] {
           </div>
         );
       },
+      filterFn: "includesString",
     },
     {
       id: "expected_salary",
@@ -165,36 +166,42 @@ export function useAllApplicationColumns(): ColumnDef<AllApplication>[] {
       cell: ({ row }) => {
         return <CustomBadge label={row.getValue("status")} status={row.getValue("status")} />;
       },
+      filterFn: "arrIncludesSome",
     },
     {
       id: "department",
       accessorKey: "department",
       header: () => null,
       cell: () => null,
+      filterFn: "arrIncludesSome",
     },
     {
       id: "category",
       accessorKey: "category",
       header: () => null,
       cell: () => null,
+      filterFn: "arrIncludesSome",
     },
     {
       id: "employment_type",
       accessorKey: "employment_type",
       header: () => null,
       cell: () => null,
+      filterFn: "arrIncludesSome",
     },
     {
       id: "employment_level",
       accessorKey: "employment_level",
       header: () => null,
       cell: () => null,
+      filterFn: "arrIncludesSome",
     },
     {
       id: "work_setup",
       accessorKey: "work_setup",
       header: () => null,
       cell: () => null,
+      filterFn: "arrIncludesSome",
     },
     {
       id: "actions",
@@ -208,10 +215,15 @@ export function useAllApplicationColumns(): ColumnDef<AllApplication>[] {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => router.push("/my-applications/1")}>
+              <DropdownMenuItem onClick={() => router.push("/hr/applications/1/applicant")}>
+                View Applicant
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => router.push("/hr/applications/1/applicant/1/view-application")}
+              >
                 View Application
               </DropdownMenuItem>
-              <DropdownMenuItem>Withdraw Application</DropdownMenuItem>
+              <DropdownMenuItem>Reject Application</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
