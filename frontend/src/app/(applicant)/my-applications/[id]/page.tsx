@@ -2,8 +2,7 @@ import { SidebarLayout } from "@/components/sidebar-layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ApplicationDetailCard } from "@/components/application/ApplicationDetailCard";
 import { InterviewCard } from "@/components/application/InterviewCard";
-import { OfferCard } from "@/components/application/OfferCard";
-import { FileIcon, Calendar, LucideMail } from "lucide-react";
+import { FileIcon, Calendar } from "lucide-react";
 
 export default function Application() {
   return (
@@ -14,7 +13,7 @@ export default function Application() {
         </div>
       </div>
       <Tabs defaultValue="application" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="application" className="flex items-center gap-2 text-gray-500">
             <FileIcon size={16} />
             <span className="hidden lg:flex">Application Details</span>
@@ -24,20 +23,12 @@ export default function Application() {
             <Calendar size={16} />
             <span className="hidden lg:flex">Interview Details</span>
           </TabsTrigger>
-
-          <TabsTrigger value="offer" className="flex items-center gap-2 text-gray-500">
-            <LucideMail size={16} />
-            <span className="hidden lg:flex">Offer Letter</span>
-          </TabsTrigger>
         </TabsList>
         <TabsContent value="application">
           <ApplicationDetailCard />
         </TabsContent>
         <TabsContent value="interview">
           <InterviewCard />
-        </TabsContent>
-        <TabsContent value="offer">
-          <OfferCard />
         </TabsContent>
       </Tabs>
     </SidebarLayout>
