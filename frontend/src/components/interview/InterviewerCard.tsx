@@ -22,6 +22,7 @@ export function InterviewerCard() {
               <p className="text-xs font-medium truncate w-full">mikearthruminoza@gmail.com</p>
             </div>
           </div>
+
           <div className="flex items-center w-full gap-2">
             <Avatar className="w-10 h-10 rounded-full shrink-0">
               <AvatarImage

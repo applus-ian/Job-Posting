@@ -8,7 +8,7 @@ export function FeedbackCard() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Feedback</CardTitle>
+        <CardTitle>Interview Feedback</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-3">

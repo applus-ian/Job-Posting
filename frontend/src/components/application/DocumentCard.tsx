@@ -7,9 +7,9 @@ export function DocumentCard() {
         <CardTitle>Documents Submitted</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-wrap gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Resume */}
-          <div className="flex items-center justify-between w-full ">
+          <div className="flex items-center justify-between border p-3 rounded">
             <div className="flex items-center gap-3 overflow-hidden">
               <File size={24} className="text-gray-500 shrink-0" />
               <div className="flex flex-col overflow-hidden">
@@ -21,8 +21,9 @@ export function DocumentCard() {
               <Download size={20} className="text-primary" />
             </button>
           </div>
+
           {/* Cover Letter */}
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-center justify-between border p-3 rounded">
             <div className="flex items-center gap-3 overflow-hidden">
               <File size={24} className="text-gray-500 shrink-0" />
               <div className="flex flex-col overflow-hidden">
