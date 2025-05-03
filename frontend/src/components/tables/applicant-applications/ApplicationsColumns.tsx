@@ -122,7 +122,6 @@ export function useApplicationColumns(): ColumnDef<Application>[] {
               <DropdownMenuItem onClick={() => router.push("/my-applications/1")}>
                 View Application
               </DropdownMenuItem>
-              <DropdownMenuItem>Withdraw Application</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );

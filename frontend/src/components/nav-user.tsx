@@ -96,6 +96,7 @@ export function NavUser({
           </DropdownMenu>
         </SidebarMenuItem>
       </SidebarMenu>
+      {/* Logout alert dialog  */}
       <LogoutDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
     </>
   );

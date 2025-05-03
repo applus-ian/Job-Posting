@@ -32,7 +32,7 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
             </Breadcrumb>
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-5">
+        <div className="flex flex-1 flex-col gap-4 px-5 pt-5 pb-12">
           {/* Content goes here  */}
           {children}
         </div>
