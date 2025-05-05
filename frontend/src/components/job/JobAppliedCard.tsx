@@ -8,7 +8,7 @@ export function JobAppliedCard() {
         <CardTitle>Job Applied</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-wrap gap-6">
+        <div className="flex flex-wrap gap-2">
           <div className="flex flex-col gap-1 w-[120px]">
             <UserSquare2 size={28} className="text-primary" />
             <p className="text-xs text-gray-600">Job Title</p>

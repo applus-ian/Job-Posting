@@ -5,10 +5,10 @@ import { JobAppliedCard } from "../job/JobAppliedCard";
 
 export function ApplicationOverviewCard() {
   return (
-    <Card>
+    <Card className="w-full">
       <CardContent>
-        <div className="flex justify-between items-start">
-          <div className="flex items-center gap-4 mb-4">
+        <div className="flex flex-col-reverse lg:flex-row justify-between">
+          <div className="flex flex-col sm:flex-row items-center gap-4 mb-4">
             <Avatar className="w-16 h-16 rounded-full">
               <AvatarImage
                 src="https://github.com/shadcn.png"
@@ -18,11 +18,13 @@ export function ApplicationOverviewCard() {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div>
-              <h6 className="text-lg font-semibold">Mike Arthur Minoza</h6>
-              <p className="text-xs">mikearthurminoza@gmail.com</p>
+              <h6 className="text-wrap text-lg font-semibold">Mike Arthur Minoza</h6>
+              <p className="text-xs ">mikearthurminoza@gmail.com</p>
             </div>
           </div>
-          <CustomBadge label="hired" status="success" />
+          <div className="flex justify-end items-start">
+            <CustomBadge label="hired" status="success" />
+          </div>
         </div>
         <JobAppliedCard />
       </CardContent>

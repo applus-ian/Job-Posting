@@ -8,7 +8,7 @@ export function ActionCard() {
         <CardTitle>Action</CardTitle>
       </CardHeader>
       <CardContent>
-        <Button variant={"destructive"} className="w-full">
+        <Button variant={"destructive"} className="w-full mb-1">
           Reject
         </Button>
       </CardContent>
