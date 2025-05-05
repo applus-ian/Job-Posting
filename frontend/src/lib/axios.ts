@@ -1,7 +1,6 @@
-import Axios from "axios";
-import Cookie from "js-cookie";
+import axios from "axios";
 
-const axios = Axios.create({
+export default axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
@@ -9,19 +8,10 @@ const axios = Axios.create({
   },
 });
 
-// configure token
-axios.interceptors.request.use(
-  (config) => {
-    const token = Cookie.get("auth_token");
-
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
+export const axiosAuth = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
   },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-export default axios;
+});

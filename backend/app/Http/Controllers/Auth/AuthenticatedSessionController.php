@@ -22,7 +22,9 @@ class AuthenticatedSessionController extends Controller
         $token = $user->createToken("auth_token")->plainTextToken;
 
         return response()->json([
-            'user' => $user,
+            'applicant_id' => $user->applicant->id,
+            'name' => $user->applicant->full_name,
+            'email' => $user->email,
             'token' => $token
         ]);
     }
@@ -35,5 +37,13 @@ class AuthenticatedSessionController extends Controller
         $request->user()->currentAccessToken()->delete();
 
         return response()->noContent();
+    }
+
+    // refresh token
+    public function refreshToken(Request $request)
+    {
+        $request->user()->tokens()->delete();
+        $token = $request->user()->createToken("auth_token")->plainTextToken;
+        return response()->json(['token' => $token]);
     }
 }

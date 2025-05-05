@@ -21,6 +21,19 @@ class Applicant extends Model
         'address_id',
     ];
 
+    // accessor
+    public function getFullNameAttribute()
+    {
+        $parts = array_filter([
+            $this->first_name,
+            $this->middle_name,
+            $this->last_name,
+            $this->suffix,
+        ]);
+
+        return implode(' ', $parts);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

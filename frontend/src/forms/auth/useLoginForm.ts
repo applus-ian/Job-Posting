@@ -4,12 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/schemas/auth";
 import { LoginFields } from "@/types/auth";
 import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import { ErrorResponse } from "@/types/error-response";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export function useLoginForm() {
-  const { loginMutation } = useAuth();
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const form = useForm<LoginFields>({
     resolver: zodResolver(LoginSchema),
@@ -20,16 +20,18 @@ export function useLoginForm() {
   });
 
   const onSubmit: SubmitHandler<LoginFields> = async (data) => {
-    try {
-      await loginMutation.mutateAsync(data);
+    setError(null);
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
+
+    if (result?.error) {
+      setError(result.error);
+    } else {
       setError(null);
-    } catch (error) {
-      const errorMsg = (error as ErrorResponse)?.response?.data?.message;
-      if (errorMsg) {
-        setError(errorMsg);
-      } else {
-        setError("An unknown error occurred");
-      }
+      router.push("/dashboard");
     }
   };
 

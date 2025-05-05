@@ -26,6 +26,10 @@ export const logoutUser = async () => {
   return response.data;
 };
 
+export const refreshToken = async () => {
+  const response = await axios.post("/api/auth/refresh-token");
+  return response.data;
+};
 export const handleSocialLogin = (provider: SocialAuth) => {
   window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/${provider}/redirect`;
 };

@@ -59,10 +59,13 @@ class SocialAuthController extends Controller
             Auth::login($user);
             $token = $user->createToken("auth_token")->plainTextToken;
 
-            return response()->json([
-                'user' => $user,
-                'token' => $token
-            ]);
+            return redirect()->to("$frontendUrl/dashboard");
+
+
+            // return response()->json([
+            //     'user' => $user,
+            //     'token' => $token
+            // ]);
         } catch (\Exception $e) {
             \Log::error('OAuth callback error', ['error' => $e->getMessage()]);
             return redirect()->to("{$frontendUrl}/login");
