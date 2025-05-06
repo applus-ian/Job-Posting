@@ -35,14 +35,13 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): Response
     {
         $request->user()->currentAccessToken()->delete();
-
         return response()->noContent();
     }
 
     // refresh token
-    public function refreshToken(Request $request)
+    public function update(Request $request)
     {
-        $request->user()->tokens()->delete();
+        $request->user()->currentAccessToken()->delete();
         $token = $request->user()->createToken("auth_token")->plainTextToken;
         return response()->json(['token' => $token]);
     }

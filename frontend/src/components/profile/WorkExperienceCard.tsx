@@ -13,11 +13,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { WorkExperience } from "@/types/profile";
 
 const currentYear = new Date().getFullYear();
 const years = Array.from({ length: 50 }, (_, i) => currentYear - i);
 
-export function WorkExperienceCard() {
+export function WorkExperienceCard({ workexperience }: { workexperience: WorkExperience[] }) {
   const [isEditing, setIsEditing] = useState(false);
 
   return (

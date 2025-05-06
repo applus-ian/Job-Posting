@@ -12,11 +12,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { EducationHistory } from "@/types/profile";
 
 const currentYear = new Date().getFullYear();
 const years = Array.from({ length: 50 }, (_, i) => currentYear - i);
 
-export function EducationCard() {
+export function EducationCard({ educationhistory }: { educationhistory: EducationHistory[] }) {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
