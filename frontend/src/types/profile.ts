@@ -3,6 +3,7 @@ import {
   WorkExperienceSchema,
   EducationHistorySchema,
 } from "@/schemas/profile";
+import React from "react";
 import { z } from "zod";
 
 export type ApplicantProfile = {
@@ -45,6 +46,17 @@ export type EducationHistory = {
   applicant_id?: number;
   created_at?: string;
   updated_at?: string;
+};
+
+export type AddWorkExperienceModalProps = {
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type DeleteWorkExperienceModalProps = {
+  openDialog: boolean;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  workexperience: WorkExperience;
 };
 
 export type ApplicantProfileFields = z.infer<typeof ApplicantProfileSchema>;

@@ -51,10 +51,10 @@ export default function ApplicantProfilePage() {
           <DocumentCard />
         </TabsContent>
         <TabsContent value="workexperience">
-          <WorkExperienceCard workexperience={data.work_experience} />
+          <WorkExperienceCard workexperience={data.applicant.work_experience} />
         </TabsContent>
         <TabsContent value="education">
-          <EducationCard educationhistory={data.education_history} />
+          <EducationCard educationhistory={data.applicant.education_history} />
         </TabsContent>
       </Tabs>
     </SidebarLayout>
