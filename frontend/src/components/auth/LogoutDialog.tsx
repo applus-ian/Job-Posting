@@ -15,7 +15,7 @@ import { Loader2 } from "lucide-react";
 export function LogoutDialog({ openDialog, setOpenDialog }: LogoutDialogProps) {
   const { logoutMutation } = useAuth();
   return (
-    <AlertDialog open={openDialog}>
+    <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
       <AlertDialogContent className="w-sm">
         <AlertDialogHeader>
           <AlertDialogTitle>Log out of your account?</AlertDialogTitle>

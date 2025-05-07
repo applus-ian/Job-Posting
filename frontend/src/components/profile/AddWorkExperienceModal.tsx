@@ -1,0 +1,121 @@
+"use client";
+
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { AddWorkExperienceModalProps } from "@/types/profile";
+import { useWorkExperienceForm } from "@/forms/profile/useWorkExperienceForm";
+import { Form } from "@/components/ui/form";
+import { ProfileFormField } from "./ProfileFormField";
+import { Loader2, Plus } from "lucide-react";
+import { useEffect } from "react";
+
+export function AddWorkExperienceModal({ openModal, setOpenModal }: AddWorkExperienceModalProps) {
+  const { form, onSubmit, isSuccess, error } = useWorkExperienceForm(null);
+
+  // reset and close modal when form is success
+  useEffect(() => {
+    if (isSuccess) {
+      form.reset();
+      setOpenModal(false);
+    }
+  }, [isSuccess, form, setOpenModal]);
+
+  // reset form when modal is closed
+  useEffect(() => {
+    if (!openModal) {
+      form.reset();
+    }
+  }, [openModal, form]);
+
+  return (
+    <Dialog open={openModal} onOpenChange={setOpenModal}>
+      <DialogContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <DialogHeader>
+              <DialogTitle>Add Work Experience</DialogTitle>
+              <DialogDescription>
+                Fill in the details of your previous or current work experience. This information
+                will help build a more complete profile.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex flex-col gap-4 mt-4">
+              {/* Work Info Fields */}
+              <ProfileFormField
+                control={form.control}
+                name="company"
+                label="Company Name"
+                placeholder="Enter company name"
+                isEditing={true}
+              />
+              <ProfileFormField
+                control={form.control}
+                name="professional_title"
+                label="Role"
+                placeholder="Enter your role or professional title"
+                isEditing={true}
+              />
+              <ProfileFormField
+                control={form.control}
+                name="description"
+                label="Description"
+                placeholder="Enter description"
+                variant="textarea"
+                isEditing={true}
+              />
+              <div className="flex gap-3">
+                <ProfileFormField
+                  control={form.control}
+                  name="start_date"
+                  label="Start Date"
+                  type="date"
+                  isEditing={true}
+                />
+                <ProfileFormField
+                  control={form.control}
+                  name="end_date"
+                  label="End Date"
+                  type="date"
+                  isEditing={true}
+                />
+              </div>
+              {error && <div className="text-sm text-red-500">{error}</div>}
+            </div>
+            <DialogFooter className="mt-4">
+              <DialogClose asChild>
+                <Button type="button" variant="outline">
+                  Close
+                </Button>
+              </DialogClose>
+              <Button
+                disabled={form.formState.isSubmitting}
+                type="submit"
+                className="flex items-center gap-2"
+              >
+                {form.formState.isSubmitting ? (
+                  <>
+                    <Loader2 className="animate-spin w-4 h-4" />
+                    Adding...
+                  </>
+                ) : (
+                  <>
+                    <Plus />
+                    Add
+                  </>
+                )}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
+  );
+}

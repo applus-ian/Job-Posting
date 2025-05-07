@@ -23,15 +23,12 @@ export function useProfileApi() {
   };
 
   const updateWorkExperience = async (fields: WorkExperience) => {
-    const response = await axiosAuth.put(
-      `/api/workexperience/${session?.user.applicant_id}`,
-      fields
-    );
+    const response = await axiosAuth.put(`/api/workexperience/${fields.id}`, fields);
     return response.data;
   };
 
   const deleteWorkExperience = async (id: number) => {
-    const response = await axiosAuth.put(`/api/workexperience/${id}`);
+    const response = await axiosAuth.delete(`/api/workexperience/${id}`);
     return response.data;
   };
 
@@ -49,7 +46,7 @@ export function useProfileApi() {
   };
 
   const deleteEducationHistory = async (id: number) => {
-    const response = await axiosAuth.put(`/api/educationhistory/${id}`);
+    const response = await axiosAuth.delete(`/api/educationhistory/${id}`);
     return response.data;
   };
 

@@ -19,7 +19,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { LogoutDialog } from "./profile/LogoutDialog";
+import { LogoutDialog } from "./auth/LogoutDialog";
 import { useState } from "react";
 
 export function NavUser({
