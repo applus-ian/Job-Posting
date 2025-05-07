@@ -1,10 +1,13 @@
-import { loginUser, registerUser, forgotPassword, passwordReset, logoutUser } from "@/api/auth";
+import { loginUser, registerUser, forgotPassword, passwordReset } from "@/api/auth";
+import { useAuthApi } from "@/api/auth-private";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
+import { signOut } from "next-auth/react";
 
 export function useAuth() {
   const router = useRouter();
+  const { logoutUser } = useAuthApi();
 
   // login
   const loginMutation = useMutation({
@@ -52,7 +55,9 @@ export function useAuth() {
   const logoutMutation = useMutation({
     mutationFn: logoutUser,
     onSuccess: () => {
-      router.push("/");
+      signOut();
+      Cookie.remove("auth_token");
+      router.push("/login");
     },
     onError: () => {
       console.log("Something went wrong!");

@@ -1,3 +1,4 @@
+"use client";
 import { SidebarLayout } from "@/components/sidebar-layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PersonalInfoCard } from "@/components/profile/PersonalInfoCard";
@@ -5,7 +6,15 @@ import { DocumentCard } from "@/components/profile/DocumentCard";
 import { EducationCard } from "@/components/profile/EducationCard";
 import { WorkExperienceCard } from "@/components/profile/WorkExperienceCard";
 import { User, FileText, GraduationCap, Briefcase } from "lucide-react";
+import { useProfile } from "@/hooks/useProfile";
+
 export default function ApplicantProfilePage() {
+  const { getAppliantDetailsQuery } = useProfile();
+  const { data, isLoading, isError } = getAppliantDetailsQuery;
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error loading profile</div>;
+
   return (
     <SidebarLayout>
       <div className="flex">
@@ -36,16 +45,16 @@ export default function ApplicantProfilePage() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="personalinfo">
-          <PersonalInfoCard />
+          <PersonalInfoCard applicant={data.applicant} />
         </TabsContent>
         <TabsContent value="documents">
           <DocumentCard />
         </TabsContent>
         <TabsContent value="workexperience">
-          <WorkExperienceCard />
+          <WorkExperienceCard workexperience={data.work_experience} />
         </TabsContent>
         <TabsContent value="education">
-          <EducationCard />
+          <EducationCard educationhistory={data.education_history} />
         </TabsContent>
       </Tabs>
     </SidebarLayout>

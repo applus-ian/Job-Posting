@@ -20,6 +20,7 @@ export function ApplicationOverviewCard() {
             <div>
               <h6 className="text-lg font-semibold">Mike Arthur Minoza</h6>
               <p className="text-xs">mikearthurminoza@gmail.com</p>
+              <p className="text-xs">0999999999</p>
             </div>
           </div>
           <CustomBadge label="hired" status="success" />
