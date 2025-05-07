@@ -7,16 +7,18 @@ import { EducationCard } from "@/components/profile/EducationCard";
 import { WorkExperienceCard } from "@/components/profile/WorkExperienceCard";
 import { User, FileText, GraduationCap, Briefcase } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
+import { SkeletonProfile } from "@/components/skeletons/SkeletonProfile";
 
 export default function ApplicantProfilePage() {
   const { getAppliantDetailsQuery } = useProfile();
   const { data, isLoading, isError } = getAppliantDetailsQuery;
 
-  if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading profile</div>;
 
   return (
     <SidebarLayout>
+      {isLoading ? (<SkeletonProfile/>) : (
+      <>
       <div className="flex">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Applicant Profile</h1>
@@ -56,7 +58,7 @@ export default function ApplicantProfilePage() {
         <TabsContent value="education">
           <EducationCard educationhistory={data.education_history} />
         </TabsContent>
-      </Tabs>
+      </Tabs></>)}
     </SidebarLayout>
   );
 }

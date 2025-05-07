@@ -7,6 +7,7 @@ import {
   useApplicationColumns,
 } from "@/components/tables/applicant-applications/ApplicationsColumns";
 import { useEffect, useState } from "react";
+import { SkeletonMyApplications } from "@/components/skeletons/SkeletonMyApplications";
 
 async function getData(): Promise<Application[]> {
   return [
@@ -102,6 +103,7 @@ export default function MyApplicationPage() {
   }, []);
   return (
     <SidebarLayout>
+      <SkeletonMyApplications/>
       <div className="mb-3">
         <p className="text-2xl font-medium">My Applications</p>
       </div>

@@ -3,10 +3,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ApplicationDetailCard } from "@/components/application/ApplicationDetailCard";
 import { InterviewCard } from "@/components/application/InterviewCard";
 import { FileIcon, Calendar } from "lucide-react";
+import { SkeletonApplication } from "@/components/skeletons/SkeletonApplication";
 
 export default function Application() {
   return (
     <SidebarLayout>
+      <SkeletonApplication/>
       <div className="flex">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Application for Front-End Developer</h1>
