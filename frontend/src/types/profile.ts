@@ -48,7 +48,7 @@ export type EducationHistory = {
   updated_at?: string;
 };
 
-export type AddWorkExperienceModalProps = {
+export type AddProfileModalProps = {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -57,6 +57,12 @@ export type DeleteWorkExperienceModalProps = {
   openDialog: boolean;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
   workexperience: WorkExperience;
+};
+
+export type DeleteEducationModalProps = {
+  openDialog: boolean;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  educationhistory: EducationHistory;
 };
 
 export type ApplicantProfileFields = z.infer<typeof ApplicantProfileSchema>;

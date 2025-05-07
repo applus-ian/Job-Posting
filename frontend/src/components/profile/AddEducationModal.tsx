@@ -11,14 +11,17 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { AddProfileModalProps } from "@/types/profile";
-import { useWorkExperienceForm } from "@/forms/profile/useWorkExperienceForm";
+import { useEducationHistoryForm } from "@/forms/profile/useEducationHistoryForm";
 import { Form } from "@/components/ui/form";
 import { ProfileFormField } from "./ProfileFormField";
 import { Loader2, Plus } from "lucide-react";
 import { useEffect } from "react";
 
-export function AddWorkExperienceModal({ openModal, setOpenModal }: AddProfileModalProps) {
-  const { form, onSubmit, isSuccess, error } = useWorkExperienceForm(null);
+const currentYear = new Date().getFullYear();
+const years = Array.from({ length: 50 }, (_, i) => currentYear - i);
+
+export function AddEducationModal({ openModal, setOpenModal }: AddProfileModalProps) {
+  const { form, onSubmit, isSuccess, error } = useEducationHistoryForm(null);
 
   // reset and close modal when form is success
   useEffect(() => {
@@ -41,50 +44,53 @@ export function AddWorkExperienceModal({ openModal, setOpenModal }: AddProfileMo
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <DialogHeader>
-              <DialogTitle>Add Work Experience</DialogTitle>
+              <DialogTitle>Add Education history</DialogTitle>
               <DialogDescription>
-                Fill in the details of your previous or current work experience. This information
-                will help build a more complete profile.
+                Provide details about your educational background. This information will help create
+                a more complete and accurate profile.
               </DialogDescription>
             </DialogHeader>
             <div className="flex flex-col gap-4 mt-4">
-              {/* Work Info Fields */}
+              {/* Education History Fields */}
               <ProfileFormField
                 control={form.control}
-                name="company"
-                label="Company Name"
-                placeholder="Enter company name"
+                name="school"
+                label="School"
+                placeholder="Enter school name"
                 isEditing={true}
               />
               <ProfileFormField
                 control={form.control}
-                name="professional_title"
-                label="Role"
-                placeholder="Enter your role or professional title"
+                name="degree"
+                label="Degree"
+                placeholder="Enter degree"
                 isEditing={true}
               />
               <ProfileFormField
                 control={form.control}
-                name="description"
-                label="Description"
-                placeholder="Enter description"
-                variant="textarea"
+                name="course"
+                label="Course"
+                placeholder="Enter course"
                 isEditing={true}
               />
               <div className="flex gap-3">
                 <ProfileFormField
                   control={form.control}
-                  name="start_date"
-                  label="Start Date"
-                  type="date"
+                  name="start_year"
+                  label="Start Year"
+                  placeholder="Enter start year"
                   isEditing={true}
+                  years={years}
+                  variant="select"
                 />
                 <ProfileFormField
                   control={form.control}
-                  name="end_date"
-                  label="End Date"
-                  type="date"
+                  name="end_year"
+                  label="End Year"
+                  placeholder="Enter end year"
                   isEditing={true}
+                  years={years}
+                  variant="select"
                 />
               </div>
               {error && <div className="text-sm text-red-500">{error}</div>}
