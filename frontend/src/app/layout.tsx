@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "./queryprovider";
+import { ToastContainer } from "@/components/ui/toast";
 // import NextAuthProvider from "./nextauthprovider";
 
 const montserrat = Montserrat({
@@ -22,7 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={montserrat.variable}>
       <body>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          {children}
+          <ToastContainer />
+        </QueryProvider>
       </body>
     </html>
   );

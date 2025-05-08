@@ -1,5 +1,4 @@
 import { SidebarLayout } from "@/components/sidebar-layout";
-  // import { WorkExperienceCard } from "@/components/profile/WorkExperienceCard";
 import { Card } from "@/components/ui/card";
 import ChangePasswordForm from "@/components/profile/ChangePasswordForm";
 import DeleteAccountSection from "@/components/profile/DeleteAccountSection";

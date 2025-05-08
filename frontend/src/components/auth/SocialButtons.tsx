@@ -1,7 +1,9 @@
 import { Button } from "../ui/button";
 import { handleSocialLogin } from "@/api/auth";
+import { useRouter } from "next/navigation";
 
 export function SocialButtons() {
+  const router = useRouter();
   return (
     <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
       {/* Facebook Button */}

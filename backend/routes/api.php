@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -39,6 +40,14 @@ Route::prefix('auth')->group(function () {
         ->middleware(['auth:sanctum'])
         ->name('logout');
 
+    // Add change password route for authenticated users
+    Route::put('/change-password', [ChangePasswordController::class, 'update'])
+        ->middleware(['auth:sanctum'])
+        ->name('password.change');
+
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->middleware(['auth:sanctum'])
+        ->name('logout');
 });
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
