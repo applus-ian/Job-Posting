@@ -41,11 +41,36 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
         ],
+
+        // profile disk
+        'profile' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/profiles'),
+            'url' => env('APP_URL') . '/storage/profiles',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        // resume disk
+        'resume' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/resumes'),
+            'visibility' => 'private',
+        ],
+
+        // cover letter disk
+        'coverletter' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/coverletters'),
+            'visibility' => 'private',
+        ],
+
 
         's3' => [
             'driver' => 's3',

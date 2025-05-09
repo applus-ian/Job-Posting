@@ -19,7 +19,7 @@ export default function ApplicantProfilePage() {
     <SidebarLayout>
       <div className="flex">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Applicant Profile</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Your Profile</h1>
         </div>
       </div>
       <Tabs defaultValue="personalinfo" className="w-full">
@@ -48,7 +48,7 @@ export default function ApplicantProfilePage() {
           <PersonalInfoCard applicant={data.applicant} />
         </TabsContent>
         <TabsContent value="documents">
-          <DocumentCard />
+          <DocumentCard documents={data.applicant.documents} />
         </TabsContent>
         <TabsContent value="workexperience">
           <WorkExperienceCard workexperience={data.applicant.work_experience} />

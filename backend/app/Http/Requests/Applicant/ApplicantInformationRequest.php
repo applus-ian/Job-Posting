@@ -49,6 +49,9 @@ class ApplicantInformationRequest extends FormRequest
             'nationality' => 'nullable|string|max:100',
             'phone_number' => 'nullable|string|max:20|regex:/^\+?[0-9]{1,4}?[0-9]{7,15}$/', // not final regex pattern for phone number
             // missing address request validation
+            // language inputs
+            // address inputs
+            // emergency contact inputs
         ];
     }
 }

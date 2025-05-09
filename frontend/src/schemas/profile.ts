@@ -36,3 +36,29 @@ export const EducationHistorySchema = z.object({
   start_year: z.string().regex(/^\d{4}$/, "Start year must be in YYYY format"),
   end_year: z.string().regex(/^\d{4}$/, "End year must be in YYYY format"),
 });
+
+export const DocumentSchema = z.object({
+  file: z
+    .array(z.custom<File>())
+    .length(1, "Please upload exactly one file")
+    .refine(
+      (files) => {
+        const file = files[0];
+        return file ? file.type === "application/pdf" : false;
+      },
+      {
+        message: "Only PDF files are allowed",
+        path: ["file"],
+      }
+    )
+    .refine(
+      (files) => {
+        const file = files[0];
+        return file ? file.size <= 5 * 1024 * 1024 : false;
+      },
+      {
+        message: "File size must be less than or equal to 5MB",
+        path: ["file"],
+      }
+    ),
+});
