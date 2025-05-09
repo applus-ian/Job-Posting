@@ -6,10 +6,12 @@ import { FeedbackCard } from "@/components/interview/FeedbackCard";
 import { InterviewerCard } from "@/components/interview/InterviewerCard";
 import { InterviewSummaryCard } from "@/components/interview/InterviewSummaryCard";
 import { SidebarLayout } from "@/components/sidebar-layout";
+import { SkeletonHrApplicantProfile } from "@/components/skeletons/SkeletonHrApplicantProfile";
 
 export default function ViewApplicationPage() {
   return (
     <SidebarLayout>
+      <SkeletonHrApplicantProfile/>
       <div className="mt-3">
         <p className="text-xl">Application Details</p>
         <div className="flex flex-col lg:flex-row w-full gap-6 mt-4">

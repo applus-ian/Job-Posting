@@ -4,6 +4,7 @@ import { AllApplication } from "@/components/tables/all-applications/AllApplicat
 import { AllApplicationTable } from "@/components/tables/all-applications/AllApplicationTable";
 import { useAllApplicationColumns } from "@/components/tables/all-applications/AllApplicationColumns";
 import { useEffect, useState } from "react";
+import { SkeletonHrApplications } from "@/components/skeletons/SkeletonHrApplications";
 
 async function getData(): Promise<AllApplication[]> {
   return [
@@ -102,6 +103,7 @@ export default function AllApplicationPage() {
   }, []);
   return (
     <SidebarLayout>
+      <SkeletonHrApplications/>
       <div className="mb-3">
         <p className="text-2xl font-medium">All Applications</p>
       </div>

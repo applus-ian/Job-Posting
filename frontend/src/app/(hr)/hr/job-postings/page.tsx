@@ -1,6 +1,7 @@
 import { SidebarLayout } from "@/components/sidebar-layout";
 import { JobPosting, columns } from "@/components/tables/job/JobColumns";
 import { JobTable } from "@/components/tables/job/JobTable";
+import { SkeletonHrApplications } from "@/components/skeletons/SkeletonHrApplications";
 
 async function getData(): Promise<JobPosting[]> {
   return [
@@ -82,6 +83,7 @@ export default async function JobPostingPage() {
 
   return (
     <SidebarLayout>
+      <SkeletonHrApplications/>
       <div className="mb-2">
         <p className="text-2xl font-medium">All Job Postings</p>
       </div>

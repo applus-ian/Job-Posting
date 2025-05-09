@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { ViewApplicantCard } from "@/components/applicant/ViewApplicantCard";
+import { SkeletonHrApplicantProfile } from "@/components/skeletons/SkeletonHrApplicantProfile";
 
 async function getData(): Promise<Application[]> {
   return [
@@ -107,6 +108,7 @@ export default function ViewApplicantPage() {
   }, []);
   return (
     <SidebarLayout>
+      <SkeletonHrApplicantProfile/>
       <div className="flex">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Applicant Profile</h1>
