@@ -9,11 +9,38 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { LogoutDialogProps } from "@/types/auth";
-import { useAuth } from "@/hooks/useAuth";
+import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export function LogoutDialog({ openDialog, setOpenDialog }: LogoutDialogProps) {
-  const { logoutMutation } = useAuth();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const router = useRouter();
+  
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    
+    try {
+      // Clear localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+      }
+      
+      // Sign out with NextAuth
+      await signOut({ redirect: false });
+      
+      // Redirect to login page
+      router.push('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      setIsLoggingOut(false);
+      setOpenDialog(false);
+    }
+  };
+  
   return (
     <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
       <AlertDialogContent className="w-sm">
@@ -25,16 +52,16 @@ export function LogoutDialog({ openDialog, setOpenDialog }: LogoutDialogProps) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel
-            disabled={logoutMutation.isPending}
+            disabled={isLoggingOut}
             onClick={() => setOpenDialog(false)}
           >
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            disabled={logoutMutation.isPending}
-            onClick={() => logoutMutation.mutate()}
+            disabled={isLoggingOut}
+            onClick={handleLogout}
           >
-            {logoutMutation.isPending ? (
+            {isLoggingOut ? (
               <span className="flex items-center gap-1">
                 <Loader2 size={20} className="animate-spin" />
                 Logging out...

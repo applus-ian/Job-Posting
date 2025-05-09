@@ -2,7 +2,7 @@
 
 import { SidebarLayout } from "@/components/sidebar-layout";
 import { Calendar } from "@/components/ui/calendar";
-import React from "react";
+import React, { useEffect } from "react";
 import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import {
@@ -19,6 +19,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 const chartData = [
   { month: "January", desktop: 186 },
   { month: "February", desktop: 305 },
@@ -36,8 +39,43 @@ const chartConfig = {
 
 export default function HrDashboardPage() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
+  // Get session data to verify authentication
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/login');
+    }
+  }, [status, router]);
+  
+  // Show loading state while checking authentication
+  if (status === 'loading') {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p>Loading dashboard...</p>
+      </div>
+    );
+  }
+  
   return (
     <SidebarLayout>
+      {/* Display authenticated user */}
+      {session?.user && (
+        <div className="bg-green-100 p-3 mt-4 rounded-md mb-4">
+          <p className="text-green-800">
+            Welcome, {session.user.name}! {session.user.email && `(${session.user.email})`}
+          </p>
+          {session.user.employee && (
+            <p className="text-green-700 text-sm mt-1">
+              Position: {session.user.employee.job_position || 'Not specified'} | 
+              Department: {session.user.employee.department || 'Not specified'}
+            </p>
+          )}
+        </div>
+      )}
+      
       <div className="mt-6">
         <div className="flex flex-col lg:flex-row w-full gap-6">
           <div className="w-full">
@@ -92,7 +130,7 @@ export default function HrDashboardPage() {
               </CardFooter>
             </Card>
           </div>
-          <div className="flex flex-col  w-auto gap-6">
+          <div className="flex flex-col w-auto gap-6">
             <Calendar
               mode="single"
               selected={date}

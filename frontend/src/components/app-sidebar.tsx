@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Bookmark, Command, Folder, Home, Search } from "lucide-react";
-
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "./nav-user";
@@ -20,15 +20,20 @@ import { usePathname } from "next/navigation";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  
+  // Use session data or default values
+  const userData = {
+    name: session?.user?.name || "User",
+    email: session?.user?.email || "user@example.com",
+    avatar: "", // We'll use a fallback in the NavUser component
+  };
+  
   const data = {
-    user: {
-      name: "shadcn",
-      email: "m@example.com",
-      avatar: "/avatars/shadcn.jpg",
-    },
+    user: userData,
     teams: [
       {
-        name: "Acme Inc",
+        name: "Applus",
         logo: Command,
         plan: "Enterprise",
       },
@@ -36,9 +41,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     navMain: [
       {
         title: "Dashboard",
-        url: "/dashboard",
+        url: "/hr/dashboard",
         icon: Home,
-        isActive: pathname === "/dashboard",
+        isActive: pathname === "/hr/dashboard",
       },
       {
         title: "Browse Job",
@@ -67,15 +72,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#" className="w-full">
+              <a href="/hr/dashboard" className="w-full">
                 <div className="px-15 py-4">
-                  <Image
-                    src="/logo/Logo.png"
-                    alt="Applus Logo"
-                    width={100}
-                    height={50}
-                    className="object-contain h-auto"
-                  />
+                  <div className="text-xl font-bold">Applus HR</div>
                 </div>
               </a>
             </SidebarMenuButton>

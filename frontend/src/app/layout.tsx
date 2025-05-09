@@ -5,6 +5,7 @@ import QueryProvider from "./queryprovider";
 import SessionWrapper from "./sessionwrapper";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -25,9 +26,11 @@ export default async function RootLayout({
   return (
     <html lang="en" className={montserrat.variable}>
       <body>
-        <SessionWrapper session={session}>
-          <QueryProvider>{children}</QueryProvider>
-        </SessionWrapper>
+        <AuthProvider>
+          <SessionWrapper session={session}>
+            <QueryProvider>{children}</QueryProvider>
+          </SessionWrapper>
+        </AuthProvider>
       </body>
     </html>
   );

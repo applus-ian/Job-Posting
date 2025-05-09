@@ -40,6 +40,7 @@ Route::prefix('auth')->group(function () {
         ->name('verification.send');
 });
 
+
 Route::middleware(['auth:sanctum'])->group(function () {
     // applicant profile
     Route::apiResource('applicant', ApplicantInformationController::class);

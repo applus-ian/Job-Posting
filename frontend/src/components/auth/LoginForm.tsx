@@ -12,7 +12,7 @@ import { useLoginForm } from "@/forms/auth/useLoginForm";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
-  const { form, onSubmit, error } = useLoginForm();
+  const { form, onSubmit, error, isLoading } = useLoginForm();
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -107,11 +107,11 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 
                   {/* Sign In Button */}
                   <Button
-                    disabled={form.formState.isSubmitting}
+                    disabled={form.formState.isSubmitting || isLoading}
                     type="submit"
                     className="w-full font-semibold"
                   >
-                    {form.formState.isSubmitting ? (
+                    {form.formState.isSubmitting || isLoading ? (
                       <>
                         <Loader2 className="animate-spin w-4 h-4 mr-2" />
                         Signing In...
