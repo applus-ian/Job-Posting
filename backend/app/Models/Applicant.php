@@ -59,6 +59,11 @@ class Applicant extends Model
         return $this->hasMany(WorkExperience::class);
     }
 
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
+
     public function emergencyContact()
     {
         return $this->hasMany(EmergencyContact::class);
