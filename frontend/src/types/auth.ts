@@ -4,8 +4,14 @@ import {
   RegisterSchema,
   ForgotPasswordSchema,
   PasswordResetSchema,
+  ChangePasswordSchema,
 } from "@/schemas/auth";
 import React from "react";
+
+type PasswordFields = {
+  password: string;
+  password_confirmation: string;
+};
 
 export type AuthCredentials = {
   first_name?: string;
@@ -17,12 +23,14 @@ export type AuthCredentials = {
   password_confirmation?: string;
 };
 
+export type ChangePasswordData = {
+  current_password: string;
+} & PasswordFields;
+
 export type PasswordResetData = {
   token: string;
   email: string;
-  password: string;
-  password_confirmation: string;
-};
+} & PasswordFields;
 
 export type SocialAuth = "google" | "facebook";
 
@@ -35,6 +43,8 @@ export type RegisterFields = z.infer<typeof RegisterSchema>;
 export type ForgotPasswordField = z.infer<typeof ForgotPasswordSchema>;
 
 export type PasswordResetFields = z.infer<typeof PasswordResetSchema>;
+
+export type ChangePasswordFields = z.infer<typeof ChangePasswordSchema>;
 
 export type LogoutDialogProps = {
   openDialog: boolean;

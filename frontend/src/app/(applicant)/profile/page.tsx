@@ -18,9 +18,7 @@ export default function ApplicantProfilePage() {
   return (
     <SidebarLayout>
       <div className="flex">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Your Profile</h1>
-        </div>
+        <h1 className="text-2xl font-bold tracking-tight">Your Profile</h1>
       </div>
       <Tabs defaultValue="personalinfo" className="w-full">
         <TabsList className="grid w-full grid-cols-4">
