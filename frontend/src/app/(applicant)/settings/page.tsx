@@ -1,5 +1,6 @@
 import { SidebarLayout } from "@/components/sidebar-layout";
-import { ChangePasswordForm } from "@/components/auth/ChangePasswordForm";
+import { ThemeSwitch } from "@/components/setting/ThemeSwitch";
+import { ChangePasswordForm } from "@/components/setting/ChangePasswordForm";
 import { Separator } from "@/components/ui/separator";
 
 export default function SettingsPage() {
@@ -8,9 +9,8 @@ export default function SettingsPage() {
       <div className="flex">
         <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
       </div>
-
-      <Separator />
-
+      <ThemeSwitch />
+      <Separator className="my-5" />
       <ChangePasswordForm />
     </SidebarLayout>
   );
