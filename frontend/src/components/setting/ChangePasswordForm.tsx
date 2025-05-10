@@ -27,9 +27,7 @@ export function ChangePasswordForm() {
     <div className="space-y-6">
       <div>
         <h2 className="text-lg font-semibold">Change Password</h2>
-        <p className="text-sm text-muted-foreground">
-          Update your password to keep your account secure.
-        </p>
+        <p className="text-sm">Update your password to keep your account secure.</p>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 max-w-md">
