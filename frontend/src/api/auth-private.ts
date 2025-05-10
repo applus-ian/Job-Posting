@@ -1,4 +1,5 @@
 import useAxiosAuth from "@/hooks/useAxiosAuth";
+import { ChangePasswordData } from "@/types/auth";
 
 export const useAuthApi = () => {
   const axiosAuth = useAxiosAuth();
@@ -13,8 +14,14 @@ export const useAuthApi = () => {
     return response.data;
   };
 
+  const changePassword = async (credentials: ChangePasswordData) => {
+    const response = await axiosAuth.post("/api/auth/change-password", credentials);
+    return response.data;
+  };
+
   return {
     logoutUser,
     refreshToken,
+    changePassword,
   };
 };

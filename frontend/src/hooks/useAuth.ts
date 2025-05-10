@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 
 export function useAuth() {
   const router = useRouter();
-  const { logoutUser } = useAuthApi();
+  const { logoutUser, changePassword } = useAuthApi();
 
   // login
   const loginMutation = useMutation({
@@ -64,11 +64,20 @@ export function useAuth() {
     },
   });
 
+  // change password
+  const changePasswordMutation = useMutation({
+    mutationFn: changePassword,
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  });
+
   return {
     loginMutation,
     registerMutation,
     forgotPasswordMutation,
     passwordResetMutation,
     logoutMutation,
+    changePasswordMutation,
   };
 }

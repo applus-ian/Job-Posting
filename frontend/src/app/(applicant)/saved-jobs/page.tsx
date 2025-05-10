@@ -1,4 +1,3 @@
-"use client";
 import { SidebarLayout } from "@/components/sidebar-layout";
 import { JobBoard } from "@/components/job/JobBoard";
 

@@ -30,9 +30,12 @@ Route::prefix('auth')->group(function () {
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
         ->middleware('guest')
         ->name('password.email');
-    Route::post('/reset-password', [NewPasswordController::class, 'store'])
-        ->middleware('guest')
-        ->name('password.store');
+    Route::controller(NewPasswordController::class)->group(function () {
+        Route::post('/reset-password', 'store')
+            ->middleware('guest')
+            ->name('password.store');
+        Route::post('/change-password', 'changePassword')->middleware(['auth:sanctum']);
+    });
     Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
         ->middleware(['auth', 'signed', 'throttle:6,1'])
         ->name('verification.verify');
