@@ -16,7 +16,7 @@ export function ThemeSwitch() {
     <div className="space-y-4">
       <div>
         <h2 className="text-xl font-semibold">Theme</h2>
-        <p className="text-sm text-muted-foreground">Select the theme for the dashboard.</p>
+        <p className="text-sm text-muted-foreground">Select the theme for the display.</p>
       </div>
 
       <div className="flex flex-wrap gap-4">

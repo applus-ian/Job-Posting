@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 
 class AuthenticatedSessionController extends Controller
 {
@@ -25,6 +26,7 @@ class AuthenticatedSessionController extends Controller
             'applicant_id' => $user->applicant->id,
             'name' => $user->applicant->full_name,
             'email' => $user->email,
+            'profile' => Storage::disk('profile')->url($user->profile),
             'token' => $token
         ]);
     }

@@ -50,8 +50,8 @@ return [
         // profile disk
         'profile' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/profiles'),
-            'url' => env('APP_URL') . '/storage/profiles',
+            'root' => storage_path('app/public/profile'),
+            'url' => env('APP_URL') . '/storage/profile',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
@@ -60,14 +60,14 @@ return [
         // resume disk
         'resume' => [
             'driver' => 'local',
-            'root' => storage_path('app/private/resumes'),
+            'root' => storage_path('app/private/resume'),
             'visibility' => 'private',
         ],
 
         // cover letter disk
         'coverletter' => [
             'driver' => 'local',
-            'root' => storage_path('app/private/coverletters'),
+            'root' => storage_path('app/private/coverletter'),
             'visibility' => 'private',
         ],
 

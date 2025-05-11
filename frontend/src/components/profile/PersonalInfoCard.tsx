@@ -4,11 +4,9 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Edit, Upload, Save, Loader2 } from "lucide-react";
+import { Save, Loader2 } from "lucide-react";
 import { Separator } from "../ui/separator";
-import Image from "next/image";
 import { ApplicantProfile } from "@/types/profile";
-import { useSession } from "next-auth/react";
 import { useApplicantProfileForm } from "@/forms/profile/useApplicantProfileForm";
 import {
   Form,
@@ -26,10 +24,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { PersonalInfoHeader } from "./PersonalInfoHeader";
 
 export function PersonalInfoCard({ applicant }: { applicant: ApplicantProfile }) {
   const [isEditing, setIsEditing] = useState(false);
-  const { data: session } = useSession();
   const { form, onSubmit, error } = useApplicantProfileForm(applicant);
   const isSubmitSuccessful = form.formState.isSubmitSuccessful;
 
@@ -55,57 +53,10 @@ export function PersonalInfoCard({ applicant }: { applicant: ApplicantProfile })
       <div className="w-full mt-4">
         <Card>
           <CardContent>
+            <PersonalInfoHeader />
+            <Separator />
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                {/* Profile Picture Section */}
-                <div className="flex flex-col items-center sm:flex-row gap-6 pb-6 border-b">
-                  <div className="relative group">
-                    <div className="w-24 h-24 lg:w-32 lg:h-32 rounded-full overflow-hidden border-4 border-background shadow-md">
-                      <Image
-                        fill
-                        src="https://github.com/shadcn.png"
-                        alt="Profile"
-                        className="object-cover rounded-full"
-                      />
-                    </div>
-                    {isEditing && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="bg-white rounded-full p-2 cursor-pointer">
-                          <Edit className="h-5 w-5 text-gray-700" />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <div className="space-y-2 text-center sm:text-left">
-                    {!isEditing && (
-                      <div>
-                        {/* Name */}
-                        <h3 className="text-md lg:text-xl font-semibold">{session?.user.name}</h3>
-                        {/* Bio */}
-                        <p className="text-xs lg:text-sm text-muted-foreground max-w-md">
-                          Aliquam vitae turpis in diam convallis finibus in at risus. Nullam in
-                          scelerisque leo, eget sollicitudin velit vestibulum.
-                        </p>
-                      </div>
-                    )}
-                    {isEditing && (
-                      <div>
-                        <h3 className="text-md lg:text-xl font-semibold">Upload Profile Picture</h3>
-                        <p className="text-xs lg:text-sm text-muted-foreground max-w-lg">
-                          Click below to upload a formal profile picture (JPEG, PNG, or JPG) to
-                          update your profile.
-                        </p>
-                      </div>
-                    )}
-                    {isEditing && (
-                      <Button type="button" variant="outline" size="sm" className="mt-2">
-                        <Upload className="h-4 w-4 mr-2" />
-                        Upload Photo
-                      </Button>
-                    )}
-                  </div>
-                </div>
-
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-4">
                 <p className="text-xs lg:text-sm">Personal Details</p>
                 {/* Personal Info Fields */}
                 <div>

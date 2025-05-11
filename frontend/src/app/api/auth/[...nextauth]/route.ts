@@ -32,12 +32,18 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.applicant_id = user.applicant_id;
         token.email = user.email;
         token.name = user.name;
+        token.profile = user.profile || "";
         token.token = user.token;
+      }
+      if (trigger === "update" && session?.user?.profile) {
+        console.log(`old Profile ${token.profile}`);
+        console.log(`new Profile ${session.user.profile}`);
+        token.profile = session.user.profile;
       }
 
       return token;
@@ -47,6 +53,7 @@ export const authOptions: NextAuthOptions = {
         applicant_id: token.applicant_id,
         email: token.email,
         name: token.name,
+        profile: token.profile || "",
         token: token.token,
       };
       return session;

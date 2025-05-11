@@ -50,6 +50,18 @@ export function useProfileApi() {
     return response.data;
   };
 
+  const uploadProfile = async (data: File) => {
+    const formData = new FormData();
+    formData.append("profile", data);
+    const response = await axiosAuth.post("/api/applicant/profile", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data;
+  };
+
   return {
     applicantDetails,
     applicantProfile,
@@ -59,5 +71,6 @@ export function useProfileApi() {
     addEducationHistory,
     updateEducationHistory,
     deleteEducationHistory,
+    uploadProfile,
   };
 }

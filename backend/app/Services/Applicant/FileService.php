@@ -3,6 +3,7 @@
 namespace App\Services\Applicant;
 
 use App\Models\Document;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,8 +14,12 @@ class FileService
         $file = $data['profile'];
         $originalName = $file->getClientOriginalName();
         $path = $this->storeToFile($file, 'profile');
-        $this->storeToDatabase($originalName, $path, 'profile', $user->applicant->id);
-        return ['message' => 'Profile uploaded successfully!'];
+        $this->deleteOldProfile($user);
+        $this->storeToDatabase($originalName, $path, 'profile', $user);
+        return [
+            'profile' => Storage::disk('profile')->url($path),
+            'message' => 'Profile uploaded successfully!'
+        ];
     }
 
     public function handleApplicationUpload(array $data, $user, $type)
@@ -22,7 +27,7 @@ class FileService
         $file = $data['file'];
         $originalName = $file->getClientOriginalName();
         $path = $this->storeToFile($file, $type);
-        $this->storeToDatabase($originalName, $path, $type, $user->applicant->id);
+        $this->storeToDatabase($originalName, $path, $type, $user);
         return ['message' => 'Application file uploaded successfully!'];
     }
 
@@ -57,14 +62,32 @@ class FileService
         return $path;
     }
 
-    private function storeToDatabase($name, $path, $type, $id)
+    private function storeToDatabase($name, $path, $type, $user)
     {
+        // applicant profile
+        if ($type === 'profile') {
+            $user->update(['profile' => $path]);
+            return;
+        }
+
+        if (!$user->applicant) {
+            return;
+        }
+
+        // resume or cover letter
         Document::create([
             'file_name' => $name,
             'file_path' => $path,
             'type' => $type,
-            'applicant_id' => $id
+            'applicant_id' => $user->applicant->id
         ]);
+    }
+
+    private function deleteOldProfile($user)
+    {
+        if (Storage::disk('profile')->exists($user->profile)) {
+            Storage::disk('profile')->delete($user->profile);
+        }
     }
 
     private function deleteFromFile($type, $file)
