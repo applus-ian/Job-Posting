@@ -1,5 +1,7 @@
+"use client";
 import { useProfileApi } from "@/api/profile";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 
 export function useProfile() {
   const {
@@ -11,7 +13,9 @@ export function useProfile() {
     addEducationHistory,
     updateEducationHistory,
     deleteEducationHistory,
+    uploadProfile,
   } = useProfileApi();
+  const { update } = useSession();
 
   // get applicant information, work experience, education history
   const getAppliantDetailsQuery = useQuery({
@@ -75,6 +79,18 @@ export function useProfile() {
     },
   });
 
+  // update applicant profile
+  const uploadProfileMutation = useMutation({
+    mutationFn: uploadProfile,
+    onSuccess: (data) => {
+      // update session
+      update({ user: { profile: data.profile } });
+    },
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  });
+
   return {
     getAppliantDetailsQuery,
     applicantProfileMutation,
@@ -84,5 +100,6 @@ export function useProfile() {
     addEducationHistoryMutation,
     updateEducationHistoryMutation,
     deleteEducationHistoryMutation,
+    uploadProfileMutation,
   };
 }

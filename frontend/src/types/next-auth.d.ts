@@ -7,6 +7,7 @@ declare module "next-auth" {
       applicant_id: number;
       email: string;
       name: string;
+      profile: string;
       token: string;
     };
   }
@@ -15,6 +16,7 @@ declare module "next-auth" {
     applicant_id: number;
     email: string;
     name: string;
+    profile: string;
     token: string;
   }
 }
@@ -24,6 +26,7 @@ declare module "next-auth/jwt" {
     applicant_id: number;
     email: string;
     name: string;
+    profile: string;
     token: string;
   }
 }
