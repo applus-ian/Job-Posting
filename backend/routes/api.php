@@ -4,6 +4,8 @@ use App\Http\Controllers\Applicant\ApplicantInformationController;
 use App\Http\Controllers\Applicant\EducationHistoryController;
 use App\Http\Controllers\Applicant\FileController;
 use App\Http\Controllers\Applicant\WorkExperienceController;
+use App\Http\Controllers\Applicant\EmergencyContactController;
+use App\Http\Controllers\Applicant\LanguageController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -49,6 +51,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('applicant', ApplicantInformationController::class);
     Route::apiResource('workexperience', WorkExperienceController::class);
     Route::apiResource('educationhistory', EducationHistoryController::class);
+    Route::apiResource('emergencycontact', EmergencyContactController::class);
+    Route::apiResource('language', LanguageController::class);
     // file routes
     Route::controller(FileController::class)->prefix('applicant')->group(function () {
         Route::post('/profile', 'uploadProfile');
