@@ -47,7 +47,7 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    // applicant profile
+    // applicant details routes
     Route::apiResource('applicant', ApplicantInformationController::class);
     Route::apiResource('workexperience', WorkExperienceController::class);
     Route::apiResource('educationhistory', EducationHistoryController::class);

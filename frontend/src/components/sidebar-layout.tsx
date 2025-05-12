@@ -1,3 +1,4 @@
+"use client";
 import { Separator } from "@radix-ui/react-separator";
 import { AppSidebar } from "./app-sidebar";
 import {

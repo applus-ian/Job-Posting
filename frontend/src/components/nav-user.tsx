@@ -1,7 +1,6 @@
 "use client";
 
 import { User2, ChevronsUpDown, Settings, LogOut, User } from "lucide-react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,

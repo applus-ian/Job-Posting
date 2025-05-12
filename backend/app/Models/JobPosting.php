@@ -10,7 +10,6 @@ class JobPosting extends Model
         'title',
         'category',
         'description',
-        'requirements',
         'vacancies',
         'salary_type',
         'salary_min',
