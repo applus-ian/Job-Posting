@@ -14,8 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->string('category');
-            $table->text('description');
-            $table->text('requirements');
+            $table->longText('description');
             $table->integer('vacancies');
             $table->enum('salary_type', ['monthly', 'hourly', 'weekly', 'annually'])->nullable();
             $table->decimal('salary_min', 12, 2)->nullable();
