@@ -31,6 +31,11 @@ class JobPosting extends Model
         return $this->hasMany(Application::class);
     }
 
+    public function tags()
+    {
+        return $this->hasMany(JobTag::class);
+    }
+
     public function savedJob()
     {
         return $this->hasMany(SavedJob::class);

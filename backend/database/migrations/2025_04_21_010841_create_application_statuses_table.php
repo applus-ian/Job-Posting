@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('application_status', function (Blueprint $table) {
+        Schema::create('application_statuses', function (Blueprint $table) {
             $table->id();
             $table->enum('status', ['received', 'reviewed', 'interview', 'offer', 'hired']);
             $table->foreignId('application_id')->constrained('applications')->onDelete('cascade');
@@ -23,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('application_status');
+        Schema::dropIfExists('application_statuses');
     }
 };

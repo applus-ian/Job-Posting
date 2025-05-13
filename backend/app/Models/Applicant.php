@@ -44,7 +44,7 @@ class Applicant extends Model
         return $this->hasMany(Address::class);
     }
 
-    public function applications()
+    public function application()
     {
         return $this->hasMany(Application::class);
     }
