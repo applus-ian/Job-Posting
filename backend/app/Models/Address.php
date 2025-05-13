@@ -20,7 +20,7 @@ class Address extends Model
         return $this->belongsTo(Applicant::class);
     }
 
-    public function jobPostings()
+    public function jobPosting()
     {
         return $this->hasMany(JobPosting::class);
     }

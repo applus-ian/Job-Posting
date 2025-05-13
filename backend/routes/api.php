@@ -6,12 +6,14 @@ use App\Http\Controllers\Applicant\FileController;
 use App\Http\Controllers\Applicant\WorkExperienceController;
 use App\Http\Controllers\Applicant\EmergencyContactController;
 use App\Http\Controllers\Applicant\LanguageController;
+use App\Http\Controllers\Application\ApplicationController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\HR\JobPostingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,12 +49,15 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    // (APPLICANT)
     // applicant details routes
     Route::apiResource('applicant', ApplicantInformationController::class);
     Route::apiResource('workexperience', WorkExperienceController::class);
     Route::apiResource('educationhistory', EducationHistoryController::class);
     Route::apiResource('emergencycontact', EmergencyContactController::class);
     Route::apiResource('language', LanguageController::class);
+    // application routes
+    Route::post('/application/{jobposting}', [ApplicationController::class, 'apply']);
     // file routes
     Route::controller(FileController::class)->prefix('applicant')->group(function () {
         Route::post('/profile', 'uploadProfile');
@@ -66,5 +71,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::delete('/{document}', 'deleteCoverLetter');
             Route::get('/{document}', action: 'downloadCoverLetter');
         });
+    });
+    // (HR)
+    Route::prefix('/hr')->group(function () {
+        Route::apiResource('jobposting', JobPostingController::class);
     });
 });

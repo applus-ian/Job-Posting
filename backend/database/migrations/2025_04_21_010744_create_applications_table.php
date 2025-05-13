@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->date('applied_date');
             $table->enum('status', ['received', 'reviewed', 'interview', 'offer', 'hired'])->default('received');
             $table->decimal('expected_salary', 12, 2);
             $table->foreignId('applicant_id')->constrained('applicants')->onDelete('cascade');

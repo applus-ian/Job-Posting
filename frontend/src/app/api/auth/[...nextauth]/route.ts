@@ -41,8 +41,6 @@ export const authOptions: NextAuthOptions = {
         token.token = user.token;
       }
       if (trigger === "update" && session?.user?.profile) {
-        console.log(`old Profile ${token.profile}`);
-        console.log(`new Profile ${session.user.profile}`);
         token.profile = session.user.profile;
       }
 

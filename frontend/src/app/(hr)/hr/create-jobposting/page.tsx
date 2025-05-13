@@ -39,13 +39,13 @@ export default function CreateJobPostingPage() {
     if (currentEditor) {
       // conver to html
       currentEditor.update(() => {
-        const html = $generateHtmlFromNodes(currentEditor);
-        console.log(`HTML: ${html}`);
+        const html = $generateHtmlFromNodes(currentEditor, null);
+        alert(`HTML: ${html}`);
       });
       // convert to json
       const data = currentEditor.getEditorState().toJSON();
       const stringData = JSON.stringify(data);
-      console.log(`JSON ${stringData}`);
+      alert(`JSON ${stringData}`);
     }
   };
 

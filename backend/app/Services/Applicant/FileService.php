@@ -14,7 +14,9 @@ class FileService
         $file = $data['profile'];
         $originalName = $file->getClientOriginalName();
         $path = $this->storeToFile($file, 'profile');
-        $this->deleteOldProfile($user);
+        if ($user->profile) {
+            $this->deleteFromFile('profile', $user->profile);
+        }
         $this->storeToDatabase($originalName, $path, 'profile', $user);
         return [
             'profile' => Storage::disk('profile')->url($path),
@@ -22,12 +24,12 @@ class FileService
         ];
     }
 
-    public function handleApplicationUpload(array $data, $user, $type)
+    public function handleApplicationUpload(array $data, $user, $type, $application = null)
     {
         $file = $data['file'];
         $originalName = $file->getClientOriginalName();
         $path = $this->storeToFile($file, $type);
-        $this->storeToDatabase($originalName, $path, $type, $user);
+        $this->storeToDatabase($originalName, $path, $type, $user, $application);
         return ['message' => 'Application file uploaded successfully!'];
     }
 
@@ -62,7 +64,7 @@ class FileService
         return $path;
     }
 
-    private function storeToDatabase($name, $path, $type, $user)
+    private function storeToDatabase($name, $path, $type, $user, $application = null)
     {
         // applicant profile
         if ($type === 'profile') {
@@ -79,15 +81,9 @@ class FileService
             'file_name' => $name,
             'file_path' => $path,
             'type' => $type,
-            'applicant_id' => $user->applicant->id
+            'applicant_id' => $user->applicant->id,
+            'application_id' => $application?->id
         ]);
-    }
-
-    private function deleteOldProfile($user)
-    {
-        if (Storage::disk('profile')->exists($user->profile)) {
-            Storage::disk('profile')->delete($user->profile);
-        }
     }
 
     private function deleteFromFile($type, $file)
