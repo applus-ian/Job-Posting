@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\HR;
+namespace App\Services\JobPosting;
 
 use App\Models\JobPosting;
 

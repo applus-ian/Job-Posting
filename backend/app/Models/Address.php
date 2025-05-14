@@ -13,6 +13,7 @@ class Address extends Model
         'city',
         'street',
         'zipcode',
+        'applicant_id'
     ];
 
     public function applicant()
