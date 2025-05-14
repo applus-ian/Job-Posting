@@ -37,7 +37,7 @@ export function ApplicationsTable<T>({ columns, data }: ApplicationsTableProps<T
   });
   return (
     <>
-      <div className="w-full flex flex-col gap-2">
+      <div className="w-full flex flex-col gap-2 dark:text-white">
         <DataTable table={table} columnsLength={columns.length} />
         <DataTablePagination table={table} />
       </div>

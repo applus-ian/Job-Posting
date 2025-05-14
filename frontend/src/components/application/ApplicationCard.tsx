@@ -53,7 +53,7 @@ export function ApplicationCard() {
   return (
     <div className="mt-6 space-y-4">
       <div className="flex justify-between items-center mb-5">
-        <h2 className="text-lg font-semibold">Recently Applied</h2>
+        <h2 className="text-lg font-semibold dark:text-white">Recently Applied</h2>
         <a
           href="my-applications/"
           className="flex items-center text-sm text-orange-500 hover:underline font-medium"

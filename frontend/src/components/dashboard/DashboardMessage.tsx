@@ -32,7 +32,9 @@ export function DashboardMessage() {
 
         {/* Right: Edit Button */}
         <div className="ml-auto">
-          <Button variant="outline" className="text-orange-500 hover:text-orange-600">
+          <Button variant="outline" 
+            className="text-orange-500 hover:text-orange-600
+                      dark:bg-white dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-50">
             Edit Profile
             <ArrowRight />
           </Button>
