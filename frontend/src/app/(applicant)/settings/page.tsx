@@ -7,7 +7,7 @@ export default function SettingsPage() {
   return (
     <SidebarLayout>
       <div className="flex">
-        <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
+        <h1 className="text-2xl font-bold tracking-tight dark:text-white">Settings</h1>
       </div>
       <ThemeSwitch />
       <Separator className="my-5" />

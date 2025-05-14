@@ -13,7 +13,7 @@ export function ThemeSwitch() {
   if (!mounted) return null;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 dark:text-white">
       <div>
         <h2 className="text-xl font-semibold">Theme</h2>
         <p className="text-sm text-muted-foreground">Select the theme for the display.</p>

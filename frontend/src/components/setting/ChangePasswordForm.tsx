@@ -24,7 +24,7 @@ export function ChangePasswordForm() {
   }, [form, form.formState.isSubmitSuccessful]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 dark:text-white">
       <div>
         <h2 className="text-lg font-semibold">Change Password</h2>
         <p className="text-sm">Update your password to keep your account secure.</p>

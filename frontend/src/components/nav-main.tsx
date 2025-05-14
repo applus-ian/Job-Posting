@@ -35,13 +35,13 @@ export function NavMain({
                 <item.icon
                   className={cn(
                     "h-4 w-4 ms-3",
-                    item.isActive ? "text-orange-600 stroke-orange-600" : "text-gray-600"
+                    item.isActive ? "text-orange-600 stroke-orange-600" : "text-gray-600 dark:text-white"
                   )}
                 />
                 <span
                   className={cn(
                     "font-medium text-base",
-                    item.isActive ? "text-orange-600" : "text-gray-500"
+                    item.isActive ? "text-orange-600" : "text-gray-500 dark:text-white"
                   )}
                 >
                   {item.title}

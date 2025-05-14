@@ -103,7 +103,7 @@ export default function MyApplicationPage() {
   return (
     <SidebarLayout>
       <div className="mb-3">
-        <p className="text-2xl font-medium">My Applications</p>
+        <p className="text-2xl font-medium dark:text-white">My Applications</p>
       </div>
       <JobSearchBar />
       <ApplicationsTable columns={columns} data={data} />
