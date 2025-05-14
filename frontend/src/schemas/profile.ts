@@ -53,13 +53,35 @@ export const WorkExperienceSchema = z
     }
   );
 
-export const EducationHistorySchema = z.object({
-  school: z.string().min(1, "School name is required"),
-  degree: z.string().min(1, "Degree is required"),
-  course: z.string().min(1, "Course is required"),
-  start_year: z.string().regex(/^\d{4}$/, "Start year must be in YYYY format"),
-  end_year: z.string().regex(/^\d{4}$/, "End year must be in YYYY format"),
-});
+export const EducationHistorySchema = z
+  .object({
+    school: z.string().min(1, "School name is required"),
+    degree: z.string().min(1, "Degree is required"),
+    course: z.string().min(1, "Course is required"),
+    start_year: z.string().regex(/^\d{4}$/, "Start year must be in YYYY format"),
+    end_year: z.string().regex(/^\d{4}$/, "End year must be in YYYY format"),
+  })
+  .refine((data) => {
+    const currentYear = new Date().getFullYear();
+    return Number(data.start_year) <= currentYear;
+  }, {
+    message: "Start year must not be later than the current year",
+    path: ["start_year"],
+  })
+  .refine((data) => {
+    const currentYear = new Date().getFullYear();
+    return Number(data.end_year) <= currentYear;
+  }, {
+    message: "End year must not be later than the current year",
+    path: ["end_year"],
+  })
+  .refine((data) => {
+    return Number(data.start_year) <= Number(data.end_year);
+  }, {
+    message: "End year must not be earlier than start year",
+    path: ["end_year"],
+  });
+
 
 export const DocumentSchema = z.object({
   file: z

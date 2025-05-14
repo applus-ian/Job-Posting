@@ -73,25 +73,30 @@ export function AddEducationModal({ openModal, setOpenModal }: AddProfileModalPr
                 placeholder="Enter course"
                 isEditing={true}
               />
-              <div className="flex gap-3">
-                <ProfileFormField
-                  control={form.control}
-                  name="start_year"
-                  label="Start Year"
-                  placeholder="Enter start year"
-                  isEditing={true}
-                  years={years}
-                  variant="select"
-                />
-                <ProfileFormField
-                  control={form.control}
-                  name="end_year"
-                  label="End Year"
-                  placeholder="Enter end year"
-                  isEditing={true}
-                  years={years}
-                  variant="select"
-                />
+              <div className="flex gap-3 items-start">
+                <div className="w-full">
+                  <ProfileFormField
+                    control={form.control}
+                    name="start_year"
+                    label="Start Year"
+                    placeholder="Enter start year"
+                    isEditing={true}
+                    years={years}
+                    variant="select"
+                  />
+                </div>
+
+                <div className="w-full">
+                  <ProfileFormField
+                    control={form.control}
+                    name="end_year"
+                    label="End Year"
+                    placeholder="Enter end year"
+                    isEditing={true}
+                    years={years}
+                    variant="select"
+                  />    
+                </div>
               </div>
               {error && <div className="text-sm text-red-500">{error}</div>}
             </div>
