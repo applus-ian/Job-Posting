@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string(column: 'professional_title');
             $table->text('description')->nullable();
             $table->date('start_date');
-            $table->date('end_date');
+            $table->date('end_date')->nullable();
             $table->foreignId('applicant_id')->constrained('applicants')->onDelete('cascade');
             $table->timestamps();
         });

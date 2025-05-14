@@ -71,21 +71,25 @@ export function AddWorkExperienceModal({ openModal, setOpenModal }: AddProfileMo
                 variant="textarea"
                 isEditing={true}
               />
-              <div className="flex gap-3">
-                <ProfileFormField
-                  control={form.control}
-                  name="start_date"
-                  label="Start Date"
-                  type="date"
-                  isEditing={true}
-                />
-                <ProfileFormField
-                  control={form.control}
-                  name="end_date"
-                  label="End Date"
-                  type="date"
-                  isEditing={true}
-                />
+              <div className="flex gap-3 items-start">
+                <div className="w-full">
+                  <ProfileFormField
+                    control={form.control}
+                    name="start_date"
+                    label="Start Date"
+                    type="date"
+                    isEditing={true}
+                  />  
+                </div>
+                <div className="w-full">
+                  <ProfileFormField
+                    control={form.control}
+                    name="end_date"
+                    label="End Date"
+                    type="date"
+                    isEditing={true}
+                  />
+                </div>
               </div>
               {error && <div className="text-sm text-red-500">{error}</div>}
             </div>

@@ -21,13 +21,37 @@ export const ApplicantProfileSchema = z.object({
     ),
 });
 
-export const WorkExperienceSchema = z.object({
-  company: z.string().min(1, "Company name is required"),
-  professional_title: z.string().min(1, "Professional title is required"),
-  description: z.string().min(1, "Description is required"),
-  start_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid start date format (YYYY-MM-DD)"),
-  end_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid end date format (YYYY-MM-DD)"),
-});
+export const WorkExperienceSchema = z
+  .object({
+    company: z.string().min(1, "Company name is required"),
+    professional_title: z.string().min(1, "Professional title is required"),
+    description: z.string().min(1, "Description is required"),
+    start_date: z.string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid start date format (YYYY-MM-DD)")
+      .refine((start_date) => new Date(start_date) <= new Date(), {
+        message: "Start date cannot be later than today's date",
+      }),
+    end_date: z.string()
+      .optional() 
+      .refine((data) => {
+        if (data) {
+          return /^\d{4}-\d{2}-\d{2}$/.test(data);
+        }
+        return true;
+      }, "Invalid end date format (YYYY-MM-DD)"),
+  })
+  .refine(
+    (data) => {
+      if (data.end_date) {
+        return new Date(data.end_date) >= new Date(data.start_date);
+      }
+      return true;
+    },
+    {
+      path: ["end_date"],
+      message: "End date must not be earlier than start date",
+    }
+  );
 
 export const EducationHistorySchema = z.object({
   school: z.string().min(1, "School name is required"),
