@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string(column: 'city');
             $table->string('street');
             $table->string(column: 'zipcode');
+            $table->foreignId('applicant_id')->nullable()->constrained('applicants')->onDelete('cascade');
             $table->timestamps();
         });
     }

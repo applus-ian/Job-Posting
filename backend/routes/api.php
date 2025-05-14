@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Applicant\AddressController;
 use App\Http\Controllers\Applicant\ApplicantInformationController;
 use App\Http\Controllers\Applicant\EducationHistoryController;
 use App\Http\Controllers\Applicant\FileController;
@@ -13,15 +14,13 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\HR\JobPostingController;
+use App\Http\Controllers\JobPosting\JobPostingController;
+use App\Http\Controllers\Interview\InterviewFeedbackController;
+use App\Http\Controllers\Interview\InterviewScheduleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-// authentication routes 
+// authentication routes (breeze)
 Route::prefix('auth')->group(function () {
     Route::post('/register', [RegisteredUserController::class, 'store'])
         ->middleware('guest')
@@ -49,15 +48,19 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    // (APPLICANT)
     // applicant details routes
     Route::apiResource('applicant', ApplicantInformationController::class);
     Route::apiResource('workexperience', WorkExperienceController::class);
     Route::apiResource('educationhistory', EducationHistoryController::class);
+    Route::apiResource('address', AddressController::class);
     Route::apiResource('emergencycontact', EmergencyContactController::class);
     Route::apiResource('language', LanguageController::class);
     // application routes
-    Route::post('/application/{jobposting}', [ApplicationController::class, 'apply']);
+    Route::controller(ApplicationController::class)->prefix('application')->group(function () {
+        Route::get('/{application}', 'view');
+        Route::post('/{jobposting}', 'apply');
+        Route::put('/{application}', 'updateStatus');
+    });
     // file routes
     Route::controller(FileController::class)->prefix('applicant')->group(function () {
         Route::post('/profile', 'uploadProfile');
@@ -72,8 +75,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/{document}', action: 'downloadCoverLetter');
         });
     });
-    // (HR)
+    // HR
     Route::prefix('/hr')->group(function () {
+        // job posting
         Route::apiResource('jobposting', JobPostingController::class);
+        // interview
+        Route::controller(InterviewScheduleController::class)->prefix('interview')->group(function () {
+            Route::post('/schedule/{application}', 'scheduleInterview');
+            Route::put('/schedule/{interview}', 'updateInterview');
+            Route::apiResource('/{interview}/feedback', InterviewFeedbackController::class);
+        });
     });
 });

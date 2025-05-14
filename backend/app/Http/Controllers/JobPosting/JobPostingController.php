@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\HR;
+namespace App\Http\Controllers\JobPosting;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\HR\JobPostingRequest;
+use App\Http\Requests\JobPosting\JobPostingRequest;
 use App\Models\JobPosting;
-use App\Services\HR\JobPostingService;
+use App\Services\JobPosting\JobPostingService;
 use Illuminate\Http\Request;
 
 class JobPostingController extends Controller

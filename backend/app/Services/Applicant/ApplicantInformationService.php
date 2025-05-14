@@ -11,7 +11,7 @@ class ApplicantInformationService
 {
     public function getApplicantInformation($user_id)
     {
-        $applicant = Applicant::with(['workExperience', 'educationHistory', 'documents'])->where('user_id', $user_id)->firstOrFail();
+        $applicant = Applicant::with(['workExperience', 'educationHistory', 'documents', 'address', 'language', 'emergencyContact'])->where('user_id', $user_id)->firstOrFail();
         return ['applicant' => $applicant];
     }
 
