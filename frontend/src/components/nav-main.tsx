@@ -34,14 +34,14 @@ export function NavMain({
               <div className="flex items-center gap-3">
                 <item.icon
                   className={cn(
-                    "h-4 w-4 ms-3",
-                    item.isActive ? "text-orange-600 stroke-orange-600" : "text-gray-600"
+                    "h-4 w-4 ms-3 sidebar-icon",
+                    item.isActive && "text-orange-600 stroke-orange-600"
                   )}
                 />
                 <span
                   className={cn(
-                    "font-medium text-base",
-                    item.isActive ? "text-orange-600" : "text-gray-500"
+                    "font-medium text-base sidebar-label",
+                    item.isActive && item.isActive && "text-orange-600"
                   )}
                 >
                   {item.title}

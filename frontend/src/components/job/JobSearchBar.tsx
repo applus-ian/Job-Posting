@@ -13,7 +13,7 @@ import { MapPin, Search, Layers } from "lucide-react";
 
 export default function JobSearchBar() {
   return (
-    <div className="bg-white rounded-xl shadow p-4 lg:p-2 w-full">
+    <div className="job-search-bar rounded-xl shadow p-4 lg:p-2 w-full">
       <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-0 lg:divide-x">
         {/* Job Title */}
         <div className="flex items-center gap-2 w-full lg:flex-1 px-3 py-2 lg:px-4 border rounded-md lg:border-none lg:rounded-none">
@@ -21,7 +21,7 @@ export default function JobSearchBar() {
           <Input
             type="text"
             placeholder="Job title, Keyword..."
-            className="w-full border-none shadow-none p-0 text-left text-sm focus-visible:ring-0 focus-visible:outline-none"
+            className="w-full bg-white dark:bg-zinc-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 border-none shadow-none p-0 text-left text-sm focus-visible:ring-0 focus-visible:outline-none"
           />
         </div>
 
@@ -31,7 +31,7 @@ export default function JobSearchBar() {
           <Input
             type="text"
             placeholder="Location"
-            className="w-full border-none shadow-none p-0 text-left text-sm focus-visible:ring-0 focus-visible:outline-none"
+            className="w-full bg-white dark:bg-zinc-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 border-none shadow-none p-0 text-left text-sm focus-visible:ring-0 focus-visible:outline-none"
           />
         </div>
 
@@ -39,7 +39,14 @@ export default function JobSearchBar() {
         <div className="flex items-center gap-2 w-full lg:w-[200px] px-3 py-2 lg:px-4 border rounded-md lg:border-none lg:rounded-none">
           <Layers className="text-orange-500 w-5 h-5" />
           <Select>
-            <SelectTrigger className="w-full border-none shadow-none p-0 text-left text-sm text-gray-500 justify-start focus:ring-0 focus:outline-none">
+            <SelectTrigger 
+              className="w-full bg-white dark:bg-zinc-900 text-sm text-gray-900
+                        border-none shadow-none p-0 text-left justify-start 
+                        focus:ring-0 focus:outline-none focus-visible:outline-none focus-visible:ring-0
+                        hover:bg-white dark:hover:bg-zinc-900
+                        focus:bg-white dark:focus:bg-zinc-900 
+                        transition-colors duration-200"
+            >
               <SelectValue placeholder="Select Category" />
             </SelectTrigger>
             <SelectContent>

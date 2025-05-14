@@ -112,12 +112,26 @@
   --sidebar-ring: oklch(0.646 0.222 41.116);
 }
 
+@layer components {
+  .sidebar-icon {
+    @apply text-gray-600 dark:text-white;
+  }
+
+  .sidebar-label {
+    @apply text-gray-500 dark:text-white;
+  }
+
+  .job-search-bar {
+    @apply bg-white dark:bg-zinc-900 text-gray-900 dark:text-white;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground text-gray-600 font-sans;
+    @apply bg-background text-foreground text-gray-600 font-sans dark:text-white;
     font-family: var(--font-montserrat), ui-sans-serif, system-ui;
   }
 }
