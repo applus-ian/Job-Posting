@@ -23,7 +23,7 @@ class JobPosting extends Model
 
     public function address()
     {
-        return $this->hasOne(Address::class);
+        return $this->belongsTo(Address::class);
     }
 
     public function applications()

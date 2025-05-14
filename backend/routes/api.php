@@ -12,14 +12,40 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Hr\CreateJobPosting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\hr\JobPostingController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// authentication routes 
+// // Job posting routes with sanctum authentication
+// Route::middleware(['auth:sanctum'])->prefix('jobs')->group(function () {
+//     // Route for creating a new job posting
+//     Route::post('/create', [\App\Http\Controllers\JobPostingController::class, 'store'])
+//         ->name('job.create');
+
+//     // Route for retrieving all job postings
+//     Route::get('/', [\App\Http\Controllers\JobPostingController::class, 'index'])
+//         ->name('job.index');
+
+//     // Route for retrieving a specific job posting
+//     Route::get('/{jobPosting}', [\App\Http\Controllers\JobPostingController::class, 'show'])
+//         ->name('job.show');
+
+//     // Route for updating a job posting
+//     Route::put('/{jobPosting}', [\App\Http\Controllers\JobPostingController::class, 'update'])
+//         ->name('job.update');
+
+//     // Route for deleting a job posting
+//     Route::delete('/{jobPosting}', [\App\Http\Controllers\JobPostingController::class, 'destroy'])
+//         ->name('job.delete');
+// });
+
+
+// authentication routes
 Route::prefix('auth')->group(function () {
     Route::post('/register', [RegisteredUserController::class, 'store'])
         ->middleware('guest')
@@ -44,6 +70,7 @@ Route::prefix('auth')->group(function () {
     Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
         ->middleware(['auth', 'throttle:6,1'])
         ->name('verification.send');
+
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -68,3 +95,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         });
     });
 });
+
+// HR Job Posting Routes
+Route::get('/jobs', [CreateJobPosting::class, 'index']);
+Route::get('/jobs/create', [CreateJobPosting::class, 'create']);
+Route::post('/jobs', [CreateJobPosting::class, 'store']);
+Route::get('/jobs/{id}', [CreateJobPosting::class, 'show']);
+Route::delete('/jobs/{id}', [CreateJobPosting::class, 'destroy']);
+Route::put('/jobs/{id}', [CreateJobPosting::class, 'update']);
