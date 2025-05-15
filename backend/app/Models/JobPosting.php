@@ -3,13 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class JobPosting extends Model
+class  JobPosting extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'title',
         'category',
         'description',
+        'requirements',
         'vacancies',
         'salary_type',
         'salary_min',
@@ -29,11 +33,6 @@ class JobPosting extends Model
     public function applications()
     {
         return $this->hasMany(Application::class);
-    }
-
-    public function tags()
-    {
-        return $this->hasMany(JobTag::class);
     }
 
     public function savedJob()
