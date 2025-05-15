@@ -7,6 +7,7 @@ use App\Models\Application;
 use App\Models\JobPosting;
 use App\Models\Applicant;
 use Carbon\Carbon;
+use Faker\Factory as Faker;
 
 class ApplicantJobSeeder extends Seeder
 {
@@ -15,6 +16,8 @@ class ApplicantJobSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create a faker instance
+        $faker = Faker::create();
         // Get all job postings IDs
         $jobPostings = JobPosting::pluck('id')->toArray();
 
@@ -59,8 +62,7 @@ class ApplicantJobSeeder extends Seeder
                 if (!$existingApplication) {
                     // Create a new application
                     Application::create([
-                        'status' => 'received', // Using valid enum value from migration
-                        // 'status' => ['received', 'reviewed', 'interview', 'offer'],
+                        'status' => $faker->randomElement(['received', 'reviewed', 'interview', 'offer']), // Randomly select from valid enum values
                         'expected_salary' => rand(30000, 70000), // Random expected salary
                         'applicant_id' => $applicantId,
                         'job_posting_id' => $jobId,
