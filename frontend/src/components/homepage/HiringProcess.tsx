@@ -34,10 +34,10 @@ const steps = [
 
 export default function HiringProcess() {
   return (
-    <section className="w-full bg-gray-50 py-20 px-4">
+    <section className="w-full py-20 px-4">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-2">Our Hiring Process</h2>
-        <p className="text-gray-500 mb-12 max-w-2xl mx-auto">
+        <h2 className="text-3xl font-semibold text-gray-800 dark:text-white mb-2">Our Hiring Process</h2>
+        <p className="text-gray-500 dark:text-white mb-12 max-w-2xl mx-auto">
           We've designed a transparent and efficient hiring process to find the best talent.
         </p>
 
@@ -49,21 +49,21 @@ export default function HiringProcess() {
             >
               <Card
                 className={`w-full transition-all ${
-                  step.highlight ? "bg-white shadow-lg" : "bg-transparent border-none shadow-none"
+                  step.highlight ? "shadow-lg" : "bg-transparent border-none shadow-none"
                 }`}
               >
                 <CardContent className="p-6 flex flex-col items-center justify-center">
                   <div
-                    className={`w-16 h-16 mb-4 flex items-center justify-center rounded-full text-2xl ${
-                      step.highlight
-                        ? "bg-orange-500 text-white"
-                        : "bg-white border text-orange-500"
+                      className={`w-16 h-16 mb-4 flex items-center justify-center rounded-full text-2xl ${
+                        step.highlight
+                          ? "bg-orange-500 text-white"
+                          : "bg-white border text-orange-500 dark:bg-zinc-800 dark:text-orange-400"
                     }`}
                   >
                     <step.icon />
                   </div>
-                  <h4 className="font-semibold text-gray-800">{step.title}</h4>
-                  <p className="text-sm text-gray-500 mt-1">{step.description}</p>
+                  <h4 className="font-semibold text-gray-800 dark:text-white">{step.title}</h4>
+                  <p className="text-sm text-gray-500 mt-1 dark:text-white">{step.description}</p>
                 </CardContent>
               </Card>
 

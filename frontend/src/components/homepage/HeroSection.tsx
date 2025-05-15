@@ -26,19 +26,19 @@ export default function HeroSection() {
   }, [embla]);
 
   return (
-    <section className="w-full min-h-70 py-20 px-8 bg-gray-50">
+    <section className="w-full min-h-70 py-20 px-8">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         {/* Left: Title, Description, Search */}
         <div className="md:w-1/2 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-medium text-gray-800 mb-6">
+          <h1 className="text-4xl md:text-5xl font-medium text-gray-800 dark:text-white mb-6">
             Find a job that suits your interest & skills.
           </h1>
-          <p className="text-gray-600 text-lg mb-10">
+          <p className="text-gray-600 dark:text-white text-lg mb-10">
             Aliquam vitae turpis in diam convallis finibus in at risus. Nullam in scelerisque leo,
             eget sollicitudin velit vestibulum.
           </p>
 
-          <div className="relative bg-white rounded-md shadow-sm">
+          <div className="relative rounded-md shadow-sm">
             <div className="absolute left-3 top-1/2 -translate-y-1/2">
               <Search size={20} color="#FF7517" />
             </div>

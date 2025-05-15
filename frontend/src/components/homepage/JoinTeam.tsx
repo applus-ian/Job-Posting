@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export default function JoinTeamSection() {
   return (
-    <section className="w-full py-30 px-4 bg-white">
+    <section className="w-full py-30 px-4">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left Side (Image Placeholder) */}
         <div className="w-full md:w-1/2 h-64 bg-gray-100 flex items-center rounded-xl justify-center text-2xl font-medium text-gray-600">
@@ -17,8 +17,8 @@ export default function JoinTeamSection() {
 
         {/* Right Side (Text + Button) */}
         <div className="w-full md:w-1/2 text-center md:text-left">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-4">Ready to Join Our Team?</h2>
-          <p className="text-gray-500 text-lg mb-6 leading-relaxed">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-4 dark:text-white">Ready to Join Our Team?</h2>
+          <p className="text-gray-500 text-lg mb-6 leading-relaxed dark:text-white">
             Take the next step in your career with a company that values innovation, collaboration,
             and growth. Explore exciting opportunities across departments and be part of a team that
             makes an impact.

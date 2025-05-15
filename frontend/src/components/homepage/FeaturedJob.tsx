@@ -6,7 +6,7 @@ export default function FeaturedJob() {
   return (
     <section className="w-full h-auto py-14 px-8 mb-5">
       <div className="max-w-7xl mx-auto flex items-center justify-between mb-2">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-gray-800">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-gray-800 dark:text-white">
           Featured Jobs
         </h2>
         <Link

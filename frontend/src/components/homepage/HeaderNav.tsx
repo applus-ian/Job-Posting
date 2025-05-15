@@ -12,7 +12,7 @@ export default function HeaderNav() {
   const pathname = usePathname();
 
   return (
-    <header className="bg-white border-b w-full">
+    <header className="border-b w-full">
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4 md:px-2">
         <div className="flex items-center">
           {/* Logo */}
@@ -25,7 +25,7 @@ export default function HeaderNav() {
             href={"/"}
             className={clsx(
               "text-sm font-medium hover:text-orange-600",
-              pathname === "/" ? "text-orange-600" : "text-gray-700"
+              pathname === "/" ? "text-orange-600" : "text-gray-700 dark:text-white"
             )}
           >
             Home
@@ -34,7 +34,7 @@ export default function HeaderNav() {
             href={"/about-us"}
             className={clsx(
               "text-sm font-medium hover:text-orange-600",
-              pathname === "/about-us" ? "text-orange-600" : "text-gray-700"
+              pathname === "/about-us" ? "text-orange-600" : "text-gray-700 dark:text-white"
             )}
           >
             About Us
@@ -43,7 +43,7 @@ export default function HeaderNav() {
             href={"/find-jobs"}
             className={clsx(
               "text-sm font-medium hover:text-orange-600",
-              pathname === "/find-jobs" ? "text-orange-600" : "text-gray-700"
+              pathname === "/find-jobs" ? "text-orange-600" : "text-gray-700 dark:text-white"
             )}
           >
             Find Jobs

@@ -218,7 +218,7 @@ export function RegisterForm({ className, ...props }: React.ComponentProps<"div"
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t" />
                   </div>
-                  <span className="relative bg-white px-2 text-muted-foreground">or</span>
+                  <span className="bg-white dark:bg-zinc-900 relative px-2 text-muted-foreground">or</span>
                 </div>
 
                 {/* Social Buttons */}
