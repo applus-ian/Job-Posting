@@ -47,7 +47,7 @@ export default function ApplicantProfilePage() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="personalinfo">
-          <PersonalInfoCard applicant={data.applicant} />
+          <PersonalInfoCard applicant={data.applicant} address={data.address} language={data.language} emergencycontact={data.emergencycontact}/>
         </TabsContent>
         <TabsContent value="documents">
           <DocumentCard />

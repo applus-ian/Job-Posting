@@ -1,5 +1,5 @@
 import useAxiosAuth from "@/hooks/useAxiosAuth";
-import { ApplicantProfile, EducationHistory, WorkExperience } from "@/types/profile";
+import { ApplicantProfile, EducationHistory, WorkExperience, ApplicantAddress, Language, EmergencyContact } from "@/types/profile";
 import { useSession } from "next-auth/react";
 
 export function useProfileApi() {
@@ -22,6 +22,16 @@ export function useProfileApi() {
     return response.data;
   };
 
+  const updateAddress = async (fields: ApplicantAddress) => {
+    const response = await axiosAuth.put(`api/address/${fields.id}`, fields);
+    return response.data;
+  }
+
+  const addAddress = async (fields: ApplicantAddress) => {
+    const response = await axiosAuth.post("api/address", fields);
+    return response.data;
+  }
+
   const updateWorkExperience = async (fields: WorkExperience) => {
     const response = await axiosAuth.put(
       `/api/workexperience/${session?.user.applicant_id}`,
@@ -31,7 +41,7 @@ export function useProfileApi() {
   };
 
   const deleteWorkExperience = async (id: number) => {
-    const response = await axiosAuth.put(`/api/workexperience/${id}`);
+    const response = await axiosAuth.delete(`/api/workexperience/${id}`);
     return response.data;
   };
 
@@ -49,18 +59,50 @@ export function useProfileApi() {
   };
 
   const deleteEducationHistory = async (id: number) => {
-    const response = await axiosAuth.put(`/api/educationhistory/${id}`);
+    const response = await axiosAuth.delete(`/api/educationhistory/${id}`);
     return response.data;
   };
+
+  const addLanguage = async (fields: Language) => {
+    const response = await axiosAuth.post("/api/language", fields);
+    return response.data;
+  }
+
+  const updateLanguage = async (fields: Language) => {
+    const response = await axiosAuth.put(`api/language/${fields.id}`, fields);
+    return response.data;
+  }
+
+  const addEmergencyContact = async (fields: EmergencyContact) => {
+    const response = await axiosAuth.post("api/emergencycontact", fields);
+    return response.data;
+  }
+
+  const updateEmergencyContact = async (fields: EmergencyContact) => {
+    const response = await axiosAuth.put(`api/emergencycontact/${fields.id}`, fields);
+    return response.data;
+  }
+
+  const deleteEmergencyContact = async (id: number) => {
+    const response = await axiosAuth.delete(`/api/emergencycontact/${id}`);
+    return response.data;
+  }
 
   return {
     applicantDetails,
     applicantProfile,
     addWorkExperience,
+    updateAddress,
+    addAddress,
     updateWorkExperience,
     deleteWorkExperience,
     addEducationHistory,
     updateEducationHistory,
     deleteEducationHistory,
+    addLanguage,
+    updateLanguage,
+    addEmergencyContact,
+    updateEmergencyContact,
+    deleteEmergencyContact,
   };
 }

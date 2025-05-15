@@ -7,10 +7,17 @@ export function useProfile() {
     applicantProfile,
     addWorkExperience,
     updateWorkExperience,
+    updateAddress,
+    addAddress,
     deleteWorkExperience,
     addEducationHistory,
     updateEducationHistory,
     deleteEducationHistory,
+    addLanguage,
+    updateLanguage,
+    addEmergencyContact,
+    updateEmergencyContact,
+    deleteEmergencyContact,
   } = useProfileApi();
 
   // get applicant information, work experience, education history
@@ -42,6 +49,22 @@ export function useProfile() {
       console.log("Something went wrong!");
     },
   });
+
+  // update address
+  const updateAddressMutation = useMutation({
+    mutationFn: updateAddress,
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  })
+
+  // add address
+  const addAddressMutation = useMutation({
+    mutationFn: addAddress,
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  })
 
   // delete work experience
   const deleteWorkExperienceMutation = useMutation({
@@ -75,14 +98,56 @@ export function useProfile() {
     },
   });
 
+  const addLanguageMutation = useMutation({
+    mutationFn: addLanguage,
+    onError: () => {
+      console.log("Something went wrong!");
+    }
+  });
+
+  const updateLanguageMutation = useMutation({
+    mutationFn: updateLanguage,
+    onError: () => {
+      console.log("Something went wrong!");
+    }
+  });
+
+  const addEmergencyContactMutation = useMutation({
+    mutationFn: addEmergencyContact,
+    onError: () => {
+      console.log("Something went wrong!");
+    }
+  });
+
+  const updateEmergencyContactMutation = useMutation({
+    mutationFn: updateEmergencyContact,
+    onError: () => {
+      console.log("Something went wrong!");
+    }
+  });
+
+  const deleteEmergencyContactMutation = useMutation({
+    mutationFn: deleteEmergencyContact,
+    onError: () => {
+      console.log("Something went wrong!");
+    }
+  });
+
   return {
     getAppliantDetailsQuery,
     applicantProfileMutation,
     addWorkExperienceMutation,
     updateWorkExperienceMutation,
+    updateAddressMutation,
+    addAddressMutation,
     deleteWorkExperienceMutation,
     addEducationHistoryMutation,
     updateEducationHistoryMutation,
     deleteEducationHistoryMutation,
+    addLanguageMutation,
+    updateLanguageMutation,
+    addEmergencyContactMutation,
+    updateEmergencyContactMutation,
+    deleteEmergencyContactMutation,
   };
 }

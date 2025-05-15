@@ -21,6 +21,19 @@ export const ApplicantProfileSchema = z.object({
     ),
 });
 
+export const ApplicantAddressSchema = z.object({
+  address: z.string().min(1, "Address is required"),
+  country: z.string().min(1, "Country is required"),
+  province: z.string().min(1, "Province is required"),
+  city: z.string().min(1, "City is required"),
+  street: z.string().min(1, "Street is required"),
+  zipcode: z
+  .number()
+  .int()
+  .min(1000, { message: "ZIP code must be a 4-digit number" })
+  .max(9999, { message: "ZIP code must be a 4-digit number" }),
+})
+
 export const WorkExperienceSchema = z.object({
   company: z.string().min(1, "Company name is required"),
   professional_title: z.string().min(1, "Professional title is required"),
@@ -36,3 +49,17 @@ export const EducationHistorySchema = z.object({
   start_year: z.string().regex(/^\d{4}$/, "Start year must be in YYYY format"),
   end_year: z.string().regex(/^\d{4}$/, "End year must be in YYYY format"),
 });
+
+export const LanguageSchema = z.object({
+  language: z.string().min(1, "Language is required"),
+  proficiency_level: z.enum(["beginner", "intermediate", "advanced", "fluent", "native", ""], {
+    required_error: "Proficiency Level is required",
+    invalid_type_error: "Invalid Proficiency Level",
+  })
+});
+
+export const EmergencyContactSchema = z.object({
+  full_name: z.string().min(1, "Full Name is required"),
+  phone_number: z.string().min(1, "Phone Number is required"),
+  relationship: z.string().min(1, "Relationship is required"),
+})
