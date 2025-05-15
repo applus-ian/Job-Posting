@@ -60,10 +60,10 @@ class ApplicantJobSeeder extends Seeder
                     // Create a new application
                     Application::create([
                         'status' => 'received', // Using valid enum value from migration
+                        // 'status' => ['received', 'reviewed', 'interview', 'offer'],
                         'expected_salary' => rand(30000, 70000), // Random expected salary
                         'applicant_id' => $applicantId,
                         'job_posting_id' => $jobId,
-                        'applied_date' => Carbon::now(), // Adding the applied_date field
                     ]);
                 }
             }
