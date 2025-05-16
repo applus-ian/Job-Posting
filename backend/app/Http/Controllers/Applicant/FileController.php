@@ -15,6 +15,15 @@ class FileController extends Controller
     {
     }
 
+    public function getFile(Document $document)
+    {
+        $path = $this->fileService->getApplicationFile($document);
+        if (!$path) {
+            return response()->json(['message' => 'Unable to process request'], 401);
+        }
+        return $path;
+    }
+
     public function uploadProfile(UploadProfileRequest $request)
     {
         $data = $this->fileService->handleProfileUpload($request->validated(), $request->user());

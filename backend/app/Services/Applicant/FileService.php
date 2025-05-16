@@ -9,6 +9,20 @@ use Illuminate\Support\Facades\Storage;
 
 class FileService
 {
+    public function getApplicationFile($document)
+    {
+        if (Auth::check() && Auth::user()->applicant->id === $document->applicant_id) {
+            $disk = Storage::disk($document->type);
+
+            if (!$disk->exists($document->file_path)) {
+                return null;
+            }
+            $path = $disk->path($document->file_path);
+            return response()->file($path);
+        }
+        return null;
+    }
+
     public function handleProfileUpload(array $data, $user)
     {
         $file = $data['profile'];

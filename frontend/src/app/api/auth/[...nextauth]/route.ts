@@ -40,8 +40,13 @@ export const authOptions: NextAuthOptions = {
         token.profile = user.profile || "";
         token.token = user.token;
       }
-      if (trigger === "update" && session?.user?.profile) {
-        token.profile = session.user.profile;
+      if (trigger === "update" && session?.user) {
+        if (session.user.name) {
+          token.name = session.user.name;
+        }
+        if (session.user.profile) {
+          token.profile = session.user.profile;
+        }
       }
 
       return token;

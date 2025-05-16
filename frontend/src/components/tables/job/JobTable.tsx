@@ -25,6 +25,7 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 interface JobTableProps<T> {
   columns: ColumnDef<T, unknown>[];
@@ -54,9 +55,11 @@ export function JobTable<T>({ columns, data }: JobTableProps<T>) {
   return (
     <>
       <div className="flex items-start justify-between">
-        <Button>
-          <Plus /> <span className="hidden sm:flex">Post a Job</span>
-        </Button>
+        <Link href="/hr/create-jobposting">
+          <Button>
+            <Plus /> <span className="hidden sm:flex">Post a Job</span>
+          </Button>
+        </Link>
         <div className="flex gap-3">
           <Input
             className="w-[190px] sm:w-3xs"

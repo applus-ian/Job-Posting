@@ -38,10 +38,7 @@ export function useProfileApi() {
   };
 
   const updateEducationHistory = async (fields: EducationHistory) => {
-    const response = await axiosAuth.put(
-      `/api/educationhistory/${session?.user.applicant_id}`,
-      fields
-    );
+    const response = await axiosAuth.put(`/api/educationhistory/${fields.id}`, fields);
     return response.data;
   };
 

@@ -1,18 +1,19 @@
 "use client";
 
-import * as React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { DocumentForm } from "./DocumentForm";
 import { DocumentItem } from "./DocumentItem";
 import { Document } from "@/types/profile";
+import { useEffect, useState } from "react";
 
 export function DocumentCard({ documents = [] }: { documents?: Document[] }) {
-  const getDocumentByType = (type: string) => {
-    return documents.find((doc) => doc.type === type);
-  };
+  const [resumeDoc, setResumeDoc] = useState<Document | undefined>();
+  const [coverLetterDoc, setCoverLetterDoc] = useState<Document | undefined>();
 
-  const resumeDoc = getDocumentByType("resume");
-  const coverLetterDoc = getDocumentByType("coverletter");
+  useEffect(() => {
+    setResumeDoc(documents.find((doc) => doc.type === "resume"));
+    setCoverLetterDoc(documents.find((doc) => doc.type === "coverletter"));
+  }, [documents]);
 
   return (
     <div className="mt-6">

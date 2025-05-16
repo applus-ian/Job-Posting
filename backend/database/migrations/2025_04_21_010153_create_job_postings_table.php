@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('category');
             $table->json('description');
             $table->integer('vacancies');
-            $table->enum('salary_type', ['monthly', 'hourly', 'weekly', 'annually'])->nullable();
+            $table->enum('salary_type', ['monthly', 'hourly', 'weekly', 'annually'])->default('monthly');
             $table->decimal('salary_min', 12, 2)->nullable();
             $table->decimal('salary_max', 12, 2)->nullable();
             $table->string('employment_type');

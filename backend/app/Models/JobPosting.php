@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JobPosting extends Model
 {
+    protected $with = ['tags'];
     protected $fillable = [
         'title',
         'category',
