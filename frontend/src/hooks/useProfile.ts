@@ -15,6 +15,15 @@ export function useProfile() {
     updateEducationHistory,
     deleteEducationHistory,
     uploadProfile,
+    addLanguage,
+    updateLanguage,
+    deleteLanguage,
+    addEmergencyContact,
+    updateEmergencyContact,
+    deleteEmergencyContact,
+    addAddress,
+    updateAddress,
+    deleteAddress,
   } = useProfileApi();
   const { data: session, update } = useSession();
   const queryClient = useQueryClient();
@@ -120,6 +129,105 @@ export function useProfile() {
     },
   });
 
+  // add language
+  const addLanguageMutation = useMutation({
+    mutationFn: addLanguage,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: applicantDetailsQueryKey });
+    },
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  });
+
+  // update language
+  const updateLanguageMutation = useMutation({
+    mutationFn: updateLanguage,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: applicantDetailsQueryKey });
+    },
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  });
+
+  // delete language
+  const deleteLanguageMutation = useMutation({
+    mutationFn: deleteLanguage,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: applicantDetailsQueryKey });
+    },
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  });
+
+  // add emergency contact
+  const addEmergencyContactMutation = useMutation({
+    mutationFn: addEmergencyContact,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: applicantDetailsQueryKey });
+    },
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  });
+
+  // update emergencty contact
+  const updateEmergencyContactMutation = useMutation({
+    mutationFn: updateEmergencyContact,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: applicantDetailsQueryKey });
+    },
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  });
+
+  // delete emergency contact
+  const deleteEmergencyContactMutation = useMutation({
+    mutationFn: deleteEmergencyContact,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: applicantDetailsQueryKey });
+    },
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  });
+
+  // add address
+  const addAddressMutation = useMutation({
+    mutationFn: addAddress,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: applicantDetailsQueryKey });
+    },
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  });
+
+  // update address
+  const updateAddressMutation = useMutation({
+    mutationFn: updateAddress,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: applicantDetailsQueryKey });
+    },
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  });
+
+  // delete address
+  const deleteAddressMutation = useMutation({
+    mutationFn: deleteAddress,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: applicantDetailsQueryKey });
+    },
+    onError: () => {
+      console.log("Something went wrong!");
+    },
+  });
+
   return {
     getAppliantDetailsQuery,
     applicantProfileMutation,
@@ -130,5 +238,14 @@ export function useProfile() {
     updateEducationHistoryMutation,
     deleteEducationHistoryMutation,
     uploadProfileMutation,
+    addLanguageMutation,
+    updateLanguageMutation,
+    deleteLanguageMutation,
+    addEmergencyContactMutation,
+    updateEmergencyContactMutation,
+    deleteEmergencyContactMutation,
+    addAddressMutation,
+    updateAddressMutation,
+    deleteAddressMutation,
   };
 }

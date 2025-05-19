@@ -6,7 +6,6 @@ import SessionWrapper from "./sessionwrapper";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import { ThemeProvider } from "./themeprovider";
-import Script from "next/script";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -26,10 +25,6 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions); // get session
   return (
     <html lang="en" className={montserrat.variable} suppressHydrationWarning>
-      <head>
-        <Script src="/nutrient-viewer/nutrient-viewer.js" strategy="beforeInteractive" />
-      </head>
-
       <body>
         <SessionWrapper session={session}>
           <QueryProvider>

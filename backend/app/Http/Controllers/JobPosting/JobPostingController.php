@@ -17,7 +17,7 @@ class JobPostingController extends Controller
     public function getOpenJobs()
     {
         return [
-            'jobpostings' => JobPosting::where('status', 'open')->get()
+            'jobpostings' => JobPosting::with('applications')->where('status', 'open')->get()
         ];
     }
 

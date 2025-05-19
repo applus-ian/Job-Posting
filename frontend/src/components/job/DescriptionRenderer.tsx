@@ -1,3 +1,4 @@
+"use client";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -6,6 +7,19 @@ import { nodes } from "../blocks/editor-00/nodes";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
 import { editorTheme } from "../editor/themes/editor-theme";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { useEffect } from "react";
+
+function DescriptionUpdater({ description }: { description: string }) {
+  const [editor] = useLexicalComposerContext();
+
+  useEffect(() => {
+    const parsedEditorState = editor.parseEditorState(description);
+    editor.setEditorState(parsedEditorState);
+  }, [description, editor]);
+
+  return null;
+}
 
 export function DescriptionRenderer({ description }: { description: string }) {
   return (
@@ -29,6 +43,7 @@ export function DescriptionRenderer({ description }: { description: string }) {
       />
       <ListPlugin />
       <CheckListPlugin />
+      <DescriptionUpdater description={description} />
     </LexicalComposer>
   );
 }

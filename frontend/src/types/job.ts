@@ -1,3 +1,6 @@
+import { Application } from "./application";
+import { Document } from "./profile";
+
 export type JobPosting = {
   id?: number;
   title: string;
@@ -15,6 +18,7 @@ export type JobPosting = {
   created_at: string;
   updated_at: string;
   tags: JobTag[];
+  applications: Application[];
 };
 
 export type JobTag = {
@@ -46,6 +50,7 @@ export type TagInputProps = {
 
 export type ApplyJobModalProps = {
   jobposting: JobPosting;
+  documents: Document[];
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };

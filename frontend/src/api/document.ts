@@ -4,6 +4,19 @@ import { saveAs } from "file-saver";
 export function useDocumentApi() {
   const axiosAuth = useAxiosAuth();
 
+  const getDefaultFiles = async () => {
+    const response = await axiosAuth.get("/api/applicant/default/file");
+    return response.data;
+  };
+
+  const getFile = async (id: number, filename: string) => {
+    const response = await axiosAuth.get(`/api/applicant/file/${id}`, {
+      responseType: "blob",
+    });
+
+    return new File([response.data], filename, { type: response.data.type });
+  };
+
   const uploadResume = async (data: File) => {
     // make a new form data containing the single file
     const formData = new FormData();
@@ -55,6 +68,8 @@ export function useDocumentApi() {
   };
 
   return {
+    getDefaultFiles,
+    getFile,
     uploadResume,
     uploadCoverLetter,
     deleteResume,

@@ -1,5 +1,12 @@
 import useAxiosAuth from "@/hooks/useAxiosAuth";
-import { ApplicantProfile, EducationHistory, WorkExperience } from "@/types/profile";
+import {
+  ApplicantAddress,
+  ApplicantProfile,
+  EducationHistory,
+  EmergencyContact,
+  Language,
+  WorkExperience,
+} from "@/types/profile";
 import { useSession } from "next-auth/react";
 
 export function useProfileApi() {
@@ -59,6 +66,51 @@ export function useProfileApi() {
     return response.data;
   };
 
+  const addLanguage = async (fields: Language) => {
+    const response = await axiosAuth.post("/api/language", fields);
+    return response.data;
+  };
+
+  const updateLanguage = async (fields: Language) => {
+    const response = await axiosAuth.put(`api/language/${fields.id}`, fields);
+    return response.data;
+  };
+
+  const deleteLanguage = async (id: number) => {
+    const response = await axiosAuth.delete(`/api/language/${id}`);
+    return response.data;
+  };
+
+  const addEmergencyContact = async (fields: EmergencyContact) => {
+    const response = await axiosAuth.post("api/emergencycontact", fields);
+    return response.data;
+  };
+
+  const updateEmergencyContact = async (fields: EmergencyContact) => {
+    const response = await axiosAuth.put(`api/emergencycontact/${fields.id}`, fields);
+    return response.data;
+  };
+
+  const deleteEmergencyContact = async (id: number) => {
+    const response = await axiosAuth.delete(`/api/emergencycontact/${id}`);
+    return response.data;
+  };
+
+  const addAddress = async (fields: ApplicantAddress) => {
+    const response = await axiosAuth.post("api/address", fields);
+    return response.data;
+  };
+
+  const updateAddress = async (fields: ApplicantAddress) => {
+    const response = await axiosAuth.put(`api/address/${fields.id}`, fields);
+    return response.data;
+  };
+
+  const deleteAddress = async (id: number) => {
+    const response = await axiosAuth.delete(`/api/address/${id}`);
+    return response.data;
+  };
+
   return {
     applicantDetails,
     applicantProfile,
@@ -69,5 +121,14 @@ export function useProfileApi() {
     updateEducationHistory,
     deleteEducationHistory,
     uploadProfile,
+    addLanguage,
+    updateLanguage,
+    deleteLanguage,
+    addEmergencyContact,
+    updateEmergencyContact,
+    deleteEmergencyContact,
+    addAddress,
+    updateAddress,
+    deleteAddress,
   };
 }

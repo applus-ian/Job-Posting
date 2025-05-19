@@ -3,17 +3,39 @@ import { SidebarLayout } from "@/components/sidebar-layout";
 import { JobBoard } from "@/components/job/JobBoard";
 import JobSearchBar from "@/components/job/JobSearchBar";
 import { useJobPosting } from "@/hooks/useJobPosting";
+import { SkeletonBrowseJob } from "@/components/skeletons/SkeletonBrowseJob";
+import { useDocument } from "@/hooks/useDocument";
 
 export default function BrowseJobPage() {
   const { getOpenJobPostings } = useJobPosting();
-  const { data, isLoading, isError } = getOpenJobPostings;
+  const { getDefaultFileQuery } = useDocument();
+  const {
+    data: jobPostingsData,
+    isLoading: isJobPostingsLoading,
+    isError: isJobPostingsError,
+  } = getOpenJobPostings;
+  const {
+    data: defaultFileData,
+    isLoading: isDefaultFileLoading,
+    isError: isDefaultFileError,
+  } = getDefaultFileQuery;
 
-  if (isError) return <div>Error loading job postings</div>;
+  if (isJobPostingsError || isDefaultFileError) return <div>Something went wrong</div>;
 
   return (
     <SidebarLayout>
-      <JobSearchBar />
-      {isLoading ? <>loading</> : <JobBoard jobpostings={data.jobpostings} />}
+      {isJobPostingsLoading || isDefaultFileLoading ? (
+        <SkeletonBrowseJob />
+      ) : (
+        <>
+          <JobSearchBar />
+          <JobBoard
+            jobpostings={jobPostingsData.jobpostings}
+            documents={defaultFileData.documents}
+            savedjobs={[]}
+          />
+        </>
+      )}
     </SidebarLayout>
   );
 }

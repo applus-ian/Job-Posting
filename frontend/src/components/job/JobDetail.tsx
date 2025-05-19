@@ -1,16 +1,64 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { UsersRound, UserPlus2 } from "lucide-react";
+import { UsersRound, UserPlus2, Loader2 } from "lucide-react";
 import { Bookmark } from "lucide-react";
 import CustomBadge from "../badges/CustomBadge";
 import { JobPosting } from "@/types/job";
 import { DescriptionRenderer } from "./DescriptionRenderer";
 import { useState } from "react";
-import { ApplyJobModal } from "./ApplyJobModal";
+import { ApplyJobModal } from "../application/ApplyJobModal";
+import { useSession, signIn } from "next-auth/react";
+import { Document } from "@/types/profile";
+import { useSavedJob } from "@/hooks/useSavedJob";
+import { SavedJob } from "@/types/savedjob";
 
-export default function JobDetail({ jobposting }: { jobposting: JobPosting }) {
+export default function JobDetail({
+  jobposting,
+  documents,
+  savedjobs,
+}: {
+  jobposting: JobPosting;
+  documents: Document[] | null;
+  savedjobs: SavedJob[] | null;
+}) {
+  const { saveJobPostingMutation, unsaveJobPostingMutation } = useSavedJob();
+  const { data: session } = useSession();
   const [openModal, setOpenModal] = useState(false);
+
+  const isSaved = savedjobs?.find((saved) => saved.job_posting_id === jobposting.id);
+
+  savedjobs?.map((saved) => {
+    console.log("Saved Job:", saved);
+    console.log("Saved Job Posting ID:", saved.job_posting_id);
+  });
+
+  const handleApplyBtn = (jobposting: JobPosting) => {
+    if (session) {
+      const userAlreadyApplied = jobposting.applications.some(
+        (app) => app.applicant_id === session.user.applicant_id
+      );
+      if (!userAlreadyApplied) {
+        setOpenModal(true);
+      } else {
+        alert("You have already applied to this job.");
+      }
+    } else {
+      signIn();
+    }
+  };
+
+  const handleSaveButton = async (jobPostingId: number) => {
+    const savedJob = savedjobs?.find((job) => job.job_posting_id === jobPostingId);
+
+    if (savedJob) {
+      await unsaveJobPostingMutation.mutateAsync(savedJob.id!);
+    } else {
+      await saveJobPostingMutation.mutateAsync(jobPostingId);
+    }
+  };
+
+  const isLoading = saveJobPostingMutation.isPending || unsaveJobPostingMutation.isPending;
 
   return (
     <>
@@ -20,9 +68,17 @@ export default function JobDetail({ jobposting }: { jobposting: JobPosting }) {
             <div className="w-[80%]">
               <CardTitle className="text-lg">{jobposting.title}</CardTitle>
             </div>
-            <div className="w-auto flex flex-row gap-1">
-              <Bookmark className="w-8 h-8 text-primary mt-1" strokeWidth={1} />
-              <Button className="md:w-auto" onClick={() => setOpenModal(true)}>
+            <div className="w-auto flex flex-row gap-2">
+              {isLoading ? (
+                <Loader2 className="w-8 h-8 mt-1 text-primary animate-spin" />
+              ) : (
+                <Bookmark
+                  className={`w-8 h-8 text-primary mt-1 cursor-pointer ${isSaved ? "fill-primary" : ""}`}
+                  strokeWidth={1}
+                  onClick={() => handleSaveButton(jobposting.id!)}
+                />
+              )}
+              <Button className="md:w-auto" onClick={() => handleApplyBtn(jobposting)}>
                 Apply <span className="hidden sm:flex">Now</span>
               </Button>
             </div>
@@ -65,7 +121,12 @@ export default function JobDetail({ jobposting }: { jobposting: JobPosting }) {
         </CardContent>
       </Card>
 
-      <ApplyJobModal jobposting={jobposting} openModal={openModal} setOpenModal={setOpenModal} />
+      <ApplyJobModal
+        jobposting={jobposting}
+        documents={documents ?? []}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </>
   );
 }

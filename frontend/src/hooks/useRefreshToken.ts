@@ -10,6 +10,7 @@ export const useRefreshToken = () => {
     try {
       const response = await refreshToken();
       if (session) session.user.token = response?.token;
+      console.log(`Refresh token: ${response.token}`);
     } catch (error) {
       console.error("Token refresh failed", error);
       signOut();

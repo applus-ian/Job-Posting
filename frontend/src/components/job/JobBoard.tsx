@@ -7,8 +7,18 @@ import { useJobBoardMobile } from "@/hooks/use-jobboard-mobile";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { JobPosting } from "@/types/job";
+import { Document } from "@/types/profile";
+import { SavedJob } from "@/types/savedjob";
 
-export function JobBoard({ jobpostings }: { jobpostings: JobPosting[] }) {
+export function JobBoard({
+  jobpostings,
+  documents,
+  savedjobs,
+}: {
+  jobpostings: JobPosting[];
+  documents: Document[] | null;
+  savedjobs: SavedJob[] | null;
+}) {
   const [selectedJob, setSelectedJob] = useState(jobpostings.length > 0 ? jobpostings[0] : null);
   const [showDetail, setShowDetail] = useState(false);
   const isMobile = useJobBoardMobile();
@@ -35,7 +45,13 @@ export function JobBoard({ jobpostings }: { jobpostings: JobPosting[] }) {
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to jobs
             </Button>
-            {selectedJob && <JobDetail jobposting={selectedJob} />}
+            {selectedJob && (
+              <JobDetail
+                jobposting={selectedJob}
+                documents={documents ?? []}
+                savedjobs={savedjobs ?? []}
+              />
+            )}
           </div>
         )}
       </div>
@@ -56,7 +72,13 @@ export function JobBoard({ jobpostings }: { jobpostings: JobPosting[] }) {
             />
           </div>
           <div className="w-full lg:w-3/5 hidden lg:block">
-            {selectedJob && <JobDetail jobposting={selectedJob} />}
+            {selectedJob && (
+              <JobDetail
+                jobposting={selectedJob}
+                documents={documents ?? []}
+                savedjobs={savedjobs ?? []}
+              />
+            )}
           </div>
         </div>
       )}
