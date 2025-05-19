@@ -3,12 +3,29 @@
 namespace App\Services\Applicant;
 
 use App\Models\Document;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class FileService
 {
+    public function getDefaultApplicationFile()
+    {
+        $documents = Document::where('applicant_id', Auth::user()->applicant->id)
+            ->whereNull('application_id')
+            ->get();
+        return ['documents' => $documents];
+    }
+
+    public function getApplicationFile($document)
+    {
+        $disk = Storage::disk($document->type);
+
+        if (!$disk->exists($document->file_path)) {
+            return null;
+        }
+        return $disk->response($document->file_path, $document->file_name);
+    }
+
     public function handleProfileUpload(array $data, $user)
     {
         $file = $data['profile'];

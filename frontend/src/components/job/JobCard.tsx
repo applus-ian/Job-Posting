@@ -1,30 +1,10 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { UsersRound, UserPlus2, House, Briefcase, Wallet } from "lucide-react";
-import { useState } from "react";
+import { UsersRound, UserPlus2, Briefcase, Wallet } from "lucide-react";
+import { JobCardProps } from "@/types/job";
 
-interface Job {
-  id: number;
-  title: string;
-  application: number;
-  vacant: number;
-  postedAt: string;
-  department: string;
-  category: string;
-  type: string;
-  salary: string;
-}
-
-interface JobCardProps {
-  job: Job;
-  onClick: () => void;
-  isSelected: boolean;
-}
-
-export default function JobCard({ job, onClick, isSelected }: JobCardProps) {
-  const [bookmarked, setBookmarked] = useState(false);
-
+export default function JobCard({ jobposting, onClick, isSelected }: JobCardProps) {
   return (
     <Card
       className={`cursor-pointer transition-all duration-200 hover:shadow-md ${
@@ -35,11 +15,11 @@ export default function JobCard({ job, onClick, isSelected }: JobCardProps) {
       <CardContent className="px-5">
         <div className="flex flex-row items-start w-full gap-8">
           <div className="w-[90%]">
-            <h3 className="font-semibold text-lg">{job.title}</h3>
+            <h3 className="font-semibold text-lg">{jobposting.title}</h3>
           </div>
           <div className="w-auto flex flex-row">
             <div className="mt-2 space-y-1 text-xs text-gray-500">
-              <i>{job.postedAt}</i>
+              <i>{jobposting.created_at}</i>
             </div>
           </div>
         </div>
@@ -47,34 +27,40 @@ export default function JobCard({ job, onClick, isSelected }: JobCardProps) {
           <div className="flex flex-row gap-6">
             <div className="flex items-center">
               <UsersRound className="h-4 w-4 mr-2" />
-              <span>
-                {job.application} {job.application === 1 ? "Application" : "Applications"}
-              </span>
+              <span>10 Applications</span>
             </div>
             <div className="flex items-center">
               <UserPlus2 className="h-4 w-4 mr-2" />
               <span>
-                {job.vacant} {job.vacant === 1 ? "Vacant" : "Vacants"}
+                {jobposting.vacancies} {jobposting.vacancies === 1 ? "Vacant" : "Vacants"}
               </span>
             </div>
           </div>
           <div className="flex flex-wrap gap-x-4 gap-y-2 mt-2">
             {/* Department */}
-            <div className="flex items-center w-full sm:w-auto text-start">
+            {/* <div className="flex items-center w-full sm:w-auto text-start">
               <House className="w-4 h-4 mr-2 text-primary shrink-0" />
               <span className="font-semibold break-words">{job.department}</span>
-            </div>
+            </div> */}
 
             {/* Category */}
             <div className="flex items-center w-full sm:w-auto text-start">
               <Briefcase className="w-4 h-4 mr-2 text-primary shrink-0" />
-              <span className="font-semibold break-words">{job.category}</span>
+              <span className="font-semibold break-words">{jobposting.category}</span>
             </div>
 
             {/* Salary */}
             <div className="flex items-center w-full sm:w-auto text-start">
               <Wallet className="w-4 h-4 mr-2 text-primary shrink-0" />
-              <span className="font-semibold break-words">{job.salary}</span>
+              <span className="font-semibold break-words">
+                {jobposting.salary_min && jobposting.salary_max
+                  ? `$${jobposting.salary_min.toLocaleString()} - $${jobposting.salary_max.toLocaleString()}`
+                  : jobposting.salary_min
+                    ? `$${jobposting.salary_min.toLocaleString()}`
+                    : jobposting.salary_max
+                      ? `$${jobposting.salary_max.toLocaleString()}`
+                      : "Salary not available"}
+              </span>
             </div>
           </div>
         </div>

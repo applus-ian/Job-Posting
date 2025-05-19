@@ -1,8 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Bookmark, Command, Folder, Home, Search } from "lucide-react";
-
 import Image from "next/image";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "./nav-user";
@@ -16,45 +14,10 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { usePathname } from "next/navigation";
+import { NavMenu } from "./nav-menu";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const pathname = usePathname();
-  const data = {
-    teams: [
-      {
-        name: "Acme Inc",
-        logo: Command,
-        plan: "Enterprise",
-      },
-    ],
-    navMain: [
-      {
-        title: "Dashboard",
-        url: "/dashboard",
-        icon: Home,
-        isActive: pathname === "/dashboard",
-      },
-      {
-        title: "Browse Job",
-        url: "/browse-jobs",
-        icon: Search,
-        isActive: pathname === "/browse-jobs",
-      },
-      {
-        title: "My Applications",
-        url: "/my-applications",
-        icon: Folder,
-        isActive: pathname === "/my-applications",
-      },
-      {
-        title: "Saved Jobs",
-        url: "/saved-jobs",
-        icon: Bookmark,
-        isActive: pathname === "/saved-jobs",
-      },
-    ],
-  };
+  const { applicantMenu, hrMenu } = NavMenu();
 
   return (
     <Sidebar className="border-r-0" {...props}>
@@ -78,7 +41,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={applicantMenu.navMain} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

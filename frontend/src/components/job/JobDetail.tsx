@@ -1,91 +1,132 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { UsersRound, UserPlus2 } from "lucide-react";
+import { UsersRound, UserPlus2, Loader2 } from "lucide-react";
 import { Bookmark } from "lucide-react";
 import CustomBadge from "../badges/CustomBadge";
+import { JobPosting } from "@/types/job";
+import { DescriptionRenderer } from "./DescriptionRenderer";
+import { useState } from "react";
+import { ApplyJobModal } from "../application/ApplyJobModal";
+import { useSession, signIn } from "next-auth/react";
+import { Document } from "@/types/profile";
+import { useSavedJob } from "@/hooks/useSavedJob";
+import { SavedJob } from "@/types/savedjob";
 
-interface Job {
-  id: number;
-  title: string;
-  application: number;
-  vacant: number;
-  department: string;
-  category: string;
-  type: string;
-  workSetup: string;
-  salary: string;
-  postedAt: string;
-  description: string;
-  responsibilities: string[];
-  requirements: string[];
-  tags: string[];
-}
+export default function JobDetail({
+  jobposting,
+  documents,
+  savedjobs,
+}: {
+  jobposting: JobPosting;
+  documents: Document[] | null;
+  savedjobs: SavedJob[] | null;
+}) {
+  const { saveJobPostingMutation, unsaveJobPostingMutation } = useSavedJob();
+  const { data: session } = useSession();
+  const [openModal, setOpenModal] = useState(false);
 
-interface JobDetailProps {
-  job: Job;
-}
+  const isSaved = savedjobs?.find((saved) => saved.job_posting_id === jobposting.id);
 
-export default function JobDetail({ job }: JobDetailProps) {
+  savedjobs?.map((saved) => {
+    console.log("Saved Job:", saved);
+    console.log("Saved Job Posting ID:", saved.job_posting_id);
+  });
+
+  const handleApplyBtn = (jobposting: JobPosting) => {
+    if (session) {
+      const userAlreadyApplied = jobposting.applications.some(
+        (app) => app.applicant_id === session.user.applicant_id
+      );
+      if (!userAlreadyApplied) {
+        setOpenModal(true);
+      } else {
+        alert("You have already applied to this job.");
+      }
+    } else {
+      signIn();
+    }
+  };
+
+  const handleSaveButton = async (jobPostingId: number) => {
+    const savedJob = savedjobs?.find((job) => job.job_posting_id === jobPostingId);
+
+    if (savedJob) {
+      await unsaveJobPostingMutation.mutateAsync(savedJob.id!);
+    } else {
+      await saveJobPostingMutation.mutateAsync(jobPostingId);
+    }
+  };
+
+  const isLoading = saveJobPostingMutation.isPending || unsaveJobPostingMutation.isPending;
+
   return (
-    <Card className="h-full">
-      <CardHeader className="pb-1">
-        <div className="flex flex-row items-start w-full gap-8">
-          <div className="w-[80%]">
-            <CardTitle className="text-lg">{job.title}</CardTitle>
-          </div>
-          <div className="w-auto flex flex-row gap-1">
-            <Bookmark className="w-8 h-8 text-primary mt-1" strokeWidth={1} />
-            <Button className="md:w-auto">
-              Apply <span className="hidden sm:flex">Now</span>
-            </Button>
-          </div>
-        </div>
-        <div className="flex flex-row gap-2">
-          <CustomBadge label={job.workSetup} status="tag" />
-          <CustomBadge label={job.type} status="tag" />
-        </div>
-        <div className="flex flex-wrap gap-4 mt-1 text-xs text-gray-500">
-          <div className="flex items-center">
-            <UsersRound className="h-4 w-4 mr-2" />
-            <span>
-              {job.application} {job.application === 1 ? "Application" : "Applications"}
-            </span>
-          </div>
-          <div className="flex items-center">
-            <UserPlus2 className="h-4 w-4 mr-2" />
-            <span>
-              {job.vacant} {job.vacant === 1 ? "Vacant" : "Vacants"}
-            </span>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <div>
-          <h3 className="text-sm font-semibold mb-2">Job Description</h3>
-          <p className="text-sm">{job.description}</p>
-        </div>
-
-        <div>
-          <h3 className="font-semibold text-sm mb-2">Responsibilities</h3>
-          <ul className="list-disc pl-5 space-y-1 text-sm">
-            {job.responsibilities.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="font-semibold text-sm mb-2">Tags</h3>
-          {job.tags && job.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3">
-              {job.tags.map((tag, index) => (
-                <CustomBadge key={index} label={tag} status="tag" />
-              ))}
+    <>
+      <Card className="h-full">
+        <CardHeader className="pb-1">
+          <div className="flex flex-row items-start w-full gap-8">
+            <div className="w-[80%]">
+              <CardTitle className="text-lg">{jobposting.title}</CardTitle>
             </div>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+            <div className="w-auto flex flex-row gap-2">
+              {isLoading ? (
+                <Loader2 className="w-8 h-8 mt-1 text-primary animate-spin" />
+              ) : (
+                <Bookmark
+                  className={`w-8 h-8 text-primary mt-1 cursor-pointer ${isSaved ? "fill-primary" : ""}`}
+                  strokeWidth={1}
+                  onClick={() => handleSaveButton(jobposting.id!)}
+                />
+              )}
+              <Button className="md:w-auto" onClick={() => handleApplyBtn(jobposting)}>
+                Apply <span className="hidden sm:flex">Now</span>
+              </Button>
+            </div>
+          </div>
+          <div className="flex flex-row gap-2">
+            <CustomBadge label={jobposting.work_setup} status="tag" />
+            <CustomBadge label={jobposting.employment_type} status="tag" />
+          </div>
+          <div className="flex flex-wrap gap-4 mt-1 text-xs text-gray-500">
+            <div className="flex items-center">
+              <UsersRound className="h-4 w-4 mr-2" />
+              <span>
+                10 Applications
+                {/* {jobposting.applicants} {jobposting.applicants === 1 ? "Application" : "Applications"} */}
+              </span>
+            </div>
+            <div className="flex items-center">
+              <UserPlus2 className="h-4 w-4 mr-2" />
+              <span>
+                {jobposting.vacancies} {jobposting.vacancies === 1 ? "Vacant" : "Vacants"}
+              </span>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div>
+            <DescriptionRenderer description={jobposting.description} />
+          </div>
+
+          <div>
+            <h3 className="font-semibold text-sm mb-2">Tags</h3>
+            {jobposting.tags && jobposting.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-3">
+                {jobposting.tags.map((jobtag, index) => (
+                  <CustomBadge key={index} label={jobtag.tag} status="tag" />
+                ))}
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      <ApplyJobModal
+        jobposting={jobposting}
+        documents={documents ?? []}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
+    </>
   );
 }

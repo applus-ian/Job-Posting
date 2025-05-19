@@ -17,6 +17,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\JobPosting\JobPostingController;
 use App\Http\Controllers\Interview\InterviewFeedbackController;
 use App\Http\Controllers\Interview\InterviewScheduleController;
+use App\Http\Controllers\JobPosting\SavedJobController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +65,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // file routes
     Route::controller(FileController::class)->prefix('applicant')->group(function () {
         Route::post('/profile', 'uploadProfile');
+        Route::get('/file/{document}', 'getFile');
+        Route::get('/default/file', 'getDefaultDocument');
         Route::prefix('/resume')->group(function () {
             Route::post('/', 'uploadResume');
             Route::delete('/{document}', 'deleteResume');
@@ -75,10 +78,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/{document}', action: 'downloadCoverLetter');
         });
     });
+    // saved job routes
+    Route::controller(SavedJobController::class)->prefix('saved-job')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/{jobposting}', 'store');
+        Route::delete('/{savedjob}', 'destroy');
+    });
+
     // HR
     Route::prefix('/hr')->group(function () {
         // job posting
-        Route::apiResource('jobposting', JobPostingController::class);
+        Route::apiResource('jobposting', JobPostingController::class)->except(['index']);
         // interview
         Route::controller(InterviewScheduleController::class)->prefix('interview')->group(function () {
             Route::post('/schedule/{application}', 'scheduleInterview');
@@ -87,3 +97,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         });
     });
 });
+
+// public routes
+Route::get('jobposting/open', [JobPostingController::class, 'getOpenJobs']);
+

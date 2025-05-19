@@ -6,7 +6,7 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useProfile } from "@/hooks/useProfile";
 
-export function PersonalInfoHeader() {
+export function PersonalInfoHeader({ biography }: { biography: string | null }) {
   const { data: session } = useSession();
   const { uploadProfileMutation } = useProfile();
   const [avatar, setAvatar] = useState<string | null>(session?.user.profile || null);
@@ -105,10 +105,9 @@ export function PersonalInfoHeader() {
           {/* Name */}
           <h3 className="text-md lg:text-xl font-semibold">{session?.user.name}</h3>
           {/* Bio */}
-          <p className="text-xs lg:text-sm text-muted-foreground max-w-md">
-            Aliquam vitae turpis in diam convallis finibus in at risus. Nullam in scelerisque leo,
-            eget sollicitudin velit vestibulum.
-          </p>
+          {biography?.trim() && (
+            <p className="text-xs lg:text-sm text-muted-foreground">{biography}</p>
+          )}
         </div>
       </div>
     </>

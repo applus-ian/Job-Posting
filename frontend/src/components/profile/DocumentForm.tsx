@@ -32,7 +32,7 @@ export function DocumentForm({ type = "resume", label }: DocumentFormProps) {
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Upload pdf file for your {label}</FormLabel>
+              <FormLabel className="mb-3">Upload pdf file for your {label}</FormLabel>
               <FormControl>
                 <FileUpload
                   value={field.value}
@@ -46,16 +46,19 @@ export function DocumentForm({ type = "resume", label }: DocumentFormProps) {
                     });
                   }}
                 >
-                  <FileUploadDropzone className="flex-row flex-wrap border-dotted text-center">
-                    <CloudUpload className="size-4" />
-                    Drag and drop or
-                    <FileUploadTrigger asChild>
-                      <Button variant="link" size="sm" className="p-0">
-                        choose files
-                      </Button>
-                    </FileUploadTrigger>
-                    to upload
-                  </FileUploadDropzone>
+                  {!field.value || field.value.length === 0 ? (
+                    <FileUploadDropzone className="flex-row flex-wrap border-dotted text-center">
+                      <CloudUpload className="size-4" />
+                      Drag and drop or
+                      <FileUploadTrigger asChild>
+                        <Button variant="link" size="sm" className="p-0">
+                          choose files
+                        </Button>
+                      </FileUploadTrigger>
+                      to upload
+                    </FileUploadDropzone>
+                  ) : null}
+
                   <FileUploadList>
                     {field.value.map((file, index) => (
                       <FileUploadItem key={index} value={file}>

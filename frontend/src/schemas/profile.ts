@@ -62,3 +62,26 @@ export const DocumentSchema = z.object({
       }
     ),
 });
+
+export const ApplicantAddressSchema = z.object({
+  address: z.string().min(1, "Address is required"),
+  country: z.string().min(1, "Country is required"),
+  province: z.string().min(1, "Province is required"),
+  city: z.string().min(1, "City is required"),
+  street: z.string().min(1, "Street is required"),
+  zipcode: z.string().regex(/^\d{4}$/, { message: "ZIP code must be a 4-digit number" }),
+});
+
+export const LanguageSchema = z.object({
+  language: z.string().min(1, "Language is required"),
+  proficiency_level: z.enum(["beginner", "intermediate", "advanced", "fluent", "native", ""], {
+    required_error: "Proficiency Level is required",
+    invalid_type_error: "Invalid Proficiency Level",
+  }),
+});
+
+export const EmergencyContactSchema = z.object({
+  full_name: z.string().min(1, "Full Name is required"),
+  phone_number: z.string().min(1, "Phone Number is required"),
+  relationship: z.string().min(1, "Relationship is required"),
+});
