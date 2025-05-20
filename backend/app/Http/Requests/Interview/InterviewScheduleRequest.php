@@ -29,6 +29,7 @@ class InterviewScheduleRequest extends FormRequest
             'meeting_link' => 'nullable|url|required_if:mode,virtual',
             'platform' => 'nullable|string|required_if:mode,virtual',
             'location' => 'nullable|string|required_if:mode,in_person',
+            'status' => 'nullable|in:upcoming,completed,rescheduled,no-show,cancelled',
         ];
     }
 }

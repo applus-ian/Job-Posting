@@ -6,12 +6,11 @@ import { DocumentCard } from "@/components/profile/DocumentCard";
 import { EducationCard } from "@/components/profile/EducationCard";
 import { WorkExperienceCard } from "@/components/profile/WorkExperienceCard";
 import { User, FileText, GraduationCap, Briefcase } from "lucide-react";
-import { useProfile } from "@/hooks/useProfile";
 import { SkeletonProfile } from "@/components/skeletons/SkeletonProfile";
+import { useProfileQuery } from "@/hooks/query/useProfileQuery";
 
 export default function ApplicantProfilePage() {
-  const { getAppliantDetailsQuery } = useProfile();
-  const { data, isLoading, isError } = getAppliantDetailsQuery;
+  const { data, isLoading, isError } = useProfileQuery();
 
   if (isError) return <div>Error loading profile</div>;
 
@@ -55,7 +54,7 @@ export default function ApplicantProfilePage() {
               />
             </TabsContent>
             <TabsContent value="documents">
-              <DocumentCard documents={data.applicant.documents} />
+              <DocumentCard documents={data.documents} />
             </TabsContent>
             <TabsContent value="workexperience">
               <WorkExperienceCard workexperience={data.applicant.work_experience} />
