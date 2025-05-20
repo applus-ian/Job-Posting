@@ -1,12 +1,11 @@
 "use client";
 import { useProfileApi } from "@/api/profile";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useQueryClient } from "@tanstack/react-query";
 
 export function useProfile() {
   const {
-    applicantDetails,
     applicantProfile,
     addWorkExperience,
     updateWorkExperience,
@@ -28,12 +27,6 @@ export function useProfile() {
   const { data: session, update } = useSession();
   const queryClient = useQueryClient();
   const applicantDetailsQueryKey = ["applicant", session?.user.applicant_id];
-
-  // get applicant information, work experience, education history
-  const getAppliantDetailsQuery = useQuery({
-    queryKey: applicantDetailsQueryKey,
-    queryFn: applicantDetails,
-  });
 
   // update applicant profile (personal information)
   const applicantProfileMutation = useMutation({
@@ -229,7 +222,6 @@ export function useProfile() {
   });
 
   return {
-    getAppliantDetailsQuery,
     applicantProfileMutation,
     addWorkExperienceMutation,
     updateWorkExperienceMutation,

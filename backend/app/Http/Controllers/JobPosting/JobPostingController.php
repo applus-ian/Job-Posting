@@ -21,6 +21,12 @@ class JobPostingController extends Controller
         ];
     }
 
+    public function getOpenJobsWithSaved()
+    {
+        $data = $this->jobPostingService->fetchJobPostingWithSaved();
+        return response()->json($data, 200);
+    }
+
     public function store(JobPostingRequest $request)
     {
         $data = $this->jobPostingService->createJobPosting($request->validated());

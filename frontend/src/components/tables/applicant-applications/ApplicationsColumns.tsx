@@ -1,38 +1,16 @@
 "use client";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../../ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import CustomBadge from "../../badges/CustomBadge";
 import { useRouter } from "next/navigation";
-
-export type Application = {
-  id: string;
-  title: string;
-  category: string;
-  department: string;
-  vacancies: number;
-  salary_min: number;
-  salary_max: number;
-  status: "submitted" | "interview" | "withdrawn" | "offered" | "hired";
-  applicants: number;
-  employment_type: string;
-  employment_level: string;
-  work_setup: string;
-  applied_date: string;
-};
+import { Application } from "@/types/application";
 
 export function useApplicationColumns(): ColumnDef<Application>[] {
   const router = useRouter();
   return [
     {
-      accessorKey: "title",
+      accessorKey: "job_posting.title",
       header: ({ column }) => {
         return (
           <Button
@@ -43,6 +21,7 @@ export function useApplicationColumns(): ColumnDef<Application>[] {
           </Button>
         );
       },
+      cell: ({ row }) => row.original.job_posting?.title ?? "N/A",
     },
     {
       accessorKey: "salary_min",
@@ -57,13 +36,13 @@ export function useApplicationColumns(): ColumnDef<Application>[] {
         );
       },
       cell: ({ row }) => {
-        const min = row.original.salary_min;
-        const max = row.original.salary_max;
+        const min = row.original.job_posting.salary_min;
+        const max = row.original.job_posting.salary_max;
         return `₱${min} - ₱${max}`;
       },
     },
     {
-      accessorKey: "applied_date",
+      accessorKey: "created_at",
       header: ({ column }) => {
         return (
           <Button
@@ -75,11 +54,11 @@ export function useApplicationColumns(): ColumnDef<Application>[] {
         );
       },
     },
-    {
-      accessorKey: "department",
-      header: () => null,
-      cell: () => null,
-    },
+    // {
+    //   accessorKey: "department",
+    //   header: () => null,
+    //   cell: () => null,
+    // },
     {
       accessorKey: "status",
       header: "Status",
@@ -88,42 +67,13 @@ export function useApplicationColumns(): ColumnDef<Application>[] {
       },
     },
     {
-      accessorKey: "category",
-      header: () => null,
-      cell: () => null,
-    },
-    {
-      accessorKey: "employment_type",
-      header: () => null,
-      cell: () => null,
-    },
-    {
-      accessorKey: "employment_level",
-      header: () => null,
-      cell: () => null,
-    },
-    {
-      accessorKey: "work_setup",
-      header: () => null,
-      cell: () => null,
-    },
-    {
       id: "actions",
-      cell: () => {
+      cell: ({ row }) => {
+        const applicationId = row.original.id;
         return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => router.push("/my-applications/1")}>
-                View Application
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Button size={"sm"} onClick={() => router.push(`/my-applications/${applicationId}`)}>
+            View
+          </Button>
         );
       },
     },

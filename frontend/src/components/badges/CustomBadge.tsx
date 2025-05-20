@@ -39,6 +39,10 @@ const statusStyles = {
     text: "text-[#00730D]",
     bg: "bg-[#B6FFB2]",
   },
+  upcoming: {
+    text: "text-[#009398]",
+    bg: "bg-[#B7F8FF]",
+  },
 };
 
 export default function CustomBadge({

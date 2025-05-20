@@ -13,6 +13,7 @@ class Interview extends Model
         'meeting_link',
         'platform',
         'location',
+        'status',
         'application_id',
     ];
 

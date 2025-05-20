@@ -58,6 +58,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('language', LanguageController::class);
     // application routes
     Route::controller(ApplicationController::class)->prefix('application')->group(function () {
+        Route::get('/view-applications', 'index');
         Route::get('/{application}', 'view');
         Route::post('/{jobposting}', 'apply');
         Route::put('/{application}', 'updateStatus');
@@ -78,6 +79,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/{document}', action: 'downloadCoverLetter');
         });
     });
+    // jobposting
+    Route::get('jobposting/open/saved', [JobPostingController::class, 'getOpenJobsWithSaved']);
     // saved job routes
     Route::controller(SavedJobController::class)->prefix('saved-job')->group(function () {
         Route::get('/', 'index');

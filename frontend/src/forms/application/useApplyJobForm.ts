@@ -58,6 +58,7 @@ export function useApplyJobForm(applyJobData: ApplyFormProp) {
   return {
     form,
     onSubmit,
+    isSuccess: applyJobMutation.isSuccess,
     error,
   };
 }

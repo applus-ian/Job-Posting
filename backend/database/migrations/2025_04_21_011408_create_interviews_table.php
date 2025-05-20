@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('meeting_link')->nullable();
             $table->string('platform')->nullable();
             $table->string('location')->nullable();
+            $table->enum('status', ['upcoming', 'completed', 'rescheduled', 'no-show', 'cancelled'])->default('upcoming');
             $table->foreignId('application_id')->constrained('applications')->onDelete('cascade');
             $table->timestamps();
         });

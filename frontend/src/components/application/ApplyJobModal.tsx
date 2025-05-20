@@ -32,7 +32,15 @@ export function ApplyJobModal({
     resume,
     coverletter,
   };
-  const { form, onSubmit, error } = useApplyJobForm(applyJobData);
+  const { form, onSubmit, isSuccess, error } = useApplyJobForm(applyJobData);
+
+  // reset and close modal when form is success
+  useEffect(() => {
+    if (isSuccess) {
+      form.reset();
+      setOpenModal(false);
+    }
+  }, [isSuccess, form, setOpenModal]);
 
   // reset form when modal is closed
   useEffect(() => {

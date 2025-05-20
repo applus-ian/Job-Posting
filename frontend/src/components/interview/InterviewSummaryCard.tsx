@@ -1,7 +1,9 @@
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import CustomBadge from "../badges/CustomBadge";
+import { Interview } from "@/types/interview";
+import { capitalizeText } from "@/utils/capitalizeText";
 
-export function InterviewSummaryCard() {
+export function InterviewSummaryCard({ interview }: { interview: Interview }) {
   return (
     <Card>
       <CardHeader>
@@ -11,28 +13,38 @@ export function InterviewSummaryCard() {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col w-full">
             <p className="text-sm text-gray-500">Interview Status</p>
-            <CustomBadge label="completed" status="success" />
+            <CustomBadge label={capitalizeText(interview.status)} status={interview.status} />
           </div>
           <div className="flex flex-col w-full">
             <p className="text-sm text-gray-500">Date and Time</p>
             <p className="text-xs font-medium truncate w-full">
-              Tuesday, April 15, 2025 at 10:00 AM
+              {interview.schedule_date} - {interview.schedule_time}
             </p>
           </div>
           <div className="flex flex-col w-full">
             <p className="text-sm text-gray-500">Interview Type</p>
-            <p className="text-xs font-medium truncate w-full">Online</p>
+            <p className="text-xs font-medium truncate w-full">{capitalizeText(interview.mode)}</p>
           </div>
-          <div className="flex flex-col w-full">
-            <p className="text-sm text-gray-500">Meeting Link</p>
-            <a
-              href="/"
-              target="_blank"
-              className="text-xs text-primary font-medium truncate w-full"
-            >
-              https://meet.google.com/abc-defg-hij
-            </a>
-          </div>
+          {interview.mode === "virtual" ? (
+            <div className="flex flex-col w-full">
+              <p className="text-sm text-gray-500">Meeting Link</p>
+              <a
+                href={interview.meeting_link || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-primary font-medium truncate w-full"
+              >
+                {interview.meeting_link || "No meeting link provided"}
+              </a>
+            </div>
+          ) : (
+            <div className="flex flex-col w-full">
+              <p className="text-sm text-gray-500">Location</p>
+              <p className="text-xs font-medium truncate w-full">
+                {interview.location || "No location provided"}
+              </p>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

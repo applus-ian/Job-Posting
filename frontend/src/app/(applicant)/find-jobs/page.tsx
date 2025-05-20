@@ -3,12 +3,11 @@ import HeaderNav from "@/components/homepage/HeaderNav";
 import Footer from "@/components/homepage/Footer";
 import JobSearchBar from "@/components/job/JobSearchBar";
 import { JobBoard } from "@/components/job/JobBoard";
-import { useJobPosting } from "@/hooks/useJobPosting";
 import { SkeletonBrowseJob } from "@/components/skeletons/SkeletonBrowseJob";
+import { useOpenJobPostingsQuery } from "@/hooks/query/useJobPostingQuery";
 
 export default function FindJobPage() {
-  const { getOpenJobPostings } = useJobPosting();
-  const { data, isLoading, isError } = getOpenJobPostings;
+  const { data, isLoading, isError } = useOpenJobPostingsQuery();
 
   if (isError) return <div>Error loading job postings</div>;
   return (
@@ -21,7 +20,7 @@ export default function FindJobPage() {
           ) : (
             <>
               <JobSearchBar />
-              <JobBoard jobpostings={data.jobpostings} />
+              <JobBoard jobpostings={data.jobpostings} documents={[]} savedjobs={[]} />
             </>
           )}
         </div>

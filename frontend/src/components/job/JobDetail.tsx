@@ -51,10 +51,14 @@ export default function JobDetail({
   const handleSaveButton = async (jobPostingId: number) => {
     const savedJob = savedjobs?.find((job) => job.job_posting_id === jobPostingId);
 
-    if (savedJob) {
-      await unsaveJobPostingMutation.mutateAsync(savedJob.id!);
+    if (session) {
+      if (savedJob) {
+        await unsaveJobPostingMutation.mutateAsync(savedJob.id!);
+      } else {
+        await saveJobPostingMutation.mutateAsync(jobPostingId);
+      }
     } else {
-      await saveJobPostingMutation.mutateAsync(jobPostingId);
+      signIn();
     }
   };
 

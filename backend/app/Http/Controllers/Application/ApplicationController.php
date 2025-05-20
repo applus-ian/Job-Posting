@@ -9,6 +9,7 @@ use App\Models\Application;
 use App\Models\JobPosting;
 use App\Services\Application\ApplicationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
@@ -16,10 +17,17 @@ class ApplicationController extends Controller
     {
     }
 
+    public function index()
+    {
+        $applicant = Auth::user()->applicant;
+        $data = $this->applicationService->getApplicantApplications($applicant);
+        return response()->json($data, 200);
+    }
+
     public function view(Application $application)
     {
-        $applicationData = $this->applicationService->viewApplication($application);
-        return response()->json(['application' => $applicationData]);
+        $data = $this->applicationService->viewApplication($application);
+        return response()->json($data, 200);
     }
 
     public function apply(ApplicationRequest $request, JobPosting $jobposting)
