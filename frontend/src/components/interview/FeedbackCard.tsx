@@ -3,6 +3,7 @@ import { Star } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Feedback } from "@/types/interview";
+import { formatDateTime } from "../../utils/dateFormatter";
 
 export function FeedbackCard({ feedback }: { feedback: Feedback[] }) {
   return (
@@ -26,12 +27,7 @@ export function FeedbackCard({ feedback }: { feedback: Feedback[] }) {
                   </Avatar>
                   <div className="flex flex-col">
                     <span className="font-medium text-gray-800">Jane HR</span>
-                    <span className="text-xs text-gray-500">
-                      {new Date(item.created_at).toLocaleString(undefined, {
-                        dateStyle: "medium",
-                        timeStyle: "short",
-                      })}
-                    </span>
+                    <span className="text-xs text-gray-500">{formatDateTime(item.created_at)}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-1">

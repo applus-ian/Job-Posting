@@ -63,15 +63,17 @@ export function JobBoard({
       {jobpostings.length === 0 ? (
         <p>No jobs available.</p>
       ) : (
-        <div className="flex flex-col lg:flex-row gap-6">
-          <div className="w-full lg:w-2/5">
-            <JobList
-              jobpostings={jobpostings}
-              onSelectJob={handleSelectJob}
-              selectedJobId={selectedJob?.id}
-            />
+        <div className="flex flex-col lg:flex-row gap-3">
+          <div className="max-h-[100vh] w-full lg:w-2/5">
+            <div className="flex-grow overflow-y-auto">
+              <JobList
+                jobpostings={jobpostings}
+                onSelectJob={handleSelectJob}
+                selectedJobId={selectedJob?.id}
+              />
+            </div>
           </div>
-          <div className="w-full lg:w-3/5 hidden lg:block">
+          <div className="max-h-[100vh] w-full lg:w-3/5 hidden lg:block">
             {selectedJob && (
               <JobDetail
                 jobposting={selectedJob}

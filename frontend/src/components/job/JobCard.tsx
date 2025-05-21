@@ -3,6 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { UsersRound, UserPlus2, Briefcase, Wallet } from "lucide-react";
 import { JobCardProps } from "@/types/job";
+import { formatDateOnly } from "@/utils/dateFormatter";
 
 export default function JobCard({ jobposting, onClick, isSelected }: JobCardProps) {
   return (
@@ -13,15 +14,8 @@ export default function JobCard({ jobposting, onClick, isSelected }: JobCardProp
       onClick={onClick}
     >
       <CardContent className="px-5">
-        <div className="flex flex-row items-start w-full gap-8">
-          <div className="w-[90%]">
-            <h3 className="font-semibold text-lg">{jobposting.title}</h3>
-          </div>
-          <div className="w-auto flex flex-row">
-            <div className="mt-2 space-y-1 text-xs text-gray-500">
-              <i>{jobposting.created_at}</i>
-            </div>
-          </div>
+        <div className="w-full">
+          <h3 className="font-semibold text-lg">{jobposting.title}</h3>
         </div>
         <div className="mt-2 space-y-1 text-xs text-gray-500">
           <div className="flex flex-row gap-6">
@@ -63,6 +57,9 @@ export default function JobCard({ jobposting, onClick, isSelected }: JobCardProp
               </span>
             </div>
           </div>
+        </div>
+        <div className="flex justify-end text-xs text-gray-500 mt-4">
+          {formatDateOnly(jobposting.created_at)}
         </div>
       </CardContent>
     </Card>

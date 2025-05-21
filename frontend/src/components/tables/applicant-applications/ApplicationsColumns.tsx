@@ -5,6 +5,7 @@ import { ArrowUpDown } from "lucide-react";
 import CustomBadge from "../../badges/CustomBadge";
 import { useRouter } from "next/navigation";
 import { Application } from "@/types/application";
+import { formatDateTime } from "@/utils/dateFormatter";
 
 export function useApplicationColumns(): ColumnDef<Application>[] {
   const router = useRouter();
@@ -52,6 +53,10 @@ export function useApplicationColumns(): ColumnDef<Application>[] {
             Date Applied <ArrowUpDown className="text-gray-400" size={10} />
           </Button>
         );
+      },
+      cell: ({ row }) => {
+        const rawDate = row.original.created_at as string;
+        return <span>{formatDateTime(rawDate)}</span>;
       },
     },
     // {
