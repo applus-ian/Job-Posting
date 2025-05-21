@@ -14,7 +14,6 @@ export function useDocumentApi() {
         "Content-Type": "multipart/form-data",
       },
     });
-
     return response.data;
   };
 
@@ -49,10 +48,25 @@ export function useDocumentApi() {
 
   const downloadCoverLetter = async (id: number, filename: string) => {
     const response = await axiosAuth.get(`/api/applicant/cover-letter/${id}`, {
-      responseType: "blob",
+      responseType: "blob", 
     });
     saveAs(response.data, filename);
   };
+
+  const viewPDFresume = async (file_name: string) => {
+    try {
+      console.log('Requesting PDF:', file_name); // Add logging
+      const response = await axiosAuth.get(`/api/view-resume/${file_name}`, {
+        responseType: "blob",
+      });
+      console.log('Response received:', response.status); // Add logging
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      return url;
+    } catch (error) {
+      console.error('Error details:');
+      throw error;
+    }
+  }
 
   return {
     uploadResume,
@@ -61,5 +75,6 @@ export function useDocumentApi() {
     deleteCoverLetter,
     downloadResume,
     downloadCoverLetter,
+    viewPDFresume,
   };
 }

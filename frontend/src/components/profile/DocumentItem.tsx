@@ -6,13 +6,21 @@ import { DocumentItemProps } from "@/types/profile";
 import { useDocumentApi } from "@/api/document";
 import { useState } from "react";
 import { DeleteDocumentModal } from "./DeleteDocumentModal";
+import ViewDocumentModal from "./ViewDocumentModal";
+
 
 export function DocumentItem({ type = "resume", label, document }: DocumentItemProps) {
   const { downloadResume, downloadCoverLetter } = useDocumentApi();
   const [openDialog, setOpenDialog] = useState(false);
+  const [openPdfModal, setOpenPdfModal] = useState(false);
+
   const handleDownload = (id: number, filename: string) => {
     if (type === "resume") {
-      downloadResume(id, filename);
+      if (document) {
+        setOpenPdfModal(true); 
+      } else {
+        downloadResume(id, filename);
+      }
     } else if (type === "coverletter") {
       downloadCoverLetter(id, filename);
     }
@@ -27,14 +35,16 @@ export function DocumentItem({ type = "resume", label, document }: DocumentItemP
         </Button>
       </CardHeader>
       <CardContent>
-        <Button
-          variant="outline"
-          className="w-full"
-          onClick={() => handleDownload(document.id, document.file_name)}
-        >
-          <Download className="w-4 h-4 mr-2" />
-          <p className="text-sm">{document.file_name}</p>
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => handleDownload(document.id, document.file_name)}
+          >
+            <Download className="w-4 h-4 mr-2" />
+            <p className="text-sm">{document.file_name}</p>
+          </Button>
+        </div>
       </CardContent>
 
       <DeleteDocumentModal
@@ -42,6 +52,12 @@ export function DocumentItem({ type = "resume", label, document }: DocumentItemP
         setOpenDialog={setOpenDialog}
         document={document}
       />
+      <ViewDocumentModal
+        isOpen={openPdfModal}
+        onClose={() => setOpenPdfModal(false)}
+        fileName={document.file_name}
+      />
+
     </>
   );
 }
