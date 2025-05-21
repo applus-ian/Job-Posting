@@ -9,7 +9,13 @@ import { SidebarLayout } from "@/components/sidebar-layout";
 
 export default function ViewApplicationPage() {
   return (
-    <SidebarLayout>
+    <SidebarLayout
+      breadcrumbs={[
+        { label: "Applications", href: "/hr/applications" },
+        { label: "Mike Arthur Minoza", href: "/hr/applications/1" },
+        { label: "HR manager Application", isCurrentPage: true },
+      ]}
+    >
       <div className="mt-3">
         <p className="text-xl">Application Details</p>
         <div className="flex flex-col lg:flex-row w-full gap-6 mt-4">

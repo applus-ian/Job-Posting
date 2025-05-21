@@ -35,6 +35,10 @@ export default function JobDetail({
 
   const handleApplyBtn = (jobposting: JobPosting) => {
     if (session) {
+      if (jobposting.vacancies <= 0) {
+        alert("Sorry, no vacancies available for this job.");
+        return;
+      }
       const userAlreadyApplied = jobposting.applications.some(
         (app) => app.applicant_id === session.user.applicant_id
       );
@@ -95,8 +99,8 @@ export default function JobDetail({
             <div className="flex items-center">
               <UsersRound className="h-4 w-4 mr-2" />
               <span>
-                10 Applications
-                {/* {jobposting.applicants} {jobposting.applicants === 1 ? "Application" : "Applications"} */}
+                {jobposting.applications.length}{" "}
+                {jobposting.applications.length === 1 ? "Applicant" : "Applicants"}
               </span>
             </div>
             <div className="flex items-center">

@@ -33,8 +33,8 @@ class ApplicationService
 
     public function applyJob(array $data, $jobposting, $user)
     {
-        // check if the job status is open
-        if ($jobposting->status !== 'open') {
+        // check if the job status is open or the jobposting has 0 vacancies
+        if ($jobposting->status !== 'open' || $jobposting->vacancies <= 0) {
             return null;
         }
         // add the job posting id
@@ -42,6 +42,8 @@ class ApplicationService
         // create application
         $applicationData = collect($data)->except(['resume', 'coverletter'])->toArray();
         $application = $user->applicant->application()->create($applicationData);
+        // Decrement vacancies by 1
+        $jobposting->decrement('vacancies');
         // create application status
         $this->updateApplicationStatusTimeline(['status' => 'received'], $application);
         // upload application files

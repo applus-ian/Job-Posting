@@ -15,6 +15,7 @@ class SavedJobService
         $savedJobPostingIds = $applicant->savedJob()->pluck('job_posting_id');
         // get jobposting that are saved
         $savedJobPostings = JobPosting::whereIn('id', $savedJobPostingIds)
+            ->with('applications')
             ->where('status', 'open')
             ->get();
 

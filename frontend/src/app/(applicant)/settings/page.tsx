@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 
 export default function SettingsPage() {
   return (
-    <SidebarLayout>
+    <SidebarLayout breadcrumbs={[{ label: "Settings", isCurrentPage: true }]}>
       <div className="flex">
         <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
       </div>

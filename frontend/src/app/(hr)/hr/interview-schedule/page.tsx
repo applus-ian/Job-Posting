@@ -60,7 +60,7 @@ export default function InterviewSchedule() {
   };
 
   return (
-    <SidebarLayout>
+    <SidebarLayout breadcrumbs={[{ label: "Interview Schedules", isCurrentPage: true }]}>
       <div className="flex flex-col space-y-2 w-full px-4 md:px-0 md:max-w-7xl mx-auto">
         {/* search bar - positioned to the right */}
         <div className="flex justify-end mb-2 ">

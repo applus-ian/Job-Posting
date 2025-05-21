@@ -9,7 +9,7 @@ import { Briefcase, UserRound, CalendarDays } from "lucide-react";
 
 export default function HRDashboardPage() {
   return (
-    <SidebarLayout>
+    <SidebarLayout breadcrumbs={[{ label: "Dashboard", isCurrentPage: true }]}>
       <div className="space-y-4">
         {/* Stats Row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

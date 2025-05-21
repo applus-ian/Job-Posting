@@ -15,7 +15,7 @@ export default function ApplicantProfilePage() {
   if (isError) return <div>Error loading profile</div>;
 
   return (
-    <SidebarLayout>
+    <SidebarLayout breadcrumbs={[{ label: "Profile", isCurrentPage: true }]}>
       {isLoading ? (
         <SkeletonProfile />
       ) : (
