@@ -54,6 +54,9 @@ const statusStyles = {
   cancelled: {
     text: "text-[#FF0000]",
     bg: "bg-[#FFE6E6]",
+  upcoming: {
+    text: "text-[#009398]",
+    bg: "bg-[#B7F8FF]",
   },
 };
 

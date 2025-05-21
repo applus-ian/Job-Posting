@@ -4,6 +4,16 @@ import { ApplyJob } from "@/types/application";
 export function useApplicationApi() {
   const axiosAuth = useAxiosAuth();
 
+  const getApplicantApplications = async () => {
+    const response = await axiosAuth.get("/api/application/view-applications");
+    return response.data;
+  };
+
+  const getApplicationDetails = async (id: number) => {
+    const response = await axiosAuth.get(`/api/application/${id}`);
+    return response.data;
+  };
+
   const applyJob = async (fields: ApplyJob) => {
     const formData = new FormData();
 
@@ -20,5 +30,5 @@ export function useApplicationApi() {
     return response.data;
   };
 
-  return { applyJob };
+  return { getApplicationDetails, getApplicantApplications, applyJob };
 }

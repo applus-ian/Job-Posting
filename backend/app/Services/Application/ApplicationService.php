@@ -10,13 +10,25 @@ class ApplicationService
     {
     }
 
+    public function getApplicantApplications($applicant)
+    {
+        return ['applications' => $applicant->application()->with(['jobPosting', 'applicationStatus'])->get()];
+    }
+
     public function viewApplication($application)
     {
+        # uncomment after hr user is integrated
         // update to reviewed if the status is still received
-        if ($application->status === 'received') {
-            $this->updateApplicationStatus(['status' => 'reviewed'], $application);
-        }
-        return $application;
+        // if ($application->status === 'received') {
+        //     $this->updateApplicationStatus(['status' => 'reviewed'], $application);
+        // }
+        return [
+            'application' => $application,
+            'application_status' => $application->applicationStatus,
+            'interview' => $application->interview()->with('feedback')->first(),
+            'jobposting' => $application->jobPosting,
+            'documents' => $application->document
+        ];
     }
 
     public function applyJob(array $data, $jobposting, $user)

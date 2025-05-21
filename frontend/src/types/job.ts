@@ -54,3 +54,9 @@ export type ApplyJobModalProps = {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+export type JobDetailModalProps = {
+  jobposting: JobPosting;
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+};

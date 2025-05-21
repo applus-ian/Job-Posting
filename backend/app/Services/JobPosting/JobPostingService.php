@@ -3,9 +3,20 @@
 namespace App\Services\JobPosting;
 
 use App\Models\JobPosting;
+use Illuminate\Support\Facades\Auth;
 
 class JobPostingService
 {
+    public function fetchJobPostingWithSaved()
+    {
+        $applicant = Auth::user()->applicant;
+
+        return [
+            'jobpostings' => JobPosting::with('applications')->where('status', 'open')->get(),
+            'savedjobs' => $applicant->savedJob()->get(),
+        ];
+    }
+
     public function createJobPosting(array $data)
     {
         // create job posting

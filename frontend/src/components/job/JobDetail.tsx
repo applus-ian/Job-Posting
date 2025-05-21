@@ -51,10 +51,14 @@ export default function JobDetail({
   const handleSaveButton = async (jobPostingId: number) => {
     const savedJob = savedjobs?.find((job) => job.job_posting_id === jobPostingId);
 
-    if (savedJob) {
-      await unsaveJobPostingMutation.mutateAsync(savedJob.id!);
+    if (session) {
+      if (savedJob) {
+        await unsaveJobPostingMutation.mutateAsync(savedJob.id!);
+      } else {
+        await saveJobPostingMutation.mutateAsync(jobPostingId);
+      }
     } else {
-      await saveJobPostingMutation.mutateAsync(jobPostingId);
+      signIn();
     }
   };
 
@@ -103,7 +107,7 @@ export default function JobDetail({
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="flex-grow overflow-y-auto space-y-6 px-6">
           <div>
             <DescriptionRenderer description={jobposting.description} />
           </div>
