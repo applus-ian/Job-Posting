@@ -19,6 +19,7 @@ use App\Http\Controllers\Interview\InterviewFeedbackController;
 use App\Http\Controllers\Interview\InterviewScheduleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\DocumentViewerController;
 
 // authentication routes (breeze)
 Route::prefix('auth')->group(function () {
@@ -87,8 +88,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::apiResource('/{interview}/feedback', InterviewFeedbackController::class);
         });
     });
+    //document viewer
+    Route::get('/view-resume/{filename}', [DocumentViewerController::class, 'viewResume']);
+    Route::get('/view-coverletter/{filename}', [DocumentViewerController::class, 'viewCoverLetter']);
+
 });
 
 // public routes
 Route::get('jobposting/open', [JobPostingController::class, 'getOpenJobs']);
-
