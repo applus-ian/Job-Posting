@@ -30,5 +30,10 @@ export function useApplicationApi() {
     return response.data;
   };
 
-  return { getApplicationDetails, getApplicantApplications, applyJob };
+  const updateApplicationStatus = async ({ id, status }: { id: number; status: string }) => {
+    const response = await axiosAuth.put(`/api/application/${id}`, status);
+    return response.data;
+  };
+
+  return { getApplicationDetails, getApplicantApplications, applyJob, updateApplicationStatus };
 }
