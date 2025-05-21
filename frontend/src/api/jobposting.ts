@@ -1,5 +1,6 @@
 import axios from "@/lib/axios";
 import useAxiosAuth from "@/hooks/useAxiosAuth";
+import { JobPosting } from "@/types/job";
 
 export function useJobPostingApi() {
   const axiosAuth = useAxiosAuth();
@@ -13,5 +14,27 @@ export function useJobPostingApi() {
     const response = await axiosAuth.get("/api/jobposting/open/saved");
     return response.data;
   };
-  return { openJobPostings, jobPostingWithSaved };
+
+  const createJobPosting = async () => {
+    const response = await axiosAuth.post("/api/hr/jobposting");
+    return response.data;
+  };
+
+  const updateJobPosting = async (fields: JobPosting) => {
+    const response = await axiosAuth.put(`/api/hr/jobposting/${fields.id}`, fields);
+    return response.data;
+  };
+
+  const deleteJobPosting = async (id: number) => {
+    const response = await axiosAuth.delete(`/api/hr/jobposting/${id}`);
+    return response.data;
+  };
+
+  return {
+    openJobPostings,
+    jobPostingWithSaved,
+    createJobPosting,
+    updateJobPosting,
+    deleteJobPosting,
+  };
 }

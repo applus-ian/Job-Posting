@@ -32,7 +32,7 @@ export function NavMenu() {
         title: "My Applications",
         url: "/my-applications",
         icon: Folder,
-        isActive: pathname === "/my-applications",
+        isActive: pathname.startsWith("/my-applications"),
       },
       {
         title: "Saved Jobs",
@@ -67,7 +67,7 @@ export function NavMenu() {
         title: "Applications",
         url: "/hr/applications",
         icon: FileText,
-        isActive: pathname === "/hr/applications",
+        isActive: pathname.startsWith("/hr/applications"),
       },
       {
         title: "Interview Schedule",
