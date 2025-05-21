@@ -21,7 +21,10 @@ export default function JobCard({ jobposting, onClick, isSelected }: JobCardProp
           <div className="flex flex-row gap-6">
             <div className="flex items-center">
               <UsersRound className="h-4 w-4 mr-2" />
-              <span>10 Applications</span>
+              <span>
+                {jobposting.applications.length}{" "}
+                {jobposting.applications.length === 1 ? "Applicant" : "Applicants"}
+              </span>
             </div>
             <div className="flex items-center">
               <UserPlus2 className="h-4 w-4 mr-2" />

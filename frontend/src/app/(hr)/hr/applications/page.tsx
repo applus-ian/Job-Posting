@@ -101,7 +101,7 @@ export default function AllApplicationPage() {
     fetchData();
   }, []);
   return (
-    <SidebarLayout>
+    <SidebarLayout breadcrumbs={[{ label: "Applications", isCurrentPage: true }]}>
       <div className="mb-3">
         <p className="text-2xl font-medium">All Applications</p>
       </div>

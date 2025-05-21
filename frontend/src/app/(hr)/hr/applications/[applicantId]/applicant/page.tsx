@@ -106,7 +106,12 @@ export default function ViewApplicantPage() {
     fetchData();
   }, []);
   return (
-    <SidebarLayout>
+    <SidebarLayout
+      breadcrumbs={[
+        { label: "Applications", href: "/hr/applications" },
+        { label: "Mike Arthur Minoza", isCurrentPage: true },
+      ]}
+    >
       <div className="flex">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Applicant Profile</h1>

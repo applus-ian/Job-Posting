@@ -11,7 +11,18 @@ import {
 } from "./ui/breadcrumb";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "./ui/sidebar";
 
-export function SidebarLayout({ children }: { children: React.ReactNode }) {
+interface BreadcrumbData {
+  label: string;
+  href?: string;
+  isCurrentPage?: boolean;
+}
+
+interface SidebarLayoutProps {
+  children: React.ReactNode;
+  breadcrumbs?: BreadcrumbData[];
+}
+
+export function SidebarLayout({ children, breadcrumbs }: SidebarLayoutProps) {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -22,13 +33,22 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
+                {breadcrumbs?.map((item, idx) => (
+                  <div key={idx} className="flex items-center">
+                    <BreadcrumbItem
+                      className={idx !== breadcrumbs.length - 1 ? "hidden md:block" : ""}
+                    >
+                      {item.href && !item.isCurrentPage ? (
+                        <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
+                      ) : (
+                        <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                      )}
+                    </BreadcrumbItem>
+                    {idx < breadcrumbs.length - 1 && (
+                      <BreadcrumbSeparator className="hidden md:block" />
+                    )}
+                  </div>
+                ))}
               </BreadcrumbList>
             </Breadcrumb>
           </div>

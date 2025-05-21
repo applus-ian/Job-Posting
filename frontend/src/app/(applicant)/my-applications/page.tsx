@@ -11,7 +11,7 @@ export default function MyApplicationPage() {
   const { data, isLoading } = useApplicantApplicationsQuery();
 
   return (
-    <SidebarLayout>
+    <SidebarLayout breadcrumbs={[{ label: "Applications", isCurrentPage: true }]}>
       <div className="mb-3">
         <p className="text-2xl font-medium">My Applications</p>
       </div>

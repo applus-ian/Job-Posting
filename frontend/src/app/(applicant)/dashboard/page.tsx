@@ -22,7 +22,7 @@ export default function DashboardPage() {
   if (isProfileError || isApplicationsError) return <div>Error loading dashboard</div>;
 
   return (
-    <SidebarLayout>
+    <SidebarLayout breadcrumbs={[{ label: "Dashboard", isCurrentPage: true }]}>
       {isProfileLoading || isApplicationsLoading ? (
         <SkeletonDashboard />
       ) : (

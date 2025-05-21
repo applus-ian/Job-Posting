@@ -81,7 +81,7 @@ export default async function JobPostingPage() {
   const data = await getData();
 
   return (
-    <SidebarLayout>
+    <SidebarLayout breadcrumbs={[{ label: "Job Postings", isCurrentPage: true }]}>
       <div className="mb-2">
         <p className="text-2xl font-medium">All Job Postings</p>
       </div>

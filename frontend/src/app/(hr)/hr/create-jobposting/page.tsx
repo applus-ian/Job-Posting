@@ -54,7 +54,7 @@ export default function CreateJobPostingPage() {
   };
 
   return (
-    <SidebarLayout>
+    <SidebarLayout breadcrumbs={[{ label: "Create JobPosting", isCurrentPage: true }]}>
       <div className="mb-2">
         <p className="text-2xl font-medium">Create Job Posting</p>
         <p className="text-sm text-muted-foreground">

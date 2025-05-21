@@ -21,7 +21,7 @@ export default function BrowseJobPage() {
   if (isJobPostingsError || isDefaultFileError) return <div>Something went wrong</div>;
 
   return (
-    <SidebarLayout>
+    <SidebarLayout breadcrumbs={[{ label: "Browse Jobs", isCurrentPage: true }]}>
       {isJobPostingsLoading || isDefaultFileLoading ? (
         <SkeletonBrowseJob />
       ) : (

@@ -43,7 +43,7 @@ export function DashboardMessage({
             </Button>
           </Link>
         </div>
-        <div className="flex justify-between items-start gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
           {errors.length > 0 && (
             <div className="flex flex-col">
               <p className="text-sm text-gray-100">Your profile is incomplete:</p>
