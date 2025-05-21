@@ -2,6 +2,7 @@ import { File, Download } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Document } from "@/types/profile";
 import { useDocumentApi } from "@/api/document";
+import { Button } from "../ui/button";
 
 export function DocumentCard({ documents }: { documents: Document[] }) {
   const { downloadResume, downloadCoverLetter } = useDocumentApi();
@@ -32,12 +33,13 @@ export function DocumentCard({ documents }: { documents: Document[] }) {
                   <p className="text-xs font-medium truncate w-full">{doc.file_name}</p>
                 </div>
               </div>
-              <button
-                className="ml-4 text-gray-500 hover:text-primary shrink-0"
+              <Button
+                variant={"ghost"}
+                className="ml-4 text-gray-500 hover:text-primary shrink-0 cursor-pointer"
                 onClick={() => handleDownload(doc.type, doc.id, doc.file_name)}
               >
                 <Download size={20} className="text-primary" />
-              </button>
+              </Button>
             </div>
           ))}
         </div>
