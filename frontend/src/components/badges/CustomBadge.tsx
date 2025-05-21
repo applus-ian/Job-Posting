@@ -39,21 +39,6 @@ const statusStyles = {
     text: "text-[#00730D]",
     bg: "bg-[#B6FFB2]",
   },
-  pending: {
-  text: "text-dark", 
-  bg: "bg-yellow-200",     
-  },
-  upcoming: {
-    text: "text-[#005173]",
-    bg: "bg-[#C8F5FF]",  
-  },
-  completed: {
-    text: "text-[#00730D]",
-    bg: "bg-[#B6FFB2]",
-  },
-  cancelled: {
-    text: "text-[#FF0000]",
-    bg: "bg-[#FFE6E6]",
   upcoming: {
     text: "text-[#009398]",
     bg: "bg-[#B7F8FF]",
