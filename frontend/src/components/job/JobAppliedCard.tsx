@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { UserSquare2, FileClock, CircleGauge, Wallet, Laptop2, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { JobDetailsModal } from "./JobDetailsModal";
+import { JobDetailModal } from "./JobDetailsModal";
 
 export function JobAppliedCard({ jobposting }: { jobposting: JobPosting }) {
   const [openModal, setOpenModal] = useState(false);
@@ -67,7 +67,7 @@ export function JobAppliedCard({ jobposting }: { jobposting: JobPosting }) {
           </div>
         </CardContent>
       </Card>
-      <JobDetailsModal jobposting={jobposting} openModal={openModal} setOpenModal={setOpenModal} />
+      <JobDetailModal jobposting={jobposting} openModal={openModal} setOpenModal={setOpenModal} />
     </>
   );
 }

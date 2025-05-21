@@ -2,6 +2,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import CustomBadge from "../badges/CustomBadge";
 import { Interview } from "@/types/interview";
 import { capitalizeText } from "@/utils/capitalizeText";
+import { formatDateOnly, formatTimeOnly } from "@/utils/dateFormatter";
 
 export function InterviewSummaryCard({ interview }: { interview: Interview }) {
   return (
@@ -18,7 +19,7 @@ export function InterviewSummaryCard({ interview }: { interview: Interview }) {
           <div className="flex flex-col w-full">
             <p className="text-sm text-gray-500">Date and Time</p>
             <p className="text-xs font-medium truncate w-full">
-              {interview.schedule_date} - {interview.schedule_time}
+              {formatDateOnly(interview.schedule_date)} - {formatTimeOnly(interview.schedule_time)}
             </p>
           </div>
           <div className="flex flex-col w-full">

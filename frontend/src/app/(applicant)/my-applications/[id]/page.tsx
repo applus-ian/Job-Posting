@@ -5,12 +5,17 @@ import { ApplicationDetailCard } from "@/components/application/ApplicationDetai
 import { InterviewCard } from "@/components/application/InterviewCard";
 import { FileIcon, Calendar } from "lucide-react";
 import { useViewApplicationQuery } from "@/hooks/query/useViewApplicationQuery";
+import { SkeletonApplication } from "@/components/skeletons/SkeletonApplication";
 
 export default function Application() {
-  const { data, isLoading, isError } = useViewApplicationQuery();
+  const { data, isLoading } = useViewApplicationQuery();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Something went wrong.</div>;
+  if (isLoading)
+    return (
+      <SidebarLayout>
+        <SkeletonApplication />
+      </SidebarLayout>
+    );
 
   const applicationStatus = data.application.status;
   const isBasicStatus = applicationStatus === "received" || applicationStatus === "reviewed";
