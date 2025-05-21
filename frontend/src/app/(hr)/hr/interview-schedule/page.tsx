@@ -25,7 +25,7 @@ export default function InterviewSchedule() {
   // State for modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [currentMonth, setCurrentMonth] = useState(new Date()); // uses today's actual date
+  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 0, 1)); // January 2025
   const [view, setView] = useState<"calendar" | "list">("calendar");
 
   // State for interviews (initialized with sample data)
@@ -61,7 +61,7 @@ export default function InterviewSchedule() {
 
   return (
     <SidebarLayout>
-      <div className="flex flex-col space-y-2 w-full ">
+      <div className="flex flex-col space-y-2 w-full px-4 md:px-0 md:max-w-7xl mx-auto">
         {/* search bar - positioned to the right */}
         <div className="flex justify-end mb-2 ">
           <div className="flex items-center gap-2 w-[300px]">
@@ -111,7 +111,7 @@ export default function InterviewSchedule() {
 
         {/* Main Content */}
         <div className="flex justify-center w-full">
-          <Card className="w-full p-2 sm:p-4 overflow-hidden">
+          <Card className="w-full md:w-[1000px] h-[450px] sm:h-[550px] md:h-[650px] p-2 sm:p-4 overflow-hidden">
             <div className="bg-white rounded-sm h-full">
               {view === "calendar" && (
                 <CalendarView
