@@ -1,0 +1,75 @@
+version: '3.8'
+services:
+  employee-db:
+    image: mysql:8.0
+    container_name: employee-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: employeedb
+      MYSQL_USER: empuser
+      MYSQL_PASSWORD: emppass
+    ports:
+      - "3309:3306"  # Using 3309 since it's available
+    volumes:
+      - employee_data:/var/lib/mysql
+    networks:
+      - backend
+
+  jobposting-db:
+    image: mysql:8.0
+    container_name: jobposting-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: jobpostingdb
+      MYSQL_USER: jpuser
+      MYSQL_PASSWORD: jppass
+    ports:
+      - "3310:3306"  # Using 3310 since it's available
+    volumes:
+      - jobposting_data:/var/lib/mysql
+    networks:
+      - backend
+
+  employee-management:
+    build:
+      context: ./EM-backend  # Update this path to match your EM backend folder
+    depends_on:
+      - employee-db
+    ports:
+      - "8001:8001"
+    networks:
+      - backend
+    environment:
+      - DB_HOST=employee-db
+      - DB_PORT=3306
+      - DB_USER=empuser
+      - DB_PASS=emppass
+      - DB_NAME=employeedb
+
+  jobposting:
+    build:
+      context: ./backend  # Update this path to match your JP backend folder
+    depends_on:
+      - jobposting-db
+      - employee-management
+    ports:
+      - "8002:8000"
+    networks:
+      - backend
+    environment:
+      - DB_HOST=jobposting-db
+      - DB_PORT=3306
+      - DB_USER=jpuser  # Fixed to match the MySQL user defined above
+      - DB_PASS=jppass  # Fixed to match the MySQL password defined above
+      - DB_NAME=jobpostingdb
+      - EMPLOYEE_API_URL=http://employee-management:8001/api/employees
+
+volumes:
+  employee_data:
+  jobposting_data:
+
+networks:
+  backend:
+    driver: bridge
