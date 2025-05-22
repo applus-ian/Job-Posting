@@ -8,41 +8,17 @@ import {
 } from "../../ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { MoreHorizontal, ArrowUpDown, User } from "lucide-react";
 import CustomBadge from "../../badges/CustomBadge";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Application } from "@/types/application";
+import { formatDateTime } from "@/utils/dateFormatter";
 
-export type AllApplication = {
-  id: string;
-  job: {
-    id: string;
-    title: string;
-    category: string;
-    department: string;
-    vacancies: number;
-    salary_min: number;
-    salary_max: number;
-    employment_type: string;
-    employment_level: string;
-    work_setup: string;
-  };
-  applicant: {
-    id: string;
-    first_name: string;
-    middle_name?: string;
-    last_name: string;
-    email: string;
-    phone: string;
-    expected_salary: number;
-  };
-  status: "submitted" | "interview" | "withdrawn" | "offered" | "hired";
-  applied_date: string;
-};
-
-export function useAllApplicationColumns(): ColumnDef<AllApplication>[] {
+export function useAllApplicationColumns(): ColumnDef<Application>[] {
   const router = useRouter();
+
   return [
     {
       id: "select",
@@ -67,11 +43,8 @@ export function useAllApplicationColumns(): ColumnDef<AllApplication>[] {
       enableHiding: false,
     },
     {
-      accessorKey: "applicant",
-      accessorFn: (row) => {
-        const applicant = row.applicant;
-        return `${applicant.first_name} ${applicant.middle_name ?? ""} ${applicant.last_name}`.trim();
-      },
+      accessorFn: (row) =>
+        `${row.applicant?.first_name ?? ""} ${row.applicant?.middle_name ?? ""} ${row.applicant?.last_name ?? ""}`.trim(),
       id: "fullName",
       header: ({ column }) => (
         <Button
@@ -83,16 +56,18 @@ export function useAllApplicationColumns(): ColumnDef<AllApplication>[] {
       ),
       cell: ({ row, getValue }) => {
         const fullName = getValue() as string;
-        const email = row.original.applicant.email;
+        const email = row.original.applicant?.user?.email ?? "N/A";
+        const profileBaseUrl = "http://localhost:8000/storage/profile/";
+        const profilePath = row.original.applicant?.user?.profile ?? "";
+        const profileUrl = profilePath ? `${profileBaseUrl}${profilePath}` : "";
+
         return (
           <div className="flex items-center gap-2">
             <Avatar className="w-10 h-10 rounded-full">
-              <AvatarImage
-                src="https://github.com/shadcn.png"
-                alt="@shadcn"
-                className="rounded-full object-cover"
-              />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage src={profileUrl} alt="@profile" className="rounded-full object-cover" />
+              <AvatarFallback className="bg-muted">
+                <User className="rounded-lg text-muted-foreground" />
+              </AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
               <p>{fullName}</p>
@@ -105,39 +80,36 @@ export function useAllApplicationColumns(): ColumnDef<AllApplication>[] {
     },
     {
       id: "expected_salary",
-      accessorKey: "applicant.expected_salary",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant={"ghost"}
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Expected Salary <ArrowUpDown className="text-gray-400" size={10} />
-          </Button>
-        );
-      },
+      accessorFn: (row) => row.expected_salary,
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Expected Salary <ArrowUpDown className="text-gray-400" size={10} />
+        </Button>
+      ),
       cell: ({ getValue }) => {
-        const expectedSalary = getValue() as number;
-        return <span>{`₱${expectedSalary.toLocaleString()}`}</span>;
+        const salary = getValue() as string;
+        return <span>{`₱${Number(salary).toLocaleString()}`}</span>;
       },
     },
     {
       id: "job_applied",
-      accessorKey: "job.title",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant={"ghost"}
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Job Applied <ArrowUpDown className="text-gray-400" size={10} />
-          </Button>
-        );
-      },
+      accessorFn: (row) => row.job_posting?.title,
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Job Applied <ArrowUpDown className="text-gray-400" size={10} />
+        </Button>
+      ),
       cell: ({ row }) => {
-        const title = row.original.job.title;
-        const min = row.original.job.salary_min;
-        const max = row.original.job.salary_max;
+        const job = row.original.job_posting;
+        const title = job?.title ?? "N/A";
+        const min = job?.salary_min ?? "0";
+        const max = job?.salary_max ?? "0";
 
         return (
           <div className="flex flex-col">
@@ -148,23 +120,26 @@ export function useAllApplicationColumns(): ColumnDef<AllApplication>[] {
       },
     },
     {
-      accessorKey: "applied_date",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant={"ghost"}
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Date Applied <ArrowUpDown className="text-gray-400" size={10} />
-          </Button>
-        );
+      accessorKey: "created_at",
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Date Applied <ArrowUpDown className="text-gray-400" size={10} />
+        </Button>
+      ),
+      cell: ({ row }) => {
+        const date = row.original.created_at!;
+        return <p>{formatDateTime(date)}</p>;
       },
     },
     {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => {
-        return <CustomBadge label={row.getValue("status")} status={row.getValue("status")} />;
+        const status = row.getValue("status") as string;
+        return <CustomBadge label={status} status={status} />;
       },
       filterFn: "arrIncludesSome",
     },
@@ -205,7 +180,10 @@ export function useAllApplicationColumns(): ColumnDef<AllApplication>[] {
     },
     {
       id: "actions",
-      cell: () => {
+      cell: ({ row }) => {
+        const appId = row.original.id;
+        const applicantId = row.original.applicant?.id;
+
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -215,11 +193,15 @@ export function useAllApplicationColumns(): ColumnDef<AllApplication>[] {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => router.push("/hr/applications/1/applicant")}>
+              <DropdownMenuItem
+                onClick={() => router.push(`/hr/applications/${applicantId}/applicant`)}
+              >
                 View Applicant
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => router.push("/hr/applications/1/applicant/1/view-application")}
+                onClick={() =>
+                  router.push(`/hr/applications/${applicantId}/applicant/${appId}/view-application`)
+                }
               >
                 View Application
               </DropdownMenuItem>

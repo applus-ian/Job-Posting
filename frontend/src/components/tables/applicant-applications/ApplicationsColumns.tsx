@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Application } from "@/types/application";
 import { formatDateTime } from "@/utils/dateFormatter";
 
-export function useApplicationColumns(): ColumnDef<Application>[] {
+export function useApplicationColumns(viewApplicationType: string): ColumnDef<Application>[] {
   const router = useRouter();
   return [
     {
@@ -74,9 +74,15 @@ export function useApplicationColumns(): ColumnDef<Application>[] {
     {
       id: "actions",
       cell: ({ row }) => {
+        const applicantId = row.original.applicant_id;
         const applicationId = row.original.id;
+        const viewUrl =
+          viewApplicationType === "hr"
+            ? `/hr/applications/${applicationId}/applicant/${applicantId}/view-application`
+            : `/my-applications/${applicationId}`;
+
         return (
-          <Button size={"sm"} onClick={() => router.push(`/my-applications/${applicationId}`)}>
+          <Button size={"sm"} onClick={() => router.push(viewUrl)}>
             View
           </Button>
         );

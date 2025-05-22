@@ -30,6 +30,12 @@ class ApplicationController extends Controller
         return response()->json($data, 200);
     }
 
+    public function viewAll()
+    {
+        $data = $this->applicationService->viewAllApplication();
+        return response()->json($data, 200);
+    }
+
     public function apply(ApplicationRequest $request, JobPosting $jobposting)
     {
         $data = $this->applicationService->applyJob($request->validated(), $jobposting, $request->user());

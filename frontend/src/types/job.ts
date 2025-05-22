@@ -18,7 +18,7 @@ export type JobPosting = {
   created_at: string;
   updated_at: string;
   tags: JobTag[];
-  applications: Application[];
+  applications?: Application[];
 };
 
 export type JobTag = {

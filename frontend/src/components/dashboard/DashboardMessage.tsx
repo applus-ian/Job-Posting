@@ -43,7 +43,7 @@ export function DashboardMessage({
             </Button>
           </Link>
         </div>
-        <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-4">
           {errors.length > 0 && (
             <div className="flex flex-col">
               <p className="text-sm text-gray-100">Your profile is incomplete:</p>
@@ -56,7 +56,7 @@ export function DashboardMessage({
           )}
           {suggestions.length > 0 && (
             <div className="flex flex-col ">
-              <p className="text-sm mt-2 text-gray-100">Suggestions to improve your profile:</p>
+              <p className="text-sm text-gray-100">Suggestions to improve your profile:</p>
               <ul className="list-disc list-inside text-sm text-gray-100">
                 {suggestions.map((note, index) => (
                   <li key={index}>{note}</li>

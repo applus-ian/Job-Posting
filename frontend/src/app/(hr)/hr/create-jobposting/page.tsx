@@ -67,14 +67,10 @@ export default function CreateJobPostingPage() {
           <CardTitle className="text-xl font-medium">Job Posting Details</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="jobTitle">Job Title</Label>
-            <Input id="jobTitle" placeholder="Enter Job Title" />
-          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="jobRole">Job Role</Label>
-              <Input id="jobRole" placeholder="Enter Job Role" />
+              <Label htmlFor="jobTitle">Job Title</Label>
+              <Input id="jobTitle" placeholder="Enter Job Title" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="category">Category</Label>
@@ -130,7 +126,7 @@ export default function CreateJobPostingPage() {
           <Separator />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="address">Full Address (Optional)</Label>
+              <Label htmlFor="address">Full Address</Label>
               <Input id="address" name="address" placeholder="e.g. 123 Main St, Springfield" />
             </div>
             <div className="space-y-2">
