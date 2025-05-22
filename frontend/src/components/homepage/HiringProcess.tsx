@@ -41,7 +41,7 @@ export default function HiringProcess() {
           We've designed a transparent and efficient hiring process to find the best talent.
         </p>
 
-        <div className="relative flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="relative flex flex-col lg:flex-row items-center justify-between gap-8">
           {steps.map((step, index) => (
             <div
               key={index}
@@ -71,7 +71,7 @@ export default function HiringProcess() {
               <div>
                 {index < steps.length - 1 && (
                   <div
-                    className={`hidden md:block absolute z-10 w-50 translate-x-[50px] ${
+                    className={`hidden lg:block absolute z-10 w-50 translate-x-[50px] ${
                       index % 2 !== 0 ? "top-20" : "top-5"
                     }`}
                   >

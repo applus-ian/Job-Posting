@@ -9,25 +9,12 @@ export default function Footer() {
           <div className="mb-2">
             <img src="/logo/ApplusLogo.png" alt="Applus Logo" className="h-8" />
           </div>
-          <p className="text-sm text-gray-400">
+          {/* <p className="text-sm text-gray-400">
             Call now: <span className="text-white font-semibold">(319) 555-0115</span>
-          </p>
+          </p> */}
           <div className="mt-2 text-sm  text-gray-400 space-y-1">
             <p>14th Floor, Cebu IT Tower 1, Cebu Business Park Ayala, Cebu City, Philippines</p>
           </div>
-        </div>
-
-        {/* Right Section - Nav Links */}
-        <div className="flex justify-center md:justify-end items-center space-x-4 sm:space-x-8 md:space-x-24 whitespace-nowrap">
-          <a href="#" className="hover:underline">
-            About
-          </a>
-          <a href="#" className="hover:underline">
-            Contact
-          </a>
-          <a href="#" className="hover:underline">
-            Browse Jobs
-          </a>
         </div>
       </div>
 
