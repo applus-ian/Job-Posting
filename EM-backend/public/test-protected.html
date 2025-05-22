@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Protected Routes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button.logout {
+            background-color: #f44336;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            min-height: 100px;
+            white-space: pre-wrap;
+        }
+        .user-info {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #e9f7ef;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Protected API Routes Test</h2>
+
+        <div class="user-info" id="userInfo">
+            <p>Not logged in.</p>
+        </div>
+
+        <button onclick="getUserInfo()">Get User Info</button>
+        <button onclick="getEmployees()">Get All Employees</button>
+        <button onclick="getDepartments()">Get All Departments</button>
+        <button onclick="logout()" class="logout">Logout</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const token = localStorage.getItem('auth_token');
+            const userData = localStorage.getItem('user_data');
+
+            if (token && userData) {
+                const user = JSON.parse(userData);
+                document.getElementById('userInfo').innerHTML = `
+                    <h3>Logged in as</h3>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    ${user.employee ? `
+                        <p><strong>Name:</strong> ${user.employee.full_name}</p>
+                        <p><strong>Position:</strong> ${user.employee.job_position || 'N/A'}</p>
+                        <p><strong>Department:</strong> ${user.employee.department || 'N/A'}</p>
+                    ` : ''}
+                `;
+            }
+        });
+
+        function getUserInfo() {
+            makeAuthRequest('/api/auth/me', 'GET')
+                .then(data => {
+                    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+                });
+        }
+
+        function getEmployees() {
+            makeAuthRequest('/api/employees', 'GET')
+                .then(data => {
+                    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+                });
+        }
+
+        function getDepartments() {
+            makeAuthRequest('/api/departments', 'GET')
+                .then(data => {
+                    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+                });
+        }
+
+        function logout() {
+            makeAuthRequest('/api/auth/logout', 'POST')
+                .then(data => {
+                    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+                    if (data.success) {
+                        localStorage.removeItem('auth_token');
+                        localStorage.removeItem('user_data');
+                        document.getElementById('userInfo').innerHTML = '<p>Not logged in.</p>';
+                    }
+                });
+        }
+
+        function makeAuthRequest(url, method = 'GET', body = null) {
+            const token = localStorage.getItem('auth_token');
+            if (!token) {
+                document.getElementById('result').textContent = 'Error: You need to login first!';
+                return Promise.reject('Not authenticated');
+            }
+
+            const options = {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            };
+
+            if (body) {
+                options.body = JSON.stringify(body);
+            }
+
+            return fetch(url, options)
+                .then(response => response.json())
+                .catch(error => {
+                    document.getElementById('result').textContent = 'Error: ' + error.message;
+                    return { error: error.message };
+                });
+        }
+    </script>
+</body>
+</html>
