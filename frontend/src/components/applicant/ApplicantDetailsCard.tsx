@@ -1,20 +1,16 @@
+import { ApplicantProfile, EmergencyContact, Language } from "@/types/profile";
 import { Card, CardHeader, CardContent } from "../ui/card";
+import { capitalizeText } from "@/utils/capitalizeText";
 
-export function ApplicantDetailsCard() {
-  const details = {
-    firstName: "Juan",
-    lastName: "Dela Cruz",
-    middleName: "Santos",
-    suffix: "Jr.",
-    dob: "August 10, 1995",
-    sex: "Male",
-    nationality: "Filipino",
-    phone: "+63 912 345 6789",
-    email: "juan.delacruz@email.com",
-    emergencyPhone: "+63 998 765 4321",
-    emergencyContact: "Maria Dela Cruz",
-    emergencyRelation: "Mother",
-  };
+export function ApplicantDetailsCard({
+  applicant,
+  emergencycontact,
+  language,
+}: {
+  applicant: ApplicantProfile;
+  emergencycontact: EmergencyContact[];
+  language: Language[];
+}) {
   return (
     <Card className="rounded-2xl shadow-md">
       <CardHeader className="text-xl font-semibold">Personal Information</CardHeader>
@@ -22,46 +18,69 @@ export function ApplicantDetailsCard() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12 text-sm">
           <div>
             <p className="text-muted-foreground">First Name</p>
-            <p>{details.firstName}</p>
+            <p>{applicant.first_name}</p>
           </div>
           <div>
             <p className="text-muted-foreground">Last Name</p>
-            <p>{details.lastName}</p>
+            <p>{applicant.last_name}</p>
           </div>
           <div>
             <p className="text-muted-foreground">Middle Name</p>
-            <p>{details.middleName}</p>
+            <p>{applicant.middle_name}</p>
           </div>
           <div>
             <p className="text-muted-foreground">Suffix</p>
-            <p>{details.suffix}</p>
+            <p>{applicant.suffix}</p>
           </div>
           <div>
             <p className="text-muted-foreground">Date of Birth</p>
-            <p>{details.dob}</p>
+            <p>{applicant.date_of_birth}</p>
           </div>
           <div>
             <p className="text-muted-foreground">Sex</p>
-            <p>{details.sex}</p>
+            <p>{applicant.sex}</p>
           </div>
           <div>
             <p className="text-muted-foreground">Nationality</p>
-            <p>{details.nationality}</p>
+            <p>{applicant.nationality}</p>
           </div>
           <div>
             <p className="text-muted-foreground">Phone Number</p>
-            <p>{details.phone}</p>
+            <p>{applicant.phone_number}</p>
           </div>
           <div>
             <p className="text-muted-foreground">Email</p>
-            <p>{details.email}</p>
+            <p>{applicant.first_name}</p>
+          </div>
+          <div>
+            <p className="text-muted-foreground">Languages</p>
+            {language.length > 0 ? (
+              language.map((lang, index) => (
+                <div key={index} className="mt-1">
+                  <p>{capitalizeText(lang.language)}</p>
+                  <p className="text-muted-foreground text-xs">
+                    {capitalizeText(lang.proficiency_level)}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p className="text-sm text-gray-500">No languages provided.</p>
+            )}
           </div>
           <div>
             <p className="text-muted-foreground">Emergency Contact</p>
-            <p>{details.emergencyContact}</p>
-            <p className="text-muted-foreground text-xs mt-1">
-              {details.emergencyRelation} · {details.emergencyPhone}
-            </p>
+            {emergencycontact.length > 0 ? (
+              emergencycontact.map((contact, index) => (
+                <div key={index} className="mt-1">
+                  <p>{contact.full_name}</p>
+                  <p className="text-muted-foreground text-xs">
+                    {contact.relationship} – {contact.phone_number}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p className="text-sm text-gray-500">No emergency contacts provided.</p>
+            )}
           </div>
         </div>
       </CardContent>

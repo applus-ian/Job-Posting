@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 
 export function useViewApplicationQuery() {
   const params = useParams();
-  const id = params.id;
+  const id = params.applicationId;
 
   const { getApplicationDetails } = useApplicationApi();
   const applicationDetailQueryKey = ["application", id];

@@ -90,7 +90,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // HR
     Route::prefix('/hr')->group(function () {
         // application
-        Route::put('/application/{application}', [ApplicationController::class, 'updateStatus']);
+        Route::controller(ApplicationController::class)->prefix('application')->group(function () {
+            Route::get('/all', 'viewAll');
+            Route::put('/{application}', 'updateStatus');
+        });
+        // applicant 
+        Route::get('/applicant/{applicant}', [ApplicantInformationController::class, 'viewApplicant']);
         // job posting
         Route::apiResource('jobposting', JobPostingController::class)->except(['index']);
         // interview

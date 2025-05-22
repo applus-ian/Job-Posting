@@ -7,7 +7,8 @@ import { useApplicantApplicationsQuery } from "@/hooks/query/useApplicantApplica
 import { SkeletonMyApplications } from "@/components/skeletons/SkeletonMyApplications";
 
 export default function MyApplicationPage() {
-  const columns = useApplicationColumns();
+  const viewApplicationType = "applicant";
+  const columns = useApplicationColumns(viewApplicationType);
   const { data, isLoading } = useApplicantApplicationsQuery();
 
   return (

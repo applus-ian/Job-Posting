@@ -2,6 +2,7 @@
 
 namespace App\Services\Application;
 
+use App\Models\Application;
 use App\Services\Applicant\FileService;
 
 class ApplicationService
@@ -23,12 +24,18 @@ class ApplicationService
         //     $this->updateApplicationStatus(['status' => 'reviewed'], $application);
         // }
         return [
+            'applicant' => $application->applicant,
             'application' => $application,
             'application_status' => $application->applicationStatus,
             'interview' => $application->interview()->with('feedback')->first(),
             'jobposting' => $application->jobPosting,
             'documents' => $application->document
         ];
+    }
+
+    public function viewAllApplication()
+    {
+        return ['applications' => Application::with(['applicant', 'applicant.user', 'jobPosting'])->get()];
     }
 
     public function applyJob(array $data, $jobposting, $user)

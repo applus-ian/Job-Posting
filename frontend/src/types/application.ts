@@ -1,6 +1,6 @@
 import { ApplyJobSchema } from "@/schemas/application";
 import { z } from "zod";
-import { Document } from "./profile";
+import { ApplicantProfile, Document } from "./profile";
 import { JobPosting } from "./job";
 
 export type Application = {
@@ -11,6 +11,7 @@ export type Application = {
   job_posting_id?: number;
   created_at?: string;
   updated_at?: string;
+  applicant?: ApplicantProfile;
   job_posting: JobPosting;
 };
 

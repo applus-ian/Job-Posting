@@ -13,6 +13,17 @@ type PasswordFields = {
   password_confirmation: string;
 };
 
+export type User = {
+  id: number;
+  email: string;
+  email_verified_at: string | null;
+  profile: string | null;
+  google_id: string | null;
+  facebook_id: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 export type AuthCredentials = {
   first_name?: string;
   last_name?: string;
