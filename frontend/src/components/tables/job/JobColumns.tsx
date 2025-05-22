@@ -9,7 +9,7 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { MoreHorizontal, UsersIcon, ArrowUpDown } from "lucide-react";
+import { MoreHorizontal, UsersIcon, ArrowUpDown , Upload, Eye, Users, XCircle,} from "lucide-react";
 import CustomBadge from "../../badges/CustomBadge";
 
 export type JobPosting = {
@@ -152,10 +152,26 @@ export const columns: ColumnDef<JobPosting>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem>Publish Job</DropdownMenuItem>
-            <DropdownMenuItem>View Details</DropdownMenuItem>
-            <DropdownMenuItem>View Applicants</DropdownMenuItem>
-            <DropdownMenuItem>Close Job</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Upload className="w-4 h-4 mr-2" />
+              Publish Job
+            </DropdownMenuItem>
+
+            <DropdownMenuItem>
+              <Eye className="w-4 h-4 mr-2" />
+              View Details
+            </DropdownMenuItem>
+
+            <DropdownMenuItem>
+              <Users className="w-4 h-4 mr-2" />
+              View Applicants
+            </DropdownMenuItem>
+
+            <DropdownMenuItem>
+              <XCircle className="w-4 h-4 mr-2" />
+              Close Job
+            </DropdownMenuItem>
+
           </DropdownMenuContent>
         </DropdownMenu>
       );

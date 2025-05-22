@@ -2,7 +2,7 @@
 import { SidebarLayout } from "@/components/sidebar-layout";
 import { JobBoard } from "@/components/job/JobBoard";
 import JobSearchBar from "@/components/job/JobSearchBar";
-import { useJobPosting } from "@/hooks/useJobPosting";
+import { useJobPosting } from "@/hooks/use-JobPosting";
 import { SkeletonBrowseJob } from "@/components/skeletons/SkeletonBrowseJob";
 import { useDocument } from "@/hooks/useDocument";
 

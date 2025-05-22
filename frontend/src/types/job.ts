@@ -1,5 +1,8 @@
 import { Application } from "./application";
 import { Document } from "./profile";
+import { JobPostingSchema } from "@/schemas/jobposting";
+import { z } from "zod";
+
 
 export type JobPosting = {
   id?: number;
@@ -7,13 +10,13 @@ export type JobPosting = {
   category: string;
   description: string;
   vacancies: number;
-  salary_type: "monthly" | "hourly" | "yearly";
-  salary_min?: string;
-  salary_max?: string;
-  employment_type: "Full-time" | "Part-time" | "Contract" | "Temporary" | string;
+  salary_type: "weekly" | "monthly" | "hourly" | "annually";
+  salary_min?: number;
+  salary_max?: number;
+  employment_type: "Full-time" | "Part-time" | "Contract" | "Temporary";
   employment_level: string;
   work_setup: string;
-  status: "open" | "closed" | string;
+  status: "open" | "closed";
   address_id: number | null;
   created_at: string;
   updated_at: string;
@@ -54,3 +57,7 @@ export type ApplyJobModalProps = {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+
+export type JobPostingFields = z.infer<typeof JobPostingSchema>;
+

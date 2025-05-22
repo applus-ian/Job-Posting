@@ -1,6 +1,17 @@
-import axios from "@/lib/axios";
+import useAxiosAuth from "@/hooks/useAxiosAuth";
+import {
+  JobPosting,
+} from "@/types/job";
 
-export const openJobPostings = async () => {
-  const response = await axios.get("/api/jobposting/open");
-  return response.data;
-};
+export function useJobPostingApi() {
+  const axiosAuth = useAxiosAuth();
+
+  const createJobPosting = async (fields: JobPosting) => {
+    const response = await axiosAuth.post("/api/hr/jobposting", fields);
+    return response.data;
+  };
+
+  return {
+    createJobPosting,
+  };
+}

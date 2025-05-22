@@ -3,7 +3,7 @@ import HeaderNav from "@/components/homepage/HeaderNav";
 import Footer from "@/components/homepage/Footer";
 import JobSearchBar from "@/components/job/JobSearchBar";
 import { JobBoard } from "@/components/job/JobBoard";
-import { useJobPosting } from "@/hooks/useJobPosting";
+import { useJobPosting } from "@/hooks/use-JobPosting";
 import { SkeletonBrowseJob } from "@/components/skeletons/SkeletonBrowseJob";
 
 export default function FindJobPage() {
