@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ProfileFormField } from "./ProfileFormField";
+import { CustomFormInput } from "../form/CustomFormInput";
 import {
   Select,
   SelectContent,
@@ -29,9 +29,10 @@ export function PersonalDetailsForm({ applicant }: { applicant: ApplicantProfile
 
   useEffect(() => {
     if (isSubmitSuccessful) {
+      form.reset();
       setIsEditingPersonalInfo(false);
     }
-  }, [isSubmitSuccessful]);
+  }, [form, isSubmitSuccessful]);
 
   return (
     <Form {...form}>
@@ -52,7 +53,7 @@ export function PersonalDetailsForm({ applicant }: { applicant: ApplicantProfile
         </div>
         {/* Personal Info Fields */}
         <div>
-          <ProfileFormField
+          <CustomFormInput
             control={form.control}
             name="professional_title"
             label="Title"
@@ -63,7 +64,7 @@ export function PersonalDetailsForm({ applicant }: { applicant: ApplicantProfile
         {isEditingPersonalInfo && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-8 gap-4">
             <div className="lg:col-span-3">
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="first_name"
                 label="First Name"
@@ -72,7 +73,7 @@ export function PersonalDetailsForm({ applicant }: { applicant: ApplicantProfile
               />
             </div>
             <div className="lg:col-span-3">
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="last_name"
                 label="Last Name"
@@ -81,7 +82,7 @@ export function PersonalDetailsForm({ applicant }: { applicant: ApplicantProfile
               />
             </div>
             <div>
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="middle_name"
                 label="MI"
@@ -90,7 +91,7 @@ export function PersonalDetailsForm({ applicant }: { applicant: ApplicantProfile
               />
             </div>
             <div>
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="suffix"
                 label="Suffix"
@@ -102,7 +103,7 @@ export function PersonalDetailsForm({ applicant }: { applicant: ApplicantProfile
         )}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="email"
               label="Email"
@@ -111,7 +112,7 @@ export function PersonalDetailsForm({ applicant }: { applicant: ApplicantProfile
             />
           </div>
           <div>
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="phone_number"
               label="Phone Number"
@@ -123,7 +124,7 @@ export function PersonalDetailsForm({ applicant }: { applicant: ApplicantProfile
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div>
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="date_of_birth"
               label="Date of Birth"
@@ -160,7 +161,7 @@ export function PersonalDetailsForm({ applicant }: { applicant: ApplicantProfile
             />
           </div>
           <div>
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="nationality"
               label="Nationality"
@@ -171,7 +172,7 @@ export function PersonalDetailsForm({ applicant }: { applicant: ApplicantProfile
         </div>
         <div>
           {isEditingPersonalInfo && (
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="biography"
               label="Biography"

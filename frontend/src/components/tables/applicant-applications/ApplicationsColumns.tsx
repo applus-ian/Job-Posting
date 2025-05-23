@@ -70,6 +70,7 @@ export function useApplicationColumns(viewApplicationType: string): ColumnDef<Ap
       cell: ({ row }) => {
         return <CustomBadge label={row.getValue("status")} status={row.getValue("status")} />;
       },
+      filterFn: "arrIncludesSome",
     },
     {
       id: "actions",

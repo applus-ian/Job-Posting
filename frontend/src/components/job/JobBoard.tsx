@@ -64,7 +64,7 @@ export function JobBoard({
         <p>No jobs available.</p>
       ) : (
         <div className="flex flex-col lg:flex-row gap-3">
-          <div className="max-h-[100vh] w-full lg:w-2/5">
+          <div className="min-h-[100vh] w-full lg:w-2/5">
             <div className="flex-grow overflow-y-auto">
               <JobList
                 jobpostings={jobpostings}

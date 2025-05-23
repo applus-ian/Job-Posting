@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { AddProfileModalProps } from "@/types/profile";
 import { useEducationHistoryForm } from "@/forms/profile/useEducationHistoryForm";
 import { Form } from "@/components/ui/form";
-import { ProfileFormField } from "./ProfileFormField";
+import { CustomFormInput } from "../form/CustomFormInput";
 import { Loader2, Plus } from "lucide-react";
 import { useEffect } from "react";
 
@@ -52,21 +52,21 @@ export function AddEducationModal({ openModal, setOpenModal }: AddProfileModalPr
             </DialogHeader>
             <div className="flex flex-col gap-4 mt-4">
               {/* Education History Fields */}
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="school"
                 label="School"
                 placeholder="Enter school name"
                 isEditing={true}
               />
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="degree"
                 label="Degree"
                 placeholder="Enter degree"
                 isEditing={true}
               />
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="course"
                 label="Course"
@@ -74,7 +74,7 @@ export function AddEducationModal({ openModal, setOpenModal }: AddProfileModalPr
                 isEditing={true}
               />
               <div className="flex gap-3">
-                <ProfileFormField
+                <CustomFormInput
                   control={form.control}
                   name="start_year"
                   label="Start Year"
@@ -83,7 +83,7 @@ export function AddEducationModal({ openModal, setOpenModal }: AddProfileModalPr
                   years={years}
                   variant="select"
                 />
-                <ProfileFormField
+                <CustomFormInput
                   control={form.control}
                   name="end_year"
                   label="End Year"

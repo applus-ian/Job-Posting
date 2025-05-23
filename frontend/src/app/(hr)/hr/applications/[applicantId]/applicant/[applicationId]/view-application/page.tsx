@@ -45,17 +45,22 @@ export default function ViewApplicationPage() {
     >
       <div className="mt-2">
         <p className="text-xl">Application Details</p>
-        <div className="flex flex-col lg:flex-row w-full gap-6 mt-4">
-          <div className="flex flex-col lg:w-2/3 w-full gap-6">
-            {/* <ApplicationOverviewCard /> */}
-            {/* <DocumentCard />
-            <FeedbackCard /> */}
+        <div className="flex flex-col lg:flex-row w-full gap-3 mt-4">
+          <div className="flex flex-col lg:w-2/3 w-full gap-3">
+            <ApplicationOverviewCard
+              applicant={data.applicant}
+              application={data.application}
+              jobposting={data.jobposting}
+              fullname={fullName}
+            />
+            <DocumentCard documents={data.documents} />
+            {data.interview && <FeedbackCard feedback={data.interview.feedback} />}
           </div>
-          <div className="flex flex-col lg:w-1/3 w-full gap-6">
+          <div className="flex flex-col lg:w-1/3 w-full gap-3">
             <ActionCard />
             <HRStatusCard />
-            {/* <InterviewSummaryCard /> */}
-            {/* <InterviewerCard /> */}
+            {data.interview && <InterviewSummaryCard interview={data.interview} />}
+            <InterviewerCard />
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ import { ApplyJobModalProps } from "@/types/job";
 import { Button } from "@/components/ui/button";
 import { useApplyJobForm } from "@/forms/application/useApplyJobForm";
 import { Form } from "@/components/ui/form";
-import { ProfileFormField } from "../profile/ProfileFormField";
+import { CustomFormInput } from "../form/CustomFormInput";
 import { ApplicationDocumentForm } from "./ApplicationDocumentForm";
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
@@ -62,7 +62,7 @@ export function ApplyJobModal({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-4 mt-4">
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="expected_salary"
                 label="Expected Salary"
