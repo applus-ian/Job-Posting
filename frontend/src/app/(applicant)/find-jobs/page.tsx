@@ -4,10 +4,10 @@ import Footer from "@/components/homepage/Footer";
 import JobSearchBar from "@/components/job/JobSearchBar";
 import { JobBoard } from "@/components/job/JobBoard";
 import { SkeletonBrowseJob } from "@/components/skeletons/SkeletonBrowseJob";
-import { useOpenJobPostingsQuery } from "@/hooks/query/useJobPostingQuery";
+import { useJobPostingsQuery } from "@/hooks/query/useJobPostingQuery";
 
 export default function FindJobPage() {
-  const { data, isLoading, isError } = useOpenJobPostingsQuery();
+  const { data, isLoading, isError } = useJobPostingsQuery("open");
 
   if (isError) return <div>Error loading job postings</div>;
   return (

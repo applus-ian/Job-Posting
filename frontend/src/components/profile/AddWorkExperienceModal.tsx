@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { AddProfileModalProps } from "@/types/profile";
 import { useWorkExperienceForm } from "@/forms/profile/useWorkExperienceForm";
 import { Form } from "@/components/ui/form";
-import { ProfileFormField } from "./ProfileFormField";
+import { CustomFormInput } from "../form/CustomFormInput";
 import { Loader2, Plus } from "lucide-react";
 import { useEffect } from "react";
 
@@ -49,21 +49,21 @@ export function AddWorkExperienceModal({ openModal, setOpenModal }: AddProfileMo
             </DialogHeader>
             <div className="flex flex-col gap-4 mt-4">
               {/* Work Info Fields */}
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="company"
                 label="Company Name"
                 placeholder="Enter company name"
                 isEditing={true}
               />
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="professional_title"
                 label="Role"
                 placeholder="Enter your role or professional title"
                 isEditing={true}
               />
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="description"
                 label="Description"
@@ -72,14 +72,14 @@ export function AddWorkExperienceModal({ openModal, setOpenModal }: AddProfileMo
                 isEditing={true}
               />
               <div className="flex gap-3">
-                <ProfileFormField
+                <CustomFormInput
                   control={form.control}
                   name="start_date"
                   label="Start Date"
                   type="date"
                   isEditing={true}
                 />
-                <ProfileFormField
+                <CustomFormInput
                   control={form.control}
                   name="end_date"
                   label="End Date"

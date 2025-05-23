@@ -7,6 +7,17 @@ use Illuminate\Support\Facades\Auth;
 
 class JobPostingService
 {
+    public function fetchJobPostings($status = null)
+    {
+        $query = JobPosting::with('applications');
+
+        if ($status !== null) {
+            $query->where('status', $status);
+        }
+
+        return ['jobpostings' => $query->get()];
+    }
+
     public function fetchJobPostingWithSaved()
     {
         $applicant = Auth::user()->applicant;

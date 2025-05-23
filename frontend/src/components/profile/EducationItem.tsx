@@ -4,7 +4,7 @@ import { EducationHistory } from "@/types/profile";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Edit, GraduationCap, Loader2, MoreVertical } from "lucide-react";
-import { ProfileFormField } from "./ProfileFormField";
+import { CustomFormInput } from "../form/CustomFormInput";
 import { Form } from "@/components/ui/form";
 import {
   DropdownMenu,
@@ -64,7 +64,7 @@ export function EducationItem({
                 {/* Educ Info Fields */}
                 <div className="grid grid-cols-1 gap-4">
                   <div>
-                    <ProfileFormField
+                    <CustomFormInput
                       control={form.control}
                       name="school"
                       label="School"
@@ -75,7 +75,7 @@ export function EducationItem({
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <div>
-                    <ProfileFormField
+                    <CustomFormInput
                       control={form.control}
                       name="degree"
                       label="Degree"
@@ -84,7 +84,7 @@ export function EducationItem({
                     />
                   </div>
                   <div>
-                    <ProfileFormField
+                    <CustomFormInput
                       control={form.control}
                       name="course"
                       label="Course"
@@ -95,7 +95,7 @@ export function EducationItem({
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                   <div>
-                    <ProfileFormField
+                    <CustomFormInput
                       control={form.control}
                       name="start_year"
                       label="Start Year"
@@ -105,7 +105,7 @@ export function EducationItem({
                     />
                   </div>
                   <div>
-                    <ProfileFormField
+                    <CustomFormInput
                       control={form.control}
                       name="end_year"
                       label="End Year"
@@ -119,7 +119,14 @@ export function EducationItem({
                 <div className="mt-4 flex justify-end gap-2">
                   {isEditing && (
                     <div className="flex gap-3">
-                      <Button variant={"outline"} size={"sm"} onClick={() => setIsEditing(false)}>
+                      <Button
+                        variant={"outline"}
+                        size={"sm"}
+                        onClick={() => {
+                          setIsEditing(false);
+                          form.reset();
+                        }}
+                      >
                         Cancel
                       </Button>
                       <Button

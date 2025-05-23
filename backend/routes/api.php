@@ -97,7 +97,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         // applicant 
         Route::get('/applicant/{applicant}', [ApplicantInformationController::class, 'viewApplicant']);
         // job posting
-        Route::apiResource('jobposting', JobPostingController::class)->except(['index']);
+        Route::apiResource('jobposting', JobPostingController::class);
         // interview
         Route::controller(InterviewScheduleController::class)->prefix('interview')->group(function () {
             Route::post('/schedule/{application}', 'scheduleInterview');

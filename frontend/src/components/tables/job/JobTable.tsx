@@ -105,23 +105,9 @@ export function JobTable<T>({ columns, data }: JobTableProps<T>) {
                     ]}
                   />
                 )}
-                {table.getColumn("department") && (
+                {table.getColumn("hidden_employment_type") && (
                   <DataTableFilter
-                    column={table.getColumn("department")}
-                    title="Department"
-                    options={[
-                      { label: "Engineering", value: "Engineering" },
-                      { label: "Sales", value: "Sales" },
-                      { label: "Marketing", value: "Marketing" },
-                      { label: "Product", value: "Product" },
-                      { label: "Operations", value: "Operations" },
-                      { label: "Finance", value: "Finance" },
-                    ]}
-                  />
-                )}
-                {table.getColumn("employment_type") && (
-                  <DataTableFilter
-                    column={table.getColumn("employment_type")}
+                    column={table.getColumn("hidden_employment_type")}
                     title="Employment Type"
                     options={[
                       { label: "Full-Time", value: "Full-Time" },
@@ -131,9 +117,9 @@ export function JobTable<T>({ columns, data }: JobTableProps<T>) {
                   />
                 )}
 
-                {table.getColumn("employment_level") && (
+                {table.getColumn("hidden_employment_level") && (
                   <DataTableFilter
-                    column={table.getColumn("employment_level")}
+                    column={table.getColumn("hidden_employment_level")}
                     title="Employment Level"
                     options={[
                       { label: "Entry-Level", value: "Entry-Level" },
@@ -143,9 +129,9 @@ export function JobTable<T>({ columns, data }: JobTableProps<T>) {
                   />
                 )}
 
-                {table.getColumn("work_setup") && (
+                {table.getColumn("hidden_work_setup") && (
                   <DataTableFilter
-                    column={table.getColumn("work_setup")}
+                    column={table.getColumn("hidden_work_setup")}
                     title="Work Setup"
                     options={[
                       { label: "Onsite", value: "Onsite" },

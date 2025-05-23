@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-interface ProfileInputFieldProps {
+interface CustomFormInputProps {
   control: any;
   name: string;
   label: string;
@@ -22,7 +22,7 @@ interface ProfileInputFieldProps {
   years?: number[];
 }
 
-export const ProfileFormField = ({
+export const CustomFormInput = ({
   control,
   name,
   label,
@@ -33,7 +33,7 @@ export const ProfileFormField = ({
   variant = "input",
   options = [],
   years = [],
-}: ProfileInputFieldProps) => (
+}: CustomFormInputProps) => (
   <FormField
     control={control}
     name={name}
@@ -73,6 +73,15 @@ export const ProfileFormField = ({
               placeholder={placeholder}
               type={type}
               className={className}
+              onChange={(e) => {
+                if (type === "number") {
+                  const value = e.target.value;
+                  field.onChange(value === "" ? undefined : Number(value));
+                } else {
+                  field.onChange(e);
+                }
+              }}
+              value={field.value ?? ""}
             />
           )}
         </FormControl>

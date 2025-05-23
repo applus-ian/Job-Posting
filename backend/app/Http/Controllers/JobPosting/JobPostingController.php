@@ -16,9 +16,8 @@ class JobPostingController extends Controller
 
     public function getOpenJobs()
     {
-        return [
-            'jobpostings' => JobPosting::with('applications')->where('status', 'open')->get()
-        ];
+        $data = $this->jobPostingService->fetchJobPostings('open');
+        return response()->json($data, 200);
     }
 
     public function getOpenJobsWithSaved()
@@ -27,6 +26,12 @@ class JobPostingController extends Controller
         return response()->json($data, 200);
     }
 
+    // hr 
+    public function index()
+    {
+        $data = $this->jobPostingService->fetchJobPostings();
+        return response()->json($data, 200);
+    }
     public function store(JobPostingRequest $request)
     {
         $data = $this->jobPostingService->createJobPosting($request->validated());

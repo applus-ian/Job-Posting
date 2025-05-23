@@ -96,13 +96,16 @@ export default function JobDetail({
             <CustomBadge label={jobposting.employment_type} status="tag" />
           </div>
           <div className="flex flex-wrap gap-4 mt-1 text-xs text-gray-500">
-            <div className="flex items-center">
-              <UsersRound className="h-4 w-4 mr-2" />
-              <span>
-                {jobposting.applications.length}{" "}
-                {jobposting.applications.length === 1 ? "Applicant" : "Applicants"}
-              </span>
-            </div>
+            {jobposting.applications && jobposting.applications.length > 0 && (
+              <div className="flex items-center">
+                <UsersRound className="h-4 w-4 mr-2" />
+                <span>
+                  {jobposting.applications.length}{" "}
+                  {jobposting.applications.length === 1 ? "Applicant" : "Applicants"}
+                </span>
+              </div>
+            )}
+
             <div className="flex items-center">
               <UserPlus2 className="h-4 w-4 mr-2" />
               <span>

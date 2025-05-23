@@ -1,7 +1,7 @@
 "use client";
 
 import { Form } from "@/components/ui/form";
-import { ProfileFormField } from "./ProfileFormField";
+import { CustomFormInput } from "../form/CustomFormInput";
 import { useEffect, useState } from "react";
 import { useAddressForm } from "@/forms/profile/useAddressForm";
 import { ApplicantAddress } from "@/types/profile";
@@ -38,7 +38,7 @@ export function AddressDetailsForm({ address }: { address: ApplicantAddress }) {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="address"
               label="Full Address (Optional)"
@@ -47,7 +47,7 @@ export function AddressDetailsForm({ address }: { address: ApplicantAddress }) {
             />
           </div>
           <div>
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="country"
               label="Country"
@@ -56,7 +56,7 @@ export function AddressDetailsForm({ address }: { address: ApplicantAddress }) {
             />
           </div>
           <div>
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="province"
               label="Province"
@@ -65,7 +65,7 @@ export function AddressDetailsForm({ address }: { address: ApplicantAddress }) {
             />
           </div>
           <div>
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="city"
               label="City"
@@ -74,7 +74,7 @@ export function AddressDetailsForm({ address }: { address: ApplicantAddress }) {
             />
           </div>
           <div>
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="street"
               label="Street"
@@ -83,7 +83,7 @@ export function AddressDetailsForm({ address }: { address: ApplicantAddress }) {
             />
           </div>
           <div>
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="zipcode"
               label="Zip Code"

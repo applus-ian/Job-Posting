@@ -10,7 +10,7 @@ import { JobDetailModalProps } from "@/types/job";
 import { Button } from "@/components/ui/button";
 import CustomBadge from "../badges/CustomBadge";
 import { DescriptionRenderer } from "./DescriptionRenderer";
-import { UserPlus2 } from "lucide-react";
+import { UserPlus2, UsersRound } from "lucide-react";
 
 export function JobDetailModal({ jobposting, openModal, setOpenModal }: JobDetailModalProps) {
   return (
@@ -23,6 +23,15 @@ export function JobDetailModal({ jobposting, openModal, setOpenModal }: JobDetai
             <CustomBadge label={jobposting.employment_type} status="tag" />
           </div>
           <div className="flex flex-wrap gap-4 mt-1 text-xs text-gray-500">
+            {jobposting.applications && jobposting.applications.length > 0 && (
+              <div className="flex items-center">
+                <UsersRound className="h-4 w-4 mr-2" />
+                <span>
+                  {jobposting.applications.length}{" "}
+                  {jobposting.applications.length === 1 ? "Applicant" : "Applicants"}
+                </span>
+              </div>
+            )}
             <div className="flex items-center">
               <UserPlus2 className="h-4 w-4 mr-2" />
               <span>

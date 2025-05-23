@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { AddEmergencyProfileModalProps } from "@/types/profile";
 import { useEmergencyContactForm } from "@/forms/profile/useEmergencyContactForm";
 import { Form } from "@/components/ui/form";
-import { ProfileFormField } from "./ProfileFormField";
+import { CustomFormInput } from "../form/CustomFormInput";
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
 
@@ -44,21 +44,21 @@ export function AddEmergencyContactModal({
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="full_name"
               label="Name"
               placeholder="Enter Full Name"
               isEditing={true}
             />
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="phone_number"
               label="Phone Number"
               placeholder="Enter Phone Number"
               isEditing={true}
             />
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="relationship"
               label="Relationship"

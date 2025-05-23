@@ -24,7 +24,7 @@ class ApplicationService
         //     $this->updateApplicationStatus(['status' => 'reviewed'], $application);
         // }
         return [
-            'applicant' => $application->applicant,
+            'applicant' => $application->applicant()->with('user')->first(),
             'application' => $application,
             'application_status' => $application->applicationStatus,
             'interview' => $application->interview()->with('feedback')->first(),
