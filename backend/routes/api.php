@@ -70,12 +70,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/', 'uploadResume');
             Route::delete('/{document}', 'deleteResume');
             Route::get('/{document}', 'downloadResume');
+            Route::get('/view/{document}', 'viewResume');
         });
         Route::prefix('/cover-letter')->group(function () {
             Route::post('/', action: 'uploadCoverLetter');
             Route::delete('/{document}', 'deleteCoverLetter');
             Route::get('/{document}', action: 'downloadCoverLetter');
         });
+        Route::get('/resume/view/{document}', 'viewResume');
+        Route::get('/coverletter/view/{document}', 'viewCoverLetter');
     });
     // HR
     Route::prefix('/hr')->group(function () {

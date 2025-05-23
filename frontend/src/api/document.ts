@@ -55,18 +55,26 @@ export function useDocumentApi() {
 
   const viewPDFresume = async (file_name: string) => {
     try {
-      console.log('Requesting PDF:', file_name); // Add logging
-      const response = await axiosAuth.get(`/api/view-resume/${file_name}`, {
-        responseType: "blob",
-      });
-      console.log('Response received:', response.status); // Add logging
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      return url;
+        console.log('Requesting PDF:', file_name);
+        const response = await axiosAuth.get(`/api/applicant/resume/view/${file_name}`, {
+            responseType: "blob",
+            headers: {
+                Accept: 'application/pdf',
+            }
+        });
+        console.log('Response received:', response);
+        
+        if (!response.data || response.data.size === 0) {
+            throw new Error('Empty PDF response received');
+        }
+        
+        const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+        return url;
     } catch (error) {
-      console.error('Error details:');
-      throw error;
+        console.error('Error viewing PDF:', error);
+        throw error;
     }
-  }
+}
 
   return {
     uploadResume,

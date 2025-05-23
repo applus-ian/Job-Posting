@@ -77,4 +77,42 @@ class FileController extends Controller
         }
         return response()->download($data);
     }
+
+    public function viewResume(Document $document)
+    {
+        try {
+            $path = storage_path('app/private/resume/' . $document->file_name);
+            \Log::info('Attempting to view PDF: ' . $path);
+            
+            if (!file_exists($path)) {
+                \Log::error('File not found: ' . $path);
+                // return response()->json(['message' => 'File not found: ' . $document->file_name], 404);
+                return response()->json(['message' => 'File not found'], 404);
+            }
+
+            \Log::info('File exists, attempting to serve');
+            return response()->file($path, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="' . $document->file_name . '"'
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('PDF View Error: ' . $e->getMessage());
+            \Log::error($e->getTraceAsString());
+            return response()->json(['message' => 'Error viewing file: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function viewCoverLetter(Document $document)
+    {
+        $path = $this->fileService->getApplicationFile($document);
+        if (!$path || !file_exists($path)) {
+            return response()->json(['message' => 'File not found'], 404);
+        }
+
+        return response()->file($path, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $document->file_name . '"'
+        ]);
+    }
+
 }
