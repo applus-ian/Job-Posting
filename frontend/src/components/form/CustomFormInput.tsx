@@ -76,12 +76,12 @@ export const CustomFormInput = ({
               onChange={(e) => {
                 if (type === "number") {
                   const value = e.target.value;
-                  field.onChange(value === "" ? undefined : Number(value));
+                  field.onChange(value === "" ? "" : Number(value));
                 } else {
                   field.onChange(e);
                 }
               }}
-              value={field.value ?? ""}
+              value={field.value}
             />
           )}
         </FormControl>

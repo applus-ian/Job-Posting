@@ -1,6 +1,7 @@
 import { useApplicationApi } from "@/api/application";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 export function useApplication() {
   const { applyJob } = useApplicationApi();
@@ -10,11 +11,12 @@ export function useApplication() {
 
   const applyJobMutation = useMutation({
     mutationFn: applyJob,
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: jobPostingWithSavedQueryKey });
+      toast.success(data.message);
     },
-    onError: (error) => {
-      console.error("Something went wrong!", error);
+    onError: () => {
+      toast.error("Something went wrong!");
     },
   });
 

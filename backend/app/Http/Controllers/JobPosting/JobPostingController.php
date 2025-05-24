@@ -32,6 +32,12 @@ class JobPostingController extends Controller
         $data = $this->jobPostingService->fetchJobPostings();
         return response()->json($data, 200);
     }
+
+    public function show(JobPosting $jobposting)
+    {
+        return response()->json(['jobposting' => $jobposting], 200);
+    }
+
     public function store(JobPostingRequest $request)
     {
         $data = $this->jobPostingService->createJobPosting($request->validated());

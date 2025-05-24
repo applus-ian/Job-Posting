@@ -41,7 +41,7 @@ export function AddressDetailsForm({ address }: { address: ApplicantAddress }) {
             <CustomFormInput
               control={form.control}
               name="address"
-              label="Full Address (Optional)"
+              label="Full Address"
               placeholder="Enter your full address"
               isEditing={isEditingAddress}
             />

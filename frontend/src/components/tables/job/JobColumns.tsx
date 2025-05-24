@@ -150,7 +150,7 @@ export function jobPostingColumn({ handleAction }: JobPostingColumnProps) {
         switch (status) {
           case "open":
             actions = [
-              { label: "Close Job", key: "close" },
+              { label: "Close Job", key: "closed" },
               { label: "Set as Draft", key: "draft" },
               { label: "View Applicants", key: "viewApplicants" },
               { label: "View Details", key: "viewDetails" },
@@ -159,14 +159,14 @@ export function jobPostingColumn({ handleAction }: JobPostingColumnProps) {
             break;
           case "draft":
             actions = [
-              { label: "Publish Job", key: "publish" },
+              { label: "Publish Job", key: "open" },
               { label: "Edit Job", key: "edit" },
               { label: "View Details", key: "viewDetails" },
             ];
             break;
           case "closed":
             actions = [
-              { label: "Publish Job", key: "publish" },
+              { label: "Publish Job", key: "open" },
               { label: "Set as Draft", key: "draft" },
               { label: "View Applicants", key: "viewApplicants" },
               { label: "View Details", key: "viewDetails" },

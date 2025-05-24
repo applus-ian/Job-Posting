@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ErrorResponse } from "@/types/error-response";
 
 export function useJobPostingForm(jobposting: JobPosting | null) {
-  const { createJobPostingMutation } = useJobPosting();
+  const { createJobPostingMutation, updateJobPostingMutation } = useJobPosting();
   const [error, setError] = useState<string | null>(null);
 
   const form = useForm<JobPostingFields>({
@@ -19,8 +19,8 @@ export function useJobPostingForm(jobposting: JobPosting | null) {
       category: jobposting?.category || "",
       tags: jobposting?.tags.map((tag) => tag.tag) || [],
       salary_type: jobposting?.salary_type,
-      salary_min: jobposting?.salary_min,
-      salary_max: jobposting?.salary_max,
+      salary_min: Number(jobposting?.salary_min),
+      salary_max: Number(jobposting?.salary_max),
       employment_type: jobposting?.employment_type,
       employment_level: jobposting?.employment_level || "",
       work_setup: jobposting?.work_setup || "",
@@ -32,7 +32,11 @@ export function useJobPostingForm(jobposting: JobPosting | null) {
 
   const onSubmit: SubmitHandler<JobPostingFields> = async (data) => {
     try {
-      await createJobPostingMutation.mutateAsync(data);
+      if (jobposting) {
+        await updateJobPostingMutation.mutateAsync({ id: jobposting.id, ...data });
+      } else {
+        await createJobPostingMutation.mutateAsync(data);
+      }
     } catch (error) {
       const errorMsg = (error as ErrorResponse)?.response?.data?.message;
       if (errorMsg) {
@@ -47,7 +51,6 @@ export function useJobPostingForm(jobposting: JobPosting | null) {
   return {
     form,
     onSubmit,
-    isSuccess: createJobPostingMutation.isSuccess,
     error,
   };
 }

@@ -64,6 +64,7 @@ class JobPostingService
         return ['message' => 'Job posted updated successfully!'];
     }
 
+
     public function deleteJobPosting($jobposting)
     {
         // check if jobposting exists && check owner of the jobposting

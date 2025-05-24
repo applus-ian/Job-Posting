@@ -15,7 +15,7 @@ import { UserPlus2, UsersRound } from "lucide-react";
 export function JobDetailModal({ jobposting, openModal, setOpenModal }: JobDetailModalProps) {
   return (
     <Dialog open={openModal} onOpenChange={setOpenModal}>
-      <DialogContent className="max-w-2xl w-full max-h-[98vh] flex flex-col">
+      <DialogContent className="!max-w-6xl !w-full max-h-[98vh] flex flex-col">
         <DialogHeader className="flex-none">
           <DialogTitle>{jobposting.title}</DialogTitle>
           <div className="flex flex-row gap-2">
