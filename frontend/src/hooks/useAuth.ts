@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
 import { signOut } from "next-auth/react";
+import { toast } from "react-toastify";
 
 export function useAuth() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export function useAuth() {
       router.push("/dashboard");
     },
     onError: () => {
-      console.log("Something went wrong!");
+      toast.error("Something went wrong!");
     },
   });
 
@@ -26,28 +27,33 @@ export function useAuth() {
     mutationFn: registerUser,
     onSuccess: () => {
       router.push("/login");
+      toast.success("Account Registered Successfully!");
     },
     onError: () => {
-      console.log("Something went wrong!");
+      toast.error("Something went wrong!");
     },
   });
 
   // forgot password
   const forgotPasswordMutation = useMutation({
     mutationFn: forgotPassword,
+    onSuccess: () => {
+      toast.success("Reset Password Link Sent!");
+    },
     onError: () => {
-      console.log("Something went wrong!");
+      toast.error("Something went wrong!");
     },
   });
 
   // password reset
   const passwordResetMutation = useMutation({
     mutationFn: passwordReset,
-    onSuccess: () => {
+    onSuccess: (data) => {
       router.push("/login");
+      toast.success(data.message);
     },
     onError: () => {
-      console.log("Something went wrong!");
+      toast.error("Something went wrong!");
     },
   });
 
@@ -60,15 +66,18 @@ export function useAuth() {
       router.push("/login");
     },
     onError: () => {
-      console.log("Something went wrong!");
+      toast.error("Something went wrong!");
     },
   });
 
   // change password
   const changePasswordMutation = useMutation({
     mutationFn: changePassword,
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
     onError: () => {
-      console.log("Something went wrong!");
+      toast.error("Something went wrong!");
     },
   });
 

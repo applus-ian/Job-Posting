@@ -61,9 +61,11 @@ export type JobDetailModalProps = {
   jobposting: JobPosting;
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  status?: "open" | "closed" | "draft";
 };
 
 export type JobPostingInput = {
+  id?: number;
   title: string;
   category: string;
   description: string;

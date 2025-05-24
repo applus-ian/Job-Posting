@@ -3,6 +3,7 @@ import { useSavedJobApi } from "@/api/savedjob";
 import { useMutation } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 export function useSavedJob() {
   const { data: session } = useSession();
@@ -19,7 +20,7 @@ export function useSavedJob() {
       );
     },
     onError: () => {
-      console.log("Something went wrong!");
+      toast.error("Something went wrong!");
     },
   });
 
@@ -31,7 +32,7 @@ export function useSavedJob() {
       );
     },
     onError: () => {
-      console.log("Something went wrong!");
+      toast.error("Something went wrong!");
     },
   });
 
