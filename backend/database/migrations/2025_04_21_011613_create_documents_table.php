@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->string('type');
             $table->foreignId('application_id')->nullable()->constrained('applications')->onDelete('cascade');
             $table->foreignId('applicant_id')->nullable()->constrained('applicants')->onDelete('cascade');
-            $table->foreignId('offer_id')->nullable()->constrained('offers')->onDelete('cascade');
             $table->timestamps();
         });
     }

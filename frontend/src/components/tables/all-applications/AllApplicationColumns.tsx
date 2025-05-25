@@ -91,7 +91,7 @@ export function useAllApplicationColumns(): ColumnDef<Application>[] {
       ),
       cell: ({ getValue }) => {
         const salary = getValue() as string;
-        return <span>{`₱${Number(salary).toLocaleString()}`}</span>;
+        return <p className="text-xs text-gray-500">{`₱${salary}`}</p>;
       },
     },
     {

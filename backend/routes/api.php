@@ -4,6 +4,7 @@ use App\Http\Controllers\Applicant\AddressController;
 use App\Http\Controllers\Applicant\ApplicantInformationController;
 use App\Http\Controllers\Applicant\EducationHistoryController;
 use App\Http\Controllers\Applicant\FileController;
+use App\Http\Controllers\Applicant\SavedApplicantController;
 use App\Http\Controllers\Applicant\WorkExperienceController;
 use App\Http\Controllers\Applicant\EmergencyContactController;
 use App\Http\Controllers\Applicant\LanguageController;
@@ -49,20 +50,20 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    // applicant details routes
+    // applicant details 
     Route::apiResource('applicant', ApplicantInformationController::class);
     Route::apiResource('workexperience', WorkExperienceController::class);
     Route::apiResource('educationhistory', EducationHistoryController::class);
     Route::apiResource('address', AddressController::class);
     Route::apiResource('emergencycontact', EmergencyContactController::class);
     Route::apiResource('language', LanguageController::class);
-    // application routes
+    // application 
     Route::controller(ApplicationController::class)->prefix('application')->group(function () {
         Route::get('/view-applications', 'index');
         Route::get('/{application}', 'view');
         Route::post('/{jobposting}', 'apply');
     });
-    // file routes
+    // file 
     Route::controller(FileController::class)->prefix('applicant')->group(function () {
         Route::post('/profile', 'uploadProfile');
         Route::get('/file/{document}', 'getFile');
@@ -80,7 +81,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     // jobposting
     Route::get('jobposting/open/saved', [JobPostingController::class, 'getOpenJobsWithSaved']);
-    // saved job routes
+    // saved job 
     Route::controller(SavedJobController::class)->prefix('saved-job')->group(function () {
         Route::get('/', 'index');
         Route::post('/{jobposting}', 'store');
@@ -103,6 +104,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/schedule/{application}', 'scheduleInterview');
             Route::put('/schedule/{interview}', 'updateInterview');
             Route::apiResource('/{interview}/feedback', InterviewFeedbackController::class);
+        });
+        // saved applicants 
+        Route::controller(SavedApplicantController::class)->prefix('saved-applicant')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/{applicant}/{jobposting}', 'store');
+            Route::delete('/{savedapplicant}', 'destroy');
         });
     });
 });
