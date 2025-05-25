@@ -25,8 +25,4 @@ class Document extends Model
         return $this->belongsTo(Application::class);
     }
 
-    public function offer()
-    {
-        return $this->belongsTo(Offer::class);
-    }
 }

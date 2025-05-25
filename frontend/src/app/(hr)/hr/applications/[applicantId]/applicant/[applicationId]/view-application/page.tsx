@@ -52,6 +52,8 @@ export default function ViewApplicationPage() {
               application={data.application}
               jobposting={data.jobposting}
               fullname={fullName}
+              is_saved={data.is_saved}
+              saved_applicant_id={data.saved_applicant_id}
             />
             <DocumentCard documents={data.documents} />
             {data.interview && <FeedbackCard feedback={data.interview.feedback} />}

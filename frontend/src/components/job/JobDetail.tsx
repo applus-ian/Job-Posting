@@ -25,13 +25,8 @@ export default function JobDetail({
   const { saveJobPostingMutation, unsaveJobPostingMutation } = useSavedJob();
   const { data: session } = useSession();
   const [openModal, setOpenModal] = useState(false);
-
-  const isSaved = savedjobs?.find((saved) => saved.job_posting_id === jobposting.id);
-
-  savedjobs?.map((saved) => {
-    console.log("Saved Job:", saved);
-    console.log("Saved Job Posting ID:", saved.job_posting_id);
-  });
+  const job = savedjobs?.find((job) => job.job_posting_id === jobposting.id);
+  const [savedJob, setSavedJob] = useState<SavedJob | null>(job ?? null);
 
   const handleApplyBtn = (jobposting: JobPosting) => {
     if (session) {
@@ -39,7 +34,7 @@ export default function JobDetail({
         alert("Sorry, no vacancies available for this job.");
         return;
       }
-      const userAlreadyApplied = jobposting.applications.some(
+      const userAlreadyApplied = jobposting.applications!.some(
         (app) => app.applicant_id === session.user.applicant_id
       );
       if (!userAlreadyApplied) {
@@ -52,14 +47,14 @@ export default function JobDetail({
     }
   };
 
-  const handleSaveButton = async (jobPostingId: number) => {
-    const savedJob = savedjobs?.find((job) => job.job_posting_id === jobPostingId);
-
+  const handleSaveButton = async () => {
     if (session) {
       if (savedJob) {
         await unsaveJobPostingMutation.mutateAsync(savedJob.id!);
+        setSavedJob(null);
       } else {
-        await saveJobPostingMutation.mutateAsync(jobPostingId);
+        const response = await saveJobPostingMutation.mutateAsync(jobposting.id!);
+        setSavedJob(response.savedjob);
       }
     } else {
       signIn();
@@ -81,9 +76,9 @@ export default function JobDetail({
                 <Loader2 className="w-8 h-8 mt-1 text-primary animate-spin" />
               ) : (
                 <Bookmark
-                  className={`w-8 h-8 text-primary mt-1 cursor-pointer ${isSaved ? "fill-primary" : ""}`}
+                  className={`w-8 h-8 text-primary mt-1 cursor-pointer ${savedJob ? "fill-primary" : ""}`}
                   strokeWidth={1}
-                  onClick={() => handleSaveButton(jobposting.id!)}
+                  onClick={() => handleSaveButton()}
                 />
               )}
               <Button className="md:w-auto" onClick={() => handleApplyBtn(jobposting)}>

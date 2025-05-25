@@ -3,6 +3,7 @@
 namespace App\Services\Application;
 
 use App\Models\Application;
+use App\Models\SavedApplicant;
 use App\Services\Applicant\FileService;
 
 class ApplicationService
@@ -22,14 +23,30 @@ class ApplicationService
         // update to reviewed if the status is still received
         // if ($application->status === 'received') {
         //     $this->updateApplicationStatus(['status' => 'reviewed'], $application);
-        // }
+        // } $isSaved = false;
+        $applicant = $application->applicant;
+        $jobposting = $application->jobPosting;
+        $isSaved = false;
+        $savedApplicantId = null;
+        if ($applicant && $jobposting) {
+            $savedApplicant = SavedApplicant::where('applicant_id', $applicant->id)
+                ->where('job_posting_id', $jobposting->id)
+                ->first();
+
+            if ($savedApplicant) {
+                $isSaved = true;
+                $savedApplicantId = $savedApplicant->id;
+            }
+        }
         return [
             'applicant' => $application->applicant()->with('user')->first(),
             'application' => $application,
             'application_status' => $application->applicationStatus,
             'interview' => $application->interview()->with('feedback')->first(),
             'jobposting' => $application->jobPosting,
-            'documents' => $application->document
+            'documents' => $application->document,
+            'is_saved' => $isSaved,
+            'saved_applicant_id' => $savedApplicantId
         ];
     }
 

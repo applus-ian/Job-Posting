@@ -3,7 +3,7 @@ import { DocumentCard } from "@/components/application/DocumentCard";
 import { ApplicationsTable } from "@/components/tables/applicant-applications/ApplicationsTable";
 import { SidebarLayout } from "@/components/sidebar-layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { User, FileText, Briefcase, Bookmark } from "lucide-react";
+import { User, FileText, Briefcase } from "lucide-react";
 import { useApplicationColumns } from "@/components/tables/applicant-applications/ApplicationsColumns";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
@@ -70,7 +70,6 @@ export default function ViewApplicantPage() {
                 <p className="text-sm ">{data.applicant.professional_title}</p>
               </div>
             </div>
-            <Bookmark className="w-8 h-8 text-primary mt-1" strokeWidth={1} />
           </div>
 
           <Tabs defaultValue="applicantdetails" className="w-full">
