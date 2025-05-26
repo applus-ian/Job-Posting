@@ -3,7 +3,9 @@
 namespace App\Services\JobPosting;
 
 use App\Models\JobPosting;
+use App\Models\Address;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class JobPostingService
 {
@@ -30,22 +32,46 @@ class JobPostingService
 
     public function createJobPosting(array $data)
     {
-        // create job posting
-        $jobposting = JobPosting::create($data);
-        // If tags are passed in the request
-        if (array_key_exists('tags', $data)) {
-            // add new tags
-            if (!empty($data['tags'])) {
+        return DB::transaction(function () use ($data) {
+            // Create the Address first
+            $address = Address::create([
+                'address' => $data['address'],
+                'country' => $data['country'],
+                'province' => $data['province'],
+                'city' => $data['city'],
+                'street' => $data['street'],
+                'zipcode' => $data['zipcode'],
+            ]);
+
+            // Set the address_id on job posting data
+            $data['address_id'] = $address->id;
+
+            // Remove address fields from $data so they don't interfere with JobPosting::create()
+            unset(
+                $data['address'],
+                $data['country'],
+                $data['province'],
+                $data['city'],
+                $data['street'],
+                $data['zipcode']
+            );
+
+            // Now create job posting with address_id
+            $jobposting = JobPosting::create($data);
+
+            // Handle tags if any
+            if (array_key_exists('tags', $data) && !empty($data['tags'])) {
                 $this->createTags($jobposting, $data['tags']);
             }
-        }
 
-        return [
-            'message' => $jobposting->status === 'draft'
-                ? 'Job saved as a draft. You can publish it later.'
-                : 'Job posted successfully and is now open!'
-        ];
+            return [
+                'message' => $jobposting->status === 'draft'
+                    ? 'Job saved as a draft. You can publish it later.'
+                    : 'Job posted successfully and is now open!'
+            ];
+        });
     }
+
 
     public function updateJobPosting(array $data, $jobposting)
     {

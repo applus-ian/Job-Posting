@@ -17,16 +17,23 @@ export function useJobPostingForm(jobposting: JobPosting | null) {
     defaultValues: {
       title: jobposting?.title || "",
       category: jobposting?.category || "",
-      tags: jobposting?.tags.map((tag) => tag.tag) || [],
+      tags: jobposting?.tags?.map((tag) => tag.tag) || [],
       salary_type: jobposting?.salary_type ?? "monthly",
-      salary_min: Number(jobposting?.salary_min) ?? 0,
-      salary_max: Number(jobposting?.salary_max) ?? 0,
+      salary_min: jobposting?.salary_min ?? 0,
+      salary_max: jobposting?.salary_max ?? 0,
       employment_type: jobposting?.employment_type ?? "full-time",
       employment_level: jobposting?.employment_level || "",
       work_setup: jobposting?.work_setup || "",
       vacancies: jobposting?.vacancies ?? 0,
       description: jobposting?.description || "",
       status: jobposting?.status ?? "draft",
+
+      address: jobposting?.address || "",
+      country: jobposting?.country || "",
+      province: jobposting?.province || "",
+      city: jobposting?.city || "",
+      street: jobposting?.street || "",
+      zipcode: jobposting?.zipcode || "",
     },
   });
 

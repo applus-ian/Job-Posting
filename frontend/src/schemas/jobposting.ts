@@ -26,6 +26,13 @@ export const JobPostingSchema = z
       .number({ invalid_type_error: "Vacancies must be a number" })
       .int({ message: "Vacancies must be an integer" })
       .gte(1, { message: "Vacancies must be at least 1" }),
+    
+    address: z.string().min(1, "Address is required"),
+    country: z.string().min(1, "Country is required"),
+    province: z.string().min(1, "Province is required"),
+    city: z.string().min(1, "City is required"),
+    street: z.string().min(1, "Street is required"),
+    zipcode: z.string().regex(/^\d{4}$/, { message: "ZIP code must be a 4-digit number" }),
     description: z.string().min(1, { message: "Job description is required" }),
     status: z.enum(["open", "closed", "draft"]),
   })

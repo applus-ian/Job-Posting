@@ -21,6 +21,14 @@ export type JobPosting = {
   updated_at?: string;
   tags: JobTag[];
   applications?: Application[];
+
+  address: string;
+  country: string;
+  province: string;
+  city: string;
+  street: string;
+  zipcode: string;
+
 };
 
 export type JobTag = {
@@ -78,6 +86,13 @@ export type JobPostingInput = {
   work_setup: string;
   status: "open" | "closed" | "draft";
   tags: string[];
+
+  address: string;
+  country: string;
+  province: string;
+  city: string;
+  street: string;
+  zipcode: string;
 };
 
 export type JobPostingFields = z.infer<typeof JobPostingSchema>;
