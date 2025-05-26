@@ -9,12 +9,8 @@ class SavedApplicantService
 
     public function getSavedApplicants()
     {
-        $savedApplicants = SavedApplicant::with(['applicant', 'jobPosting'])->get();
-        return [
-            'savedapplicants' => $savedApplicants,
-            'applicants' => $savedApplicants->pluck('applicant')->filter()->values(),
-        ];
-
+        $savedApplicants = SavedApplicant::with(['applicant', 'applicant.user', 'jobPosting', 'jobPosting.applications'])->get();
+        return ['savedapplicants' => $savedApplicants];
     }
 
     public function saveApplicant($applicant, $jobposting)
