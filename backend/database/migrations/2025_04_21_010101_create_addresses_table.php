@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string(column: 'address');
+            $table->string(column: 'address')->nullable();
             $table->string('country');
             $table->string('province');
             $table->string(column: 'city');

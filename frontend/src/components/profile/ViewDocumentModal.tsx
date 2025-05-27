@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDocumentApi } from "@/api/document";
+import {DocumentViewer} from "react-documents";
 
 
 // Props for the PDF viewer modal
@@ -57,19 +58,15 @@ export default function ViewDocumentModal({ isOpen, onClose, fileName }: ViewDoc
         </DialogClose>
         
         {error ? (
-          <div className="flex items-center justify-center h-full text-red-500">
-            {error}
-          </div>
-        ) : blobUrl ? (
-          <iframe 
-            src={blobUrl} 
-            className="w-full h-full" 
-            title="PDF Viewer"
-          />
+          <DocumentViewer
+            queryParams="hl=Nl"
+            url={blobUrl || ''}
+          ></DocumentViewer>
         ) : (
           <div className="flex items-center justify-center h-full">
             Loading PDF...
           </div>
+
         )}
       </DialogContent>
     </Dialog>
