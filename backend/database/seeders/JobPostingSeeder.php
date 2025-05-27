@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\JobPosting;
 use App\Models\JobTag;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class JobPostingSeeder extends Seeder
@@ -27,77 +26,7 @@ class JobPostingSeeder extends Seeder
                         "format" => "",
                         "indent" => 0,
                         "type" => "paragraph",
-                        "version" => 1,
-                        "textFormat" => 0,
-                        "textStyle" => ""
-                    ],
-                    [
-                        "children" => [
-                            ["detail" => 0, "format" => 1, "mode" => "normal", "style" => "", "text" => "Key Responsibilities:", "type" => "text", "version" => 1]
-                        ],
-                        "direction" => "ltr",
-                        "format" => "",
-                        "indent" => 0,
-                        "type" => "paragraph",
-                        "version" => 1,
-                        "textFormat" => 0,
-                        "textStyle" => ""
-                    ],
-                    [
-                        "children" => [
-                            [
-                                "children" => [
-                                    ["detail" => 0, "format" => 0, "mode" => "normal", "style" => "", "text" => "Convert Figma/Adobe XD designs into functional, responsive code", "type" => "text", "version" => 1]
-                                ],
-                                "direction" => "ltr",
-                                "format" => "",
-                                "indent" => 0,
-                                "type" => "listitem",
-                                "version" => 1,
-                                "value" => 1
-                            ],
-                            [
-                                "children" => [
-                                    ["detail" => 0, "format" => 0, "mode" => "normal", "style" => "", "text" => "Collaborate with backend developers and designers to improve usability", "type" => "text", "version" => 1]
-                                ],
-                                "direction" => "ltr",
-                                "format" => "",
-                                "indent" => 0,
-                                "type" => "listitem",
-                                "version" => 1,
-                                "value" => 2
-                            ],
-                            [
-                                "children" => [
-                                    ["detail" => 0, "format" => 0, "mode" => "normal", "style" => "", "text" => "Optimize web applications for maximum speed and scalability", "type" => "text", "version" => 1]
-                                ],
-                                "direction" => "ltr",
-                                "format" => "",
-                                "indent" => 0,
-                                "type" => "listitem",
-                                "version" => 1,
-                                "value" => 3
-                            ],
-                            [
-                                "children" => [
-                                    ["detail" => 0, "format" => 0, "mode" => "normal", "style" => "", "text" => "Ensure brand consistency across all platforms", "type" => "text", "version" => 1]
-                                ],
-                                "direction" => "ltr",
-                                "format" => "",
-                                "indent" => 0,
-                                "type" => "listitem",
-                                "version" => 1,
-                                "value" => 4
-                            ]
-                        ],
-                        "direction" => "ltr",
-                        "format" => "",
-                        "indent" => 0,
-                        "type" => "list",
-                        "version" => 1,
-                        "listType" => "bullet",
-                        "start" => 1,
-                        "tag" => "ul"
+                        "version" => 1
                     ]
                 ],
                 "direction" => "ltr",
@@ -108,24 +37,129 @@ class JobPostingSeeder extends Seeder
             ]
         ];
 
-        $jobPosting = JobPosting::create([
-            'title' => 'Front-End Web Developer',
-            'category' => 'Web Development',
-            'description' => json_encode($jobDescription),
-            'vacancies' => 3,
-            'salary_type' => 'monthly',
-            'salary_min' => 40000.00,
-            'salary_max' => 60000.00,
-            'employment_type' => 'Full-time',
-            'employment_level' => 'Mid-Senior',
-            'work_setup' => 'Remote',
-            'status' => 'open',
-            'address_id' => null,
-        ]);
+        $jobs = [
+            [
+                'title' => 'Front-End Web Developer',
+                'category' => 'Web Development',
+                'vacancies' => 3,
+                'salary_min' => 40000,
+                'salary_max' => 60000,
+                'employment_type' => 'Full-time',
+                'employment_level' => 'Mid-Senior',
+                'work_setup' => 'Remote',
+            ],
+            [
+                'title' => 'Back-End Developer',
+                'category' => 'Web Development',
+                'vacancies' => 2,
+                'salary_min' => 45000,
+                'salary_max' => 65000,
+                'employment_type' => 'Full-time',
+                'employment_level' => 'Mid-Senior',
+                'work_setup' => 'Onsite',
+            ],
+            [
+                'title' => 'UI/UX Designer',
+                'category' => 'Design',
+                'vacancies' => 1,
+                'salary_min' => 35000,
+                'salary_max' => 50000,
+                'employment_type' => 'Contract',
+                'employment_level' => 'Mid',
+                'work_setup' => 'Remote',
+            ],
+            [
+                'title' => 'Mobile App Developer',
+                'category' => 'Mobile Development',
+                'vacancies' => 2,
+                'salary_min' => 50000,
+                'salary_max' => 70000,
+                'employment_type' => 'Full-time',
+                'employment_level' => 'Senior',
+                'work_setup' => 'Hybrid',
+            ],
+            [
+                'title' => 'Data Analyst',
+                'category' => 'Data Science',
+                'vacancies' => 1,
+                'salary_min' => 45000,
+                'salary_max' => 60000,
+                'employment_type' => 'Full-time',
+                'employment_level' => 'Junior',
+                'work_setup' => 'Remote',
+            ],
+            [
+                'title' => 'DevOps Engineer',
+                'category' => 'Infrastructure',
+                'vacancies' => 1,
+                'salary_min' => 55000,
+                'salary_max' => 75000,
+                'employment_type' => 'Full-time',
+                'employment_level' => 'Senior',
+                'work_setup' => 'Onsite',
+            ],
+            [
+                'title' => 'QA Tester',
+                'category' => 'Quality Assurance',
+                'vacancies' => 2,
+                'salary_min' => 30000,
+                'salary_max' => 45000,
+                'employment_type' => 'Contract',
+                'employment_level' => 'Junior',
+                'work_setup' => 'Remote',
+            ],
+            [
+                'title' => 'Project Manager',
+                'category' => 'Management',
+                'vacancies' => 1,
+                'salary_min' => 60000,
+                'salary_max' => 80000,
+                'employment_type' => 'Full-time',
+                'employment_level' => 'Senior',
+                'work_setup' => 'Hybrid',
+            ],
+            [
+                'title' => 'Marketing Specialist',
+                'category' => 'Marketing',
+                'vacancies' => 1,
+                'salary_min' => 35000,
+                'salary_max' => 50000,
+                'employment_type' => 'Full-time',
+                'employment_level' => 'Mid',
+                'work_setup' => 'Remote',
+            ],
+            [
+                'title' => 'Technical Support Engineer',
+                'category' => 'Support',
+                'vacancies' => 3,
+                'salary_min' => 30000,
+                'salary_max' => 45000,
+                'employment_type' => 'Full-time',
+                'employment_level' => 'Junior',
+                'work_setup' => 'Onsite',
+            ],
+        ];
 
-        JobTag::create([
-            'tag' => 'Responsive Design',
-            'job_posting_id' => $jobPosting->id,
-        ]);
+        foreach ($jobs as $job) {
+            $posting = JobPosting::create([
+                'title' => $job['title'],
+                'category' => $job['category'],
+                'description' => json_encode($jobDescription),
+                'vacancies' => $job['vacancies'],
+                'salary_type' => 'monthly',
+                'salary_min' => $job['salary_min'],
+                'salary_max' => $job['salary_max'],
+                'employment_type' => $job['employment_type'],
+                'employment_level' => $job['employment_level'],
+                'work_setup' => $job['work_setup'],
+                'status' => 'open',
+                'address_id' => null,
+            ]);
+
+            JobTag::create([
+                'tag' => 'General',
+                'job_posting_id' => $posting->id,
+            ]);
+        }
     }
 }
