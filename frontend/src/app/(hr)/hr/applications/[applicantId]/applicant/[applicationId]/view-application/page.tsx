@@ -56,12 +56,16 @@ export default function ViewApplicationPage() {
               saved_applicant_id={data.saved_applicant_id}
             />
             <DocumentCard documents={data.documents} />
-            {data.interview && <FeedbackCard feedback={data.interview.feedback} />}
+            {data.interview && (
+              <FeedbackCard interview={data.interview} feedback={data.interview.feedback} />
+            )}
           </div>
           <div className="flex flex-col lg:w-1/3 w-full gap-3">
-            <ActionCard />
-            <HRStatusCard />
-            {data.interview && <InterviewSummaryCard interview={data.interview} />}
+            <ActionCard application={data.application} />
+            <HRStatusCard applicationstatus={data.application.application_status} />
+            {data.interview && (
+              <InterviewSummaryCard application={data.application} interview={data.interview} />
+            )}
             <InterviewerCard />
           </div>
         </div>

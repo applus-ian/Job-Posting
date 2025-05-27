@@ -205,7 +205,6 @@ export function useAllApplicationColumns(): ColumnDef<Application>[] {
               >
                 View Application
               </DropdownMenuItem>
-              <DropdownMenuItem>Reject Application</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
