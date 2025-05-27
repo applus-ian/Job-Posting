@@ -10,7 +10,22 @@ export const ApplicantProfileSchema = z.object({
   last_name: nameSchema("Last name"),
   suffix: nameSchema("Suffix", 1).optional().or(z.literal("")),
   sex: z.enum(["male", "female"]).or(z.string()),
-  date_of_birth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format (YYYY-MM-DD)"),
+  date_of_birth: z
+    .string()
+    .min(1, "Date of Birth is required")
+    .refine((val) => {
+      const date = new Date(val);
+      const today = new Date();
+      if (isNaN(date.getTime())) return false;
+
+      // Strip time
+      date.setHours(0, 0, 0, 0);
+      today.setHours(0, 0, 0, 0);
+
+      return date < today;
+    }, {
+      message: "Date of birth cannot be today or a future date",
+    }),
   nationality: z.string().min(1, "Nationality is required"),
   phone_number: z
     .string()
@@ -20,6 +35,7 @@ export const ApplicantProfileSchema = z.object({
       "Phone number must start with 09 or +639 followed by 9 digits"
     ),
 });
+
 
 export const WorkExperienceSchema = z.object({
   company: z.string().min(1, "Company name is required"),
