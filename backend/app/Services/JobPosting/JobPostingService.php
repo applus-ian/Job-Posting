@@ -17,6 +17,17 @@ class JobPostingService
 
         return ['jobpostings' => $query->get()];
     }
+    
+    public function fetchFeaturedJobPostings($limit = 3)
+    {
+        $jobPostings = JobPosting::withCount('applications') 
+        ->where('status', 'open')
+        ->orderBy('applications_count', 'desc') 
+        ->take($limit) 
+        ->get();
+
+        return ['jobpostings' => $jobPostings];
+    }
 
     public function fetchJobPostingWithSaved()
     {

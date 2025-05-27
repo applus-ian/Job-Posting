@@ -116,4 +116,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 // public routes
 Route::get('jobposting/open', [JobPostingController::class, 'getOpenJobs']);
+Route::get('jobposting/featured', [JobPostingController::class, 'getFeaturedJobs']);
 

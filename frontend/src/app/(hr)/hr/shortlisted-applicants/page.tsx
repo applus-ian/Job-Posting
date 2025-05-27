@@ -4,6 +4,7 @@ import { shortlistedColumn } from "@/components/tables/shortlisted-applicants/Sh
 import { ApplicantProfile } from "@/types/profile";
 import { ShortlistedTable } from "@/components/tables/shortlisted-applicants/ShortlistedTable";
 import { useState } from "react";
+import { SkeletonHrApplications } from "@/components/skeletons/SkeletonHrApplications";
 
 const sampleData: ApplicantProfile[] = [
   {
@@ -68,6 +69,7 @@ export default function ShortlistedApplicantPage() {
 
   return (
     <SidebarLayout breadcrumbs={[{ label: "Shortlisted Applicants", isCurrentPage: true }]}>
+      <SkeletonHrApplications/>
       <div className="mb-2">
         <p className="text-2xl font-medium">Shortlisted Applicants</p>
       </div>

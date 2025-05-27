@@ -26,6 +26,12 @@ class JobPostingController extends Controller
         return response()->json($data, 200);
     }
 
+    public function getFeaturedJobs()
+    {
+        $data = $this->jobPostingService->fetchFeaturedJobPostings();
+        return response()->json($data, 200);
+    }
+
     // hr 
     public function index()
     {
