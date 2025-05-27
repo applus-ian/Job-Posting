@@ -40,7 +40,7 @@ export function JobBoard({
         {jobpostings.length === 0 ? (
           <p>No jobs available.</p>
         ) : (
-          <div className="w-full">
+          <div className="w-full h-80">
             <Button variant="ghost" onClick={handleBackToList} className="mb-4 flex items-center">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to jobs
@@ -64,8 +64,8 @@ export function JobBoard({
         <p>No jobs available.</p>
       ) : (
         <div className="flex flex-col lg:flex-row gap-3">
-          <div className="min-h-[100vh] w-full lg:w-2/5">
-            <div className="flex-grow overflow-y-auto">
+          <div className="w-full lg:w-2/5">
+            <div className="h-auto max-h-130 flex-grow overflow-y-auto">
               <JobList
                 jobpostings={jobpostings}
                 onSelectJob={handleSelectJob}

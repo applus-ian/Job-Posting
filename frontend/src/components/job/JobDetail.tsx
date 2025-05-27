@@ -8,10 +8,11 @@ import { JobPosting } from "@/types/job";
 import { DescriptionRenderer } from "./DescriptionRenderer";
 import { useState } from "react";
 import { ApplyJobModal } from "../application/ApplyJobModal";
-import { useSession, signIn } from "next-auth/react";
+import { useSession, signIn} from "next-auth/react";
 import { Document } from "@/types/profile";
 import { useSavedJob } from "@/hooks/useSavedJob";
 import { SavedJob } from "@/types/savedjob";
+import { useEffect } from "react";
 
 export default function JobDetail({
   jobposting,
@@ -25,8 +26,24 @@ export default function JobDetail({
   const { saveJobPostingMutation, unsaveJobPostingMutation } = useSavedJob();
   const { data: session } = useSession();
   const [openModal, setOpenModal] = useState(false);
-  const job = savedjobs?.find((job) => job.job_posting_id === jobposting.id);
+  const job = savedjobs?.find(
+    (job) =>
+      job.job_posting_id === jobposting.id &&
+      job.applicant_id === session?.user.applicant_id
+  );
   const [savedJob, setSavedJob] = useState<SavedJob | null>(job ?? null);
+
+  // ✅ Sync savedJob state whenever dependencies change
+  useEffect(() => {
+    if (session && savedjobs) {
+      const matched = savedjobs.find(
+        (job) =>
+          job.job_posting_id === jobposting.id &&
+          job.applicant_id === session.user.applicant_id
+      );
+      setSavedJob(matched ?? null);
+    }
+  }, [savedjobs, jobposting.id, session]);
 
   const handleApplyBtn = (jobposting: JobPosting) => {
     if (session) {
@@ -48,24 +65,36 @@ export default function JobDetail({
   };
 
   const handleSaveButton = async () => {
-    if (session) {
-      if (savedJob) {
-        await unsaveJobPostingMutation.mutateAsync(savedJob.id!);
-        setSavedJob(null);
-      } else {
-        const response = await saveJobPostingMutation.mutateAsync(jobposting.id!);
-        setSavedJob(response.savedjob);
-      }
+  if (!session) {
+    signIn();
+    return;
+  }
+
+  try {
+    if (savedJob) {
+      await unsaveJobPostingMutation.mutateAsync(savedJob.id!);
+      setSavedJob(null);
     } else {
-      signIn();
+      const response = await saveJobPostingMutation.mutateAsync(jobposting.id!);
+
+      // handle null if already saved in backend (shouldn’t happen in UI, but still safe)
+      if (response?.savedjob) {
+        setSavedJob(response.savedjob);
+      } else {
+        console.warn("Job was already saved in backend.");
+      }
     }
-  };
+  } catch (err) {
+    console.error("Failed to save/unsave job:", err);
+  }
+};
+
 
   const isLoading = saveJobPostingMutation.isPending || unsaveJobPostingMutation.isPending;
 
   return (
     <>
-      <Card className="h-full">
+      <Card className="h-auto">
         <CardHeader className="pb-1">
           <div className="flex flex-row items-start w-full gap-8">
             <div className="w-[80%]">
@@ -76,7 +105,7 @@ export default function JobDetail({
                 <Loader2 className="w-8 h-8 mt-1 text-primary animate-spin" />
               ) : (
                 <Bookmark
-                  className={`w-8 h-8 text-primary mt-1 cursor-pointer ${savedJob ? "fill-primary" : ""}`}
+                  className={`w-8 h-8 text-primary mt-1 cursor-pointer ${savedJob ? "fill-primary" : ""} ${isLoading ? "opacity-50 pointer-events-none" : ""}`}
                   strokeWidth={1}
                   onClick={() => handleSaveButton()}
                 />

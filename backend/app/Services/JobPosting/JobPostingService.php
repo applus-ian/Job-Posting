@@ -9,7 +9,7 @@ class JobPostingService
 {
     public function fetchJobPostings($status = null)
     {
-        $query = JobPosting::with('applications');
+        $query = JobPosting::with(['applications']);
 
         if ($status !== null) {
             $query->where('status', $status);
@@ -23,7 +23,7 @@ class JobPostingService
         $applicant = Auth::user()->applicant;
 
         return [
-            'jobpostings' => JobPosting::with('applications')->where('status', 'open')->get(),
+            'jobpostings' => JobPosting::with(['applications', 'tags'])->where('status', 'open')->get(),
             'savedjobs' => $applicant->savedJob()->get(),
         ];
     }
