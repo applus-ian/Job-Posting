@@ -1,11 +1,11 @@
-import { ApplyJobSchema } from "@/schemas/application";
+import { ApplicationStatusSchema, ApplyJobSchema } from "@/schemas/application";
 import { z } from "zod";
 import { ApplicantProfile, Document } from "./profile";
 import { JobPosting } from "./job";
 
 export type Application = {
   id?: number;
-  status: string;
+  status: AppStatus;
   expected_salary: string;
   applicant_id: number;
   job_posting_id?: number;
@@ -37,4 +37,16 @@ export type ApplyJob = {
   coverletter: File[];
 };
 
+export type AppStatus = "received" | "reviewed" | "interview" | "offer" | "hired";
+
+export type ApplicationStatusModalProps = {
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  status: AppStatus;
+  onConfirm: () => void;
+  isLoading: boolean;
+};
+
 export type ApplyJobFields = z.infer<typeof ApplyJobSchema>;
+
+export type ApplicationStatusField = z.infer<typeof ApplicationStatusSchema>;

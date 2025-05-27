@@ -41,7 +41,7 @@ export function useApplicationApi() {
   };
 
   const updateApplicationStatus = async ({ id, status }: { id: number; status: string }) => {
-    const response = await axiosAuth.put(`/api/application/${id}`, status);
+    const response = await axiosAuth.put(`/api/hr/application/${id}`, { status });
     return response.data;
   };
 
