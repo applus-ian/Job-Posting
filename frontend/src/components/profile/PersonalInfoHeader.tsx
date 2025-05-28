@@ -26,7 +26,7 @@ export function PersonalInfoHeader({ biography }: { biography: string | null }) 
       };
       reader.readAsDataURL(file);
     }else{
-      toast.error('No file submited');
+      toast.error('No file submited')
     }
   };
 

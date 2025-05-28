@@ -121,7 +121,6 @@ export function useProfile() {
   const uploadProfileMutation = useMutation({
     mutationFn: uploadProfile,
     onSuccess: (data) => {
-      toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: applicantDetailsQueryKey });
       // update session
       update({ user: { profile: data.profile } });
