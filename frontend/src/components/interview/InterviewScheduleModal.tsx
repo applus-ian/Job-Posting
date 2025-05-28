@@ -47,7 +47,7 @@ export function InterviewScheduleModal({
         setOpenModal(open);
         if (!open) {
           form.reset();
-          setInterviewMode("in_person");
+          setInterviewMode(interview?.mode ?? "in_person");
         }
       }}
     >
@@ -151,6 +151,22 @@ export function InterviewScheduleModal({
                   </>
                 )}
               </div>
+
+              <CustomFormInput
+                control={form.control}
+                name="status"
+                label="Status"
+                placeholder="Select Status"
+                isEditing={isEditing}
+                variant="select"
+                options={[
+                  { value: "upcoming", label: "Upcoming" },
+                  { value: "completed", label: "Completed" },
+                  { value: "rescheduled", label: "Rescheduled" },
+                  { value: "no-show", label: "No-show" },
+                  { value: "cancelled", label: "Cancelled" },
+                ]}
+              />
               {error && <div className="text-sm text-red-500">{error}</div>}
             </div>
 

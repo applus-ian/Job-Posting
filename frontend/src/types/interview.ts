@@ -34,6 +34,7 @@ export type InterviewFields = {
   meeting_link?: string | null | undefined;
   platform?: string | null | undefined;
   location?: string | null | undefined;
+  status: "upcoming" | "completed" | "rescheduled" | "no-show" | "cancelled";
 };
 
 export type InterviewScheduleModalProps = {
