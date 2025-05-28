@@ -12,12 +12,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { MoreHorizontal, UsersIcon, ArrowUpDown } from "lucide-react";
 import CustomBadge from "../../badges/CustomBadge";
 import { JobPosting } from "@/types/job";
+import { Application } from "@/types/application";
+import { useRouter } from "next/navigation";
 
 interface JobPostingColumnProps {
   handleAction: (actionKey: string, jobposting: JobPosting) => void;
 }
 
-export function jobPostingColumn({ handleAction }: JobPostingColumnProps) {
+export function jobPostingColumn({ handleAction }: JobPostingColumnProps): ColumnDef<JobPosting>[] {
+  const router = useRouter();
+
   const columns: ColumnDef<JobPosting>[] = [
     {
       id: "select",
@@ -42,20 +46,23 @@ export function jobPostingColumn({ handleAction }: JobPostingColumnProps) {
       enableHiding: false,
     },
     {
-      accessorKey: "title",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant={"ghost"}
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Job Title <ArrowUpDown className="text-gray-400" size={10} />
-          </Button>
-        );
-      },
+      id: "title",
+      accessorFn: (row) => row.title,
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          className="flex items-center gap-1"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Job Title
+          <ArrowUpDown className="text-gray-400" size={12} />
+        </Button>
+      ),
+      filterFn: "includesString",
     },
     {
-      accessorKey: "category",
+      id: "category",
+      accessorFn: (row) => row.category,
       header: ({ column }) => (
         <Button
           variant="ghost"
@@ -66,19 +73,31 @@ export function jobPostingColumn({ handleAction }: JobPostingColumnProps) {
       ),
       filterFn: "arrIncludesSome",
     },
-
     {
-      accessorKey: "salary_min",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant={"ghost"}
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Salary <ArrowUpDown className="text-gray-400" size={10} />
-          </Button>
-        );
-      },
+      id: "employment_type",
+      accessorFn: (row) => [row.employment_type],
+      header: () => null,
+      cell: () => null,
+      filterFn: "arrIncludesSome",
+    },
+     {
+      id: "employment_level",
+      accessorFn: (row) => [row.employment_level],
+      header: () => null,
+      cell: () => null,
+      filterFn: "arrIncludesSome",
+    },
+    {
+      id: "salary",
+      accessorFn: (row) => `${row.salary_min} - ${row.salary_max}`,
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Salary <ArrowUpDown className="text-gray-400" size={10} />
+        </Button>
+      ),
       cell: ({ row }) => {
         const min = row.original.salary_min;
         const max = row.original.salary_max;
@@ -88,18 +107,16 @@ export function jobPostingColumn({ handleAction }: JobPostingColumnProps) {
     {
       id: "applicants",
       accessorFn: (row) => row.applications?.length ?? 0,
-      header: ({ column }) => {
-        return (
-          <Button
-            variant={"ghost"}
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Applicants <ArrowUpDown className="text-gray-400" size={10} />
-          </Button>
-        );
-      },
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Applicants <ArrowUpDown className="text-gray-400" size={10} />
+        </Button>
+      ),
       cell: ({ row }) => {
-        const length = row.original.applications?.length;
+        const length = row.original.applications?.length ?? 0;
         return (
           <div className="flex items-center gap-2">
             <UsersIcon className="text-gray-400" size={14} /> {length}
@@ -108,35 +125,12 @@ export function jobPostingColumn({ handleAction }: JobPostingColumnProps) {
       },
     },
     {
-      accessorKey: "status",
+      id: "status",
+      accessorFn: (row) => row.status,
       header: "Status",
-      cell: ({ row }) => {
-        return <CustomBadge label={row.getValue("status")} status={row.getValue("status")} />;
-      },
-      filterFn: "arrIncludesSome",
-    },
-    {
-      accessorKey: "hidden_category",
-      header: () => null,
-      cell: () => null,
-      filterFn: "arrIncludesSome",
-    },
-    {
-      accessorKey: "hidden_employment_type",
-      header: () => null,
-      cell: () => null,
-      filterFn: "arrIncludesSome",
-    },
-    {
-      accessorKey: "hidden_employment_level",
-      header: () => null,
-      cell: () => null,
-      filterFn: "arrIncludesSome",
-    },
-    {
-      accessorKey: "hidden_work_setup",
-      header: () => null,
-      cell: () => null,
+      cell: ({ row }) => (
+        <CustomBadge label={row.getValue("status")} status={row.getValue("status")} />
+      ),
       filterFn: "arrIncludesSome",
     },
     {
@@ -200,5 +194,6 @@ export function jobPostingColumn({ handleAction }: JobPostingColumnProps) {
       },
     },
   ];
-  return { columns };
+
+  return columns;
 }

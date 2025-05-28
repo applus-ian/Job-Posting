@@ -1,4 +1,5 @@
 "use client";
+
 import { SidebarLayout } from "@/components/sidebar-layout";
 import { SkeletonApplication } from "@/components/skeletons/SkeletonApplication";
 import { jobPostingColumn } from "@/components/tables/job/JobColumns";
@@ -11,26 +12,28 @@ import { JobPostingStatusModal } from "@/components/job/JobPostingStatusModal";
 import { useRouter } from "next/navigation";
 
 export default function JobPostingPage() {
-  const [jobposting, setJobposting] = useState<JobPosting | null>(null);
+  const [selectedJobPosting, setSelectedJobPosting] = useState<JobPosting | null>(null);
   const [openJobPostingModal, setOpenJobPostingModal] = useState(false);
-  const [openStatusModal, setStatusModal] = useState(false);
-  const [status, setStatus] = useState("");
+  const [openStatusModal, setOpenStatusModal] = useState(false);
+  const [status, setStatus] = useState<"open" | "draft" | "closed" | "">("");
   const router = useRouter();
 
-  // modal actions
-  const handleAction = (actionKey: string, jobposting: JobPosting) => {
-    setJobposting(jobposting);
+  // modal action handler
+  const handleAction = (actionKey: string, jobPosting: JobPosting) => {
+    setSelectedJobPosting(jobPosting);
+
     if (actionKey === "viewDetails") {
       setOpenJobPostingModal(true);
     } else if (["open", "draft", "closed"].includes(actionKey)) {
-      setStatusModal(true);
-      setStatus(actionKey);
-    } else if (actionKey == "edit") {
-      router.push(`/hr/job-postings/${jobposting.id}/edit`);
+      setStatus(actionKey as "open" | "draft" | "closed");
+      setOpenStatusModal(true);
+    } else if (actionKey === "edit") {
+      router.push(`/hr/job-postings/${jobPosting.id}/edit`);
     }
   };
+
   const { data, isLoading } = useJobPostingsQuery("all");
-  const { columns } = jobPostingColumn({ handleAction });
+  const columns = jobPostingColumn({ handleAction });
 
   if (isLoading || !data) {
     return (
@@ -45,23 +48,24 @@ export default function JobPostingPage() {
       <div className="mb-2">
         <p className="text-2xl font-medium">All Job Postings</p>
       </div>
+
       <JobTable columns={columns} data={data.jobpostings} />
 
-      {/* modals  */}
-      {/* job posting detail modal  */}
-      {jobposting && (
+      {/* Job Detail Modal */}
+      {selectedJobPosting && (
         <JobDetailModal
           openModal={openJobPostingModal}
           setOpenModal={setOpenJobPostingModal}
-          jobposting={jobposting}
+          jobposting={selectedJobPosting}
         />
       )}
-      {/* change status modal  */}
-      {status && jobposting && (
+
+      {/* Change Status Modal */}
+      {status && selectedJobPosting && (
         <JobPostingStatusModal
           openModal={openStatusModal}
-          setOpenModal={setStatusModal}
-          jobposting={jobposting}
+          setOpenModal={setOpenStatusModal}
+          jobposting={selectedJobPosting}
           status={status}
         />
       )}

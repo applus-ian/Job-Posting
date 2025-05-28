@@ -21,28 +21,6 @@ export function useAllApplicationColumns(): ColumnDef<Application>[] {
 
   return [
     {
-      id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
-    {
       accessorFn: (row) =>
         `${row.applicant?.first_name ?? ""} ${row.applicant?.middle_name ?? ""} ${row.applicant?.last_name ?? ""}`.trim(),
       id: "fullName",
@@ -118,6 +96,7 @@ export function useAllApplicationColumns(): ColumnDef<Application>[] {
           </div>
         );
       },
+      filterFn: "arrIncludesSome",
     },
     {
       accessorKey: "created_at",
@@ -144,36 +123,29 @@ export function useAllApplicationColumns(): ColumnDef<Application>[] {
       filterFn: "arrIncludesSome",
     },
     {
-      id: "department",
-      accessorKey: "department",
-      header: () => null,
-      cell: () => null,
-      filterFn: "arrIncludesSome",
-    },
-    {
       id: "category",
-      accessorKey: "category",
+      accessorFn: (row) => row.job_posting?.category,
       header: () => null,
       cell: () => null,
       filterFn: "arrIncludesSome",
     },
     {
       id: "employment_type",
-      accessorKey: "employment_type",
+      accessorFn: (row) => row.job_posting?.employment_type,
       header: () => null,
       cell: () => null,
       filterFn: "arrIncludesSome",
     },
     {
       id: "employment_level",
-      accessorKey: "employment_level",
+      accessorFn: (row) => row.job_posting?.employment_level,
       header: () => null,
       cell: () => null,
       filterFn: "arrIncludesSome",
     },
     {
       id: "work_setup",
-      accessorKey: "work_setup",
+      accessorFn: (row) => row.job_posting?.work_setup,
       header: () => null,
       cell: () => null,
       filterFn: "arrIncludesSome",
@@ -205,7 +177,6 @@ export function useAllApplicationColumns(): ColumnDef<Application>[] {
               >
                 View Application
               </DropdownMenuItem>
-              <DropdownMenuItem>Reject Application</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );

@@ -31,9 +31,15 @@ interface JobTableProps<T> {
   columns: ColumnDef<T, unknown>[];
   data: T[];
 }
-export function JobTable<T>({ columns, data }: JobTableProps<T>) {
+
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+export function JobTable<T extends Record<string, any>>({ columns, data }: JobTableProps<T>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+
   const hasActiveFilters = columnFilters.some(
     (filter) => filter.value !== undefined && filter.value !== ""
   );
@@ -52,6 +58,7 @@ export function JobTable<T>({ columns, data }: JobTableProps<T>) {
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
+
   return (
     <>
       <div className="flex items-start justify-between">
@@ -60,6 +67,7 @@ export function JobTable<T>({ columns, data }: JobTableProps<T>) {
             <Plus /> <span className="hidden sm:flex">Post a Job</span>
           </Button>
         </Link>
+
         <div className="flex gap-3">
           <Input
             className="w-[190px] sm:w-3xs"
@@ -67,6 +75,7 @@ export function JobTable<T>({ columns, data }: JobTableProps<T>) {
             value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
             onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
           />
+
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="outline">
@@ -76,7 +85,7 @@ export function JobTable<T>({ columns, data }: JobTableProps<T>) {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle> Filters</DialogTitle>
+                <DialogTitle>Filters</DialogTitle>
                 <DialogDescription>Apply filters to refine your search.</DialogDescription>
               </DialogHeader>
 
@@ -85,62 +94,53 @@ export function JobTable<T>({ columns, data }: JobTableProps<T>) {
                   <DataTableFilter
                     column={table.getColumn("status")}
                     title="Status"
-                    options={[
-                      { label: "Open", value: "open" },
-                      { label: "Closed", value: "closed" },
-                      { label: "Draft", value: "draft" },
-                    ]}
+                    options={Array.from(
+                      new Set(data.map((item: any) => item.status).filter(Boolean))
+                    ).map((status) => ({
+                      label: capitalize(String(status)),
+                      value: String(status),
+                    }))}
                   />
                 )}
                 {table.getColumn("category") && (
                   <DataTableFilter
                     column={table.getColumn("category")}
                     title="Category"
-                    options={[
-                      { label: "IT & Software", value: "IT & Software" },
-                      { label: "Marketing", value: "Marketing" },
-                      { label: "Human Resources", value: "Human Resources" },
-                      { label: "Customer Service", value: "Customer Service" },
-                      { label: "Management", value: "Management" },
-                    ]}
+                    options={Array.from(
+                      new Set(data.map((item: any) => item.category).filter(Boolean))
+                    ).map((category) => ({
+                      label: String(category),
+                      value: String(category),
+                    }))}
                   />
                 )}
-                {table.getColumn("hidden_employment_type") && (
+                {table.getColumn("employment_type") && (
                   <DataTableFilter
-                    column={table.getColumn("hidden_employment_type")}
+                    column={table.getColumn("employment_type")}
                     title="Employment Type"
-                    options={[
-                      { label: "Full-Time", value: "Full-Time" },
-                      { label: "Part-Time", value: "Part-Time" },
-                      { label: "Contract", value: "Contract" },
-                    ]}
+                    options={Array.from(
+                      new Set(data.map((item: any) => item.employment_type).filter(Boolean))
+                    ).map((employment_type) => ({
+                      label: capitalize(String(employment_type)),
+                      value: String(employment_type),
+                    }))}
                   />
                 )}
 
-                {table.getColumn("hidden_employment_level") && (
+                {table.getColumn("employment_level") && (
                   <DataTableFilter
-                    column={table.getColumn("hidden_employment_level")}
+                    column={table.getColumn("employment_level")}
                     title="Employment Level"
-                    options={[
-                      { label: "Entry-Level", value: "Entry-Level" },
-                      { label: "Mid-Level", value: "Mid-Level" },
-                      { label: "Senior-Level", value: "Senior-Level" },
-                    ]}
-                  />
-                )}
-
-                {table.getColumn("hidden_work_setup") && (
-                  <DataTableFilter
-                    column={table.getColumn("hidden_work_setup")}
-                    title="Work Setup"
-                    options={[
-                      { label: "Onsite", value: "Onsite" },
-                      { label: "Remote", value: "Remote" },
-                      { label: "Hybrid", value: "Hybrid" },
-                    ]}
+                    options={Array.from(
+                      new Set(data.map((item: any) => item.employment_level).filter(Boolean))
+                    ).map((employment_level) => ({
+                      label: capitalize(String(employment_level)),
+                      value: String(employment_level),
+                    }))}
                   />
                 )}
               </div>
+
               {hasActiveFilters && (
                 <>
                   <Separator />
