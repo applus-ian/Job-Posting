@@ -8,6 +8,9 @@ import {
   WorkExperience,
 } from "@/types/profile";
 import { useSession } from "next-auth/react";
+import { toast } from 'react-toastify';
+
+
 
 export function useProfileApi() {
   const axiosAuth = useAxiosAuth();
@@ -65,6 +68,7 @@ export function useProfileApi() {
 
     return response.data;
   };
+
 
   const addLanguage = async (fields: Language) => {
     const response = await axiosAuth.post("/api/language", fields);

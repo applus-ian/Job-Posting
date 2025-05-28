@@ -3,6 +3,7 @@ import { useProfileApi } from "@/api/profile";
 import { useMutation } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 export function useProfile() {
   const {
@@ -113,22 +114,25 @@ export function useProfile() {
   const uploadProfileMutation = useMutation({
     mutationFn: uploadProfile,
     onSuccess: (data) => {
+      toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: applicantDetailsQueryKey });
       // update session
       update({ user: { profile: data.profile } });
     },
     onError: () => {
-      console.log("Something went wrong!");
+      toast.error("Something went wrong!");
     },
   });
-
+  
   // add language
   const addLanguageMutation = useMutation({
     mutationFn: addLanguage,
     onSuccess: () => {
+      toast.success("Profile uploaded successfully");
       queryClient.invalidateQueries({ queryKey: applicantDetailsQueryKey });
     },
     onError: () => {
+      toast.error("File size must be 5MB and below Or Invalid file format only accepts JPEG, PNG or JPG")
       console.log("Something went wrong!");
     },
   });

@@ -1,10 +1,12 @@
 "use client";
-import { Edit, User, Check, X, Loader2 } from "lucide-react";
+import { Edit, User, Check, X, Loader2, TableRowsSplit } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useProfile } from "@/hooks/useProfile";
+import { toast } from "react-hot-toast";
+import CustomAlert from "@/components/ui/custom-alert"; 
 
 export function PersonalInfoHeader({ biography }: { biography: string | null }) {
   const { data: session } = useSession();
@@ -23,17 +25,24 @@ export function PersonalInfoHeader({ biography }: { biography: string | null }) 
         setIsPreviewMode(true);
       };
       reader.readAsDataURL(file);
+    }else{
+      toast.error('No file submited');
     }
   };
 
   const handleConfirm = async () => {
     // get file input
     const file = fileInputRef.current?.files?.[0];
-    if (!file) return;
+    if (!file) {
+      return alert("No file selected");
+      
+    }
     await uploadProfileMutation.mutateAsync(file);
+
     setAvatar(previewAvatar);
     setIsPreviewMode(false);
     setPreviewAvatar(null);
+    
   };
 
   const handleCancel = () => {
