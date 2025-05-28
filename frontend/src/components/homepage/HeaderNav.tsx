@@ -31,15 +31,6 @@ export default function HeaderNav() {
             Home
           </Link>
           <Link
-            href={"/about-us"}
-            className={clsx(
-              "text-sm font-medium hover:text-orange-600",
-              pathname === "/about-us" ? "text-orange-600" : "text-gray-700"
-            )}
-          >
-            About Us
-          </Link>
-          <Link
             href={"/find-jobs"}
             className={clsx(
               "text-sm font-medium hover:text-orange-600",
@@ -92,15 +83,6 @@ export default function HeaderNav() {
               )}
             >
               Home
-            </Link>
-            <Link
-              href={"/about-us"}
-              className={clsx(
-                "text-sm font-medium hover:text-orange-600",
-                pathname === "/about-us" ? "text-orange-600" : "text-gray-700"
-              )}
-            >
-              About Us
             </Link>
             <Link
               href={"/find-jobs"}

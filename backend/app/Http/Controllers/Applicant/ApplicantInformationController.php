@@ -18,13 +18,19 @@ class ApplicantInformationController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $data = $this->applicantInformationService->getApplicantInformation($user->id);
-        return response()->json($data);
+        $data = $this->applicantInformationService->getApplicantInformation($user->id, true);
+        return response()->json($data, 200);
     }
 
     public function update(ApplicantInformationRequest $request, Applicant $applicant)
     {
         $data = $this->applicantInformationService->updateInformation($request->validated(), $applicant);
+        return response()->json($data, 200);
+    }
+
+    public function viewApplicant(Applicant $applicant)
+    {
+        $data = $this->applicantInformationService->getApplicantInformation($applicant->user_id, false, true);
         return response()->json($data, 200);
     }
 }

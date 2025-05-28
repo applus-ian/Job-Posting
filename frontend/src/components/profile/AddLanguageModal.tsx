@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { AddLanguageModalProps } from "@/types/profile";
 import { useLanguageForm } from "@/forms/profile/useLanguageForm";
 import { Form } from "@/components/ui/form";
-import { ProfileFormField } from "./ProfileFormField";
+import { CustomFormInput } from "../form/CustomFormInput";
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
 
@@ -41,14 +41,14 @@ export function AddLanguageModal({ openModal, setOpenModal }: AddLanguageModalPr
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="language"
               label="Language"
               placeholder="Enter Language"
               isEditing={true}
             />
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="proficiency_level"
               label="Proficiency Level"

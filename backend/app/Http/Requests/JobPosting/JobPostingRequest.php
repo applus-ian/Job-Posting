@@ -22,6 +22,11 @@ class JobPostingRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->isMethod('patch')) {
+            return [
+                'status' => 'sometimes|in:open,draft,closed',
+            ];
+        }
         return [
             'title' => 'required|string|max:255',
             'category' => 'required|string|max:255',

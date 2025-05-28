@@ -6,6 +6,7 @@ import SessionWrapper from "./sessionwrapper";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import { ThemeProvider } from "./themeprovider";
+import ToastProvider from "./toastprovider";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -36,6 +37,7 @@ export default async function RootLayout({
             >
               {children}
             </ThemeProvider>
+            <ToastProvider />
           </QueryProvider>
         </SessionWrapper>
       </body>

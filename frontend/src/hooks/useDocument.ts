@@ -1,6 +1,7 @@
 import { useDocumentApi } from "@/api/document";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 export function useDocument() {
   const { data: session } = useSession();
@@ -15,9 +16,10 @@ export function useDocument() {
       [applicantDetailsQueryKey, defaultFileQueryKey].forEach((key) =>
         queryClient.invalidateQueries({ queryKey: key })
       );
+      toast.success("Resume file deleted!");
     },
     onError: () => {
-      console.log("Something went wrong!");
+      toast.error("Something went wrong!");
     },
   });
 
@@ -27,9 +29,10 @@ export function useDocument() {
       [applicantDetailsQueryKey, defaultFileQueryKey].forEach((key) =>
         queryClient.invalidateQueries({ queryKey: key })
       );
+      toast.success("Coverletter file deleted!");
     },
     onError: () => {
-      console.log("Something went wrong!");
+      toast.error("Something went wrong!");
     },
   });
 

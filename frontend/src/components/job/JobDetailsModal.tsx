@@ -10,12 +10,12 @@ import { JobDetailModalProps } from "@/types/job";
 import { Button } from "@/components/ui/button";
 import CustomBadge from "../badges/CustomBadge";
 import { DescriptionRenderer } from "./DescriptionRenderer";
-import { UsersRound, UserPlus2 } from "lucide-react";
+import { UserPlus2, UsersRound } from "lucide-react";
 
 export function JobDetailModal({ jobposting, openModal, setOpenModal }: JobDetailModalProps) {
   return (
     <Dialog open={openModal} onOpenChange={setOpenModal}>
-      <DialogContent className="max-w-2xl w-full max-h-[98vh] flex flex-col">
+      <DialogContent className="!max-w-6xl !w-full max-h-[98vh] flex flex-col">
         <DialogHeader className="flex-none">
           <DialogTitle>{jobposting.title}</DialogTitle>
           <div className="flex flex-row gap-2">
@@ -23,13 +23,15 @@ export function JobDetailModal({ jobposting, openModal, setOpenModal }: JobDetai
             <CustomBadge label={jobposting.employment_type} status="tag" />
           </div>
           <div className="flex flex-wrap gap-4 mt-1 text-xs text-gray-500">
-            <div className="flex items-center">
-              <UsersRound className="h-4 w-4 mr-2" />
-              <span>
-                10 Applications
-                {/* {jobposting.applicants} {jobposting.applicants === 1 ? "Application" : "Applications"} */}
-              </span>
-            </div>
+            {jobposting.applications && jobposting.applications.length > 0 && (
+              <div className="flex items-center">
+                <UsersRound className="h-4 w-4 mr-2" />
+                <span>
+                  {jobposting.applications.length}{" "}
+                  {jobposting.applications.length === 1 ? "Applicant" : "Applicants"}
+                </span>
+              </div>
+            )}
             <div className="flex items-center">
               <UserPlus2 className="h-4 w-4 mr-2" />
               <span>

@@ -6,7 +6,7 @@ import { EmergencyContact } from "@/types/profile";
 import { useEmergencyContactForm } from "@/forms/profile/useEmergencyContactForm";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { ProfileFormField } from "@/components/profile/ProfileFormField";
+import { CustomFormInput } from "@/components/form/CustomFormInput";
 import { useProfile } from "@/hooks/useProfile";
 
 export function EmergencyContactItem({ emergencycontact }: { emergencycontact: EmergencyContact }) {
@@ -16,23 +16,24 @@ export function EmergencyContactItem({ emergencycontact }: { emergencycontact: E
 
   useEffect(() => {
     if (isSuccess) {
+      form.reset();
       setIsEditing(false);
     }
-  }, [isSuccess]);
+  }, [form, isSuccess]);
 
   return (
     <div className="flex items-center mb-3">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="full_name"
               label="Full Name"
               placeholder="Enter Full Name"
               isEditing={isEditing}
             />
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="phone_number"
               label="Contact Number"
@@ -41,7 +42,7 @@ export function EmergencyContactItem({ emergencycontact }: { emergencycontact: E
             />
 
             <div className="flex items-center gap-3">
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="relationship"
                 label="Relationship"
@@ -54,6 +55,7 @@ export function EmergencyContactItem({ emergencycontact }: { emergencycontact: E
                 variant={"outline"}
                 onClick={() => {
                   setIsEditing(!isEditing);
+                  form.reset();
                 }}
                 className="flex items-center mt-6"
                 disabled={form.formState.isSubmitting || deleteEmergencyContactMutation.isPending}

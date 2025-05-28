@@ -15,6 +15,7 @@ class SavedJobService
         $savedJobPostingIds = $applicant->savedJob()->pluck('job_posting_id');
         // get jobposting that are saved
         $savedJobPostings = JobPosting::whereIn('id', $savedJobPostingIds)
+            ->with('applications')
             ->where('status', 'open')
             ->get();
 
@@ -34,8 +35,8 @@ class SavedJobService
         if ($alreadySaved)
             return null;
 
-        $applicant->savedJob()->create(['job_posting_id' => $jobposting->id]);
-        return ['message' => 'Job saved successfully!'];
+        $savedJob = $applicant->savedJob()->create(['job_posting_id' => $jobposting->id]);
+        return ['message' => 'Job saved successfully!', 'savedjob' => $savedJob];
     }
 
     public function unsaveJobPosting($savejob)

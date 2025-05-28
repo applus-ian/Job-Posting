@@ -9,6 +9,7 @@ import {
 } from "@/schemas/profile";
 import React from "react";
 import { z } from "zod";
+import { User } from "./auth";
 
 export type ApplicantProfile = {
   id?: number;
@@ -26,6 +27,11 @@ export type ApplicantProfile = {
   address_id?: number | null;
   created_at?: string;
   updated_at?: string;
+  user?: User;
+  language?: Language;
+  emergency_contact?: EmergencyContact;
+  work_experience?: WorkExperience;
+  education_history?: EducationHistory;
 };
 
 export type WorkExperience = {

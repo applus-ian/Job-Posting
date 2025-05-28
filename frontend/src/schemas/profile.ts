@@ -10,7 +10,7 @@ export const ApplicantProfileSchema = z.object({
   last_name: nameSchema("Last name"),
   suffix: nameSchema("Suffix", 1).optional().or(z.literal("")),
   sex: z.enum(["male", "female"]).or(z.string()),
-  date_of_birth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format (YYYY-MM-DD)"),
+  date_of_birth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format (MM-DD-YYYY)"),
   nationality: z.string().min(1, "Nationality is required"),
   phone_number: z
     .string()

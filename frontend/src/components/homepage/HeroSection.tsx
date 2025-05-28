@@ -34,8 +34,8 @@ export default function HeroSection() {
             Find a job that suits your interest & skills.
           </h1>
           <p className="text-gray-600 text-lg mb-10">
-            Aliquam vitae turpis in diam convallis finibus in at risus. Nullam in scelerisque leo,
-            eget sollicitudin velit vestibulum.
+            Discover career opportunities that align with your strengths and aspirations. We’re here
+            to help you take the next step with confidence.
           </p>
 
           <div className="relative bg-white rounded-md shadow-sm">

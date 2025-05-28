@@ -7,11 +7,12 @@ import { useApplicantApplicationsQuery } from "@/hooks/query/useApplicantApplica
 import { SkeletonMyApplications } from "@/components/skeletons/SkeletonMyApplications";
 
 export default function MyApplicationPage() {
-  const columns = useApplicationColumns();
+  const viewApplicationType = "applicant";
+  const columns = useApplicationColumns(viewApplicationType);
   const { data, isLoading } = useApplicantApplicationsQuery();
 
   return (
-    <SidebarLayout>
+    <SidebarLayout breadcrumbs={[{ label: "Applications", isCurrentPage: true }]}>
       <div className="mb-3">
         <p className="text-2xl font-medium">My Applications</p>
       </div>
@@ -19,7 +20,6 @@ export default function MyApplicationPage() {
         <SkeletonMyApplications />
       ) : (
         <>
-          <JobSearchBar />
           <ApplicationsTable columns={columns} data={data?.applications ?? []} />
         </>
       )}

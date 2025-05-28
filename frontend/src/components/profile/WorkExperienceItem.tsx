@@ -4,7 +4,7 @@ import { WorkExperience } from "@/types/profile";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, Loader2, MoreVertical, Edit } from "lucide-react";
-import { ProfileFormField } from "./ProfileFormField";
+import { CustomFormInput } from "../form/CustomFormInput";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import {
@@ -59,14 +59,14 @@ export function WorkExperienceItem({
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-4">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                  <ProfileFormField
+                  <CustomFormInput
                     control={form.control}
                     name="company"
                     label="Company Name"
                     placeholder="Enter company name"
                     isEditing={isEditing}
                   />
-                  <ProfileFormField
+                  <CustomFormInput
                     control={form.control}
                     name="professional_title"
                     label="Role"
@@ -75,7 +75,7 @@ export function WorkExperienceItem({
                   />
                 </div>
 
-                <ProfileFormField
+                <CustomFormInput
                   control={form.control}
                   name="description"
                   label="Description"
@@ -85,14 +85,14 @@ export function WorkExperienceItem({
                 />
 
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                  <ProfileFormField
+                  <CustomFormInput
                     control={form.control}
                     name="start_date"
                     label="Start Date"
                     type="date"
                     isEditing={isEditing}
                   />
-                  <ProfileFormField
+                  <CustomFormInput
                     control={form.control}
                     name="end_date"
                     label="End Date"
@@ -105,7 +105,14 @@ export function WorkExperienceItem({
                 <div className="mt-4 flex justify-end gap-2">
                   {isEditing && (
                     <div className="flex gap-3">
-                      <Button variant={"outline"} size={"sm"} onClick={() => setIsEditing(false)}>
+                      <Button
+                        variant={"outline"}
+                        size={"sm"}
+                        onClick={() => {
+                          setIsEditing(false);
+                          form.reset();
+                        }}
+                      >
                         Cancel
                       </Button>
                       <Button

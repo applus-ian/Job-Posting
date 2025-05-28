@@ -10,18 +10,29 @@ import { SkeletonApplication } from "@/components/skeletons/SkeletonApplication"
 export default function Application() {
   const { data, isLoading } = useViewApplicationQuery();
 
-  if (isLoading)
+  if (isLoading || !data) {
     return (
-      <SidebarLayout>
+      <SidebarLayout
+        breadcrumbs={[
+          { label: "Applications", href: "/my-applications" },
+          { label: "Loading...", isCurrentPage: true },
+        ]}
+      >
         <SkeletonApplication />
       </SidebarLayout>
     );
+  }
 
   const applicationStatus = data.application.status;
   const isBasicStatus = applicationStatus === "received" || applicationStatus === "reviewed";
 
   return (
-    <SidebarLayout>
+    <SidebarLayout
+      breadcrumbs={[
+        { label: "Applications", href: "/my-applications" },
+        { label: `${data.jobposting.title} Application`, isCurrentPage: true },
+      ]}
+    >
       <div className="flex">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">

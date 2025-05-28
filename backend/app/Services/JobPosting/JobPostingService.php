@@ -7,12 +7,34 @@ use Illuminate\Support\Facades\Auth;
 
 class JobPostingService
 {
+    public function fetchJobPostings($status = null)
+    {
+        $query = JobPosting::with(['applications']);
+
+        if ($status !== null) {
+            $query->where('status', $status);
+        }
+
+        return ['jobpostings' => $query->get()];
+    }
+    
+    public function fetchFeaturedJobPostings($limit = 3)
+    {
+        $jobPostings = JobPosting::withCount('applications') 
+        ->where('status', 'open')
+        ->orderBy('applications_count', 'desc') 
+        ->take($limit) 
+        ->get();
+
+        return ['jobpostings' => $jobPostings];
+    }
+
     public function fetchJobPostingWithSaved()
     {
         $applicant = Auth::user()->applicant;
 
         return [
-            'jobpostings' => JobPosting::with('applications')->where('status', 'open')->get(),
+            'jobpostings' => JobPosting::with(['applications', 'tags'])->where('status', 'open')->get(),
             'savedjobs' => $applicant->savedJob()->get(),
         ];
     }
@@ -52,6 +74,7 @@ class JobPostingService
         }
         return ['message' => 'Job posted updated successfully!'];
     }
+
 
     public function deleteJobPosting($jobposting)
     {

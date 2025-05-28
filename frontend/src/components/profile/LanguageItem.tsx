@@ -6,7 +6,7 @@ import { Language } from "@/types/profile";
 import { useLanguageForm } from "@/forms/profile/useLanguageForm";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { ProfileFormField } from "@/components/profile/ProfileFormField";
+import { CustomFormInput } from "@/components/form/CustomFormInput";
 import { useProfile } from "@/hooks/useProfile";
 
 export function LanguageItem({ language }: { language: Language }) {
@@ -16,16 +16,17 @@ export function LanguageItem({ language }: { language: Language }) {
 
   useEffect(() => {
     if (isSuccess) {
+      form.reset();
       setIsEditing(false);
     }
-  }, [isSuccess]);
+  }, [form, isSuccess]);
 
   return (
     <div className="flex items-center mb-3">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-            <ProfileFormField
+            <CustomFormInput
               control={form.control}
               name="language"
               label="Language"
@@ -34,7 +35,7 @@ export function LanguageItem({ language }: { language: Language }) {
             />
 
             <div className="flex items-center gap-3">
-              <ProfileFormField
+              <CustomFormInput
                 control={form.control}
                 name="proficiency_level"
                 label="Proficiency Level"
@@ -55,6 +56,7 @@ export function LanguageItem({ language }: { language: Language }) {
                 variant={"outline"}
                 onClick={() => {
                   setIsEditing(!isEditing);
+                  form.reset();
                 }}
                 className="flex items-center mt-6"
                 disabled={form.formState.isSubmitting || deleteLanguageMutation.isPending}

@@ -1,12 +1,10 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowDownRight } from "lucide-react";
 import { UserPlus2 } from "lucide-react";
 import { CloudUpload } from "lucide-react";
 import { ZoomIn } from "lucide-react";
 import { BadgeCheck } from "lucide-react";
-import { ArrowBigRight } from "lucide-react";
 
 const steps = [
   {
@@ -38,10 +36,9 @@ export default function HiringProcess() {
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl font-semibold text-gray-800 mb-2">Our Hiring Process</h2>
         <p className="text-gray-500 mb-12 max-w-2xl mx-auto">
-          We've designed a transparent and efficient hiring process to find the best talent.
+          We&apos;ve designed a transparent and efficient hiring process to find the best talent.
         </p>
-
-        <div className="relative flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="relative flex flex-col lg:flex-row items-center justify-between gap-8">
           {steps.map((step, index) => (
             <div
               key={index}
@@ -71,7 +68,7 @@ export default function HiringProcess() {
               <div>
                 {index < steps.length - 1 && (
                   <div
-                    className={`hidden md:block absolute z-10 w-50 translate-x-[50px] ${
+                    className={`hidden lg:block absolute z-10 w-50 translate-x-[50px] ${
                       index % 2 !== 0 ? "top-20" : "top-5"
                     }`}
                   >
