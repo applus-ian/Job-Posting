@@ -36,4 +36,10 @@ class SavedApplicantService
 
         return ['message' => 'Applicant removed from the shortlisted!'];
     }
+
+    public function unsaveMultipleApplicants(array $ids)
+    {
+        SavedApplicant::whereIn('id', $ids)->delete();
+        return ['message' => 'Applicants removed from the shortlisted!'];
+    }
 }

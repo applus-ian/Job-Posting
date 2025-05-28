@@ -23,6 +23,7 @@ export function shortlistedColumn({ handleAction }: SavedApplicantColumnProps) {
   const columns: ColumnDef<SavedApplicant>[] = [
     {
       id: "select",
+      accessorFn: (row) => row.id ?? "",
       header: ({ table }) => (
         <Checkbox
           checked={
@@ -33,13 +34,16 @@ export function shortlistedColumn({ handleAction }: SavedApplicantColumnProps) {
           aria-label="Select all"
         />
       ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      ),
+      cell: ({ row }) => {
+        const id = row.getValue("select");
+        return (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label={`Select row ${id}`}
+          />
+        );
+      },
       enableSorting: false,
       enableHiding: false,
     },
@@ -80,8 +84,8 @@ export function shortlistedColumn({ handleAction }: SavedApplicantColumnProps) {
       filterFn: "includesString",
     },
     {
-      accessorFn: (row) => row.job_posting?.title ?? "-",
       id: "title",
+      accessorFn: (row) => row.job_posting?.title ?? "-",
       header: ({ column }) => (
         <Button
           variant="ghost"

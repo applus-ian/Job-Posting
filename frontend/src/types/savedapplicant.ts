@@ -16,3 +16,9 @@ export type SavedApplicantConfirmModalProps = {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+export type SavedApplicantMultipleConfirmModalProps = {
+  ids: number[];
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+};

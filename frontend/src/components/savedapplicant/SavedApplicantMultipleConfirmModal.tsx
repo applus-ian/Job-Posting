@@ -11,43 +11,43 @@ import {
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import { Button } from "../ui/button";
-import { SavedApplicantConfirmModalProps } from "@/types/savedapplicant";
+import { SavedApplicantMultipleConfirmModalProps } from "@/types/savedapplicant";
 import { useSavedApplicant } from "@/hooks/useSavedApplicant";
 
-export function SavedApplicantConfirmModal({
-  savedapplicant,
+export function SavedApplicantMultipleConfirmModal({
+  ids,
   openModal,
   setOpenModal,
-}: SavedApplicantConfirmModalProps) {
-  const { unsaveApplicantMutation } = useSavedApplicant();
+}: SavedApplicantMultipleConfirmModalProps) {
+  const { unsaveApplicantMultipleMutation } = useSavedApplicant();
 
   const handleConfirm = async () => {
-    if (savedapplicant.id) {
-      await unsaveApplicantMutation.mutateAsync(savedapplicant.id!);
-    }
+    await unsaveApplicantMultipleMutation.mutateAsync(ids);
   };
 
   //close modal when success
   useEffect(() => {
-    if (unsaveApplicantMutation.isSuccess) {
+    if (unsaveApplicantMultipleMutation.isSuccess) {
       setOpenModal(false);
     }
-  }, [setOpenModal, unsaveApplicantMutation.isSuccess]);
+  }, [setOpenModal, unsaveApplicantMultipleMutation.isSuccess]);
 
   return (
     <AlertDialog open={openModal} onOpenChange={setOpenModal}>
       <AlertDialogContent className="w-sm">
         <AlertDialogHeader>
-          <AlertDialogTitle>Remove from shortlist?</AlertDialogTitle>
+          <AlertDialogTitle>Remove applicants from shortlist?</AlertDialogTitle>
           <AlertDialogDescription>
-            This applicant will be removed from shortlist. They will no longer be marked as
+            These applicants will be removed from your shortlist. They will no longer be marked as
             shortlisted for this job.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={unsaveApplicantMutation.isPending}>Cancel</AlertDialogCancel>
-          <Button onClick={handleConfirm} disabled={unsaveApplicantMutation.isPending}>
-            {unsaveApplicantMutation.isPending ? (
+          <AlertDialogCancel disabled={unsaveApplicantMultipleMutation.isPending}>
+            Cancel
+          </AlertDialogCancel>
+          <Button onClick={handleConfirm} disabled={unsaveApplicantMultipleMutation.isPending}>
+            {unsaveApplicantMultipleMutation.isPending ? (
               <span className="flex items-center gap-1">
                 <Loader2 size={20} className="animate-spin" />
                 Loading...
