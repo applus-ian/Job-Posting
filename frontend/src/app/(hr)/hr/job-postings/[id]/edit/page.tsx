@@ -2,7 +2,7 @@
 import { SidebarLayout } from "@/components/sidebar-layout";
 import { JobPostingForm } from "@/components/job/JobPostingForm";
 import { useShowJobPosting } from "@/hooks/query/useShowJobPosting";
-import { SkeletonApplication } from "@/components/skeletons/SkeletonApplication";
+import { SkeletonHrApplicantProfile } from "@/components/skeletons/SkeletonHrApplicantProfile";
 
 export default function EditJobPostingPage() {
   const { data, isLoading } = useShowJobPosting();
@@ -15,7 +15,7 @@ export default function EditJobPostingPage() {
           { label: "Loading...", isCurrentPage: true },
         ]}
       >
-        <SkeletonApplication />
+        <SkeletonHrApplicantProfile />
       </SidebarLayout>
     );
   }

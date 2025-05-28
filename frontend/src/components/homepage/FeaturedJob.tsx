@@ -1,8 +1,18 @@
+"use client";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import JobCard from "./JobCard";
+import { useFeaturedJobsQuery } from "@/hooks/query/useFeaturedJobsQuery";
 
 export default function FeaturedJob() {
+  const { data, isLoading } = useFeaturedJobsQuery();
+
+  if (isLoading || !data) {
+    return null;
+  }
+
+  const featuredJobs = data.jobpostings;
+
   return (
     <section className="w-full h-auto py-14 px-8 mb-5">
       <div className="max-w-7xl mx-auto flex items-center justify-between mb-2">
@@ -19,9 +29,9 @@ export default function FeaturedJob() {
         </Link>
       </div>
       <div className="max-w-7xl mx-auto">
-        <JobCard />
-        <JobCard />
-        <JobCard />
+        {featuredJobs.map((job: any) => (
+          <JobCard key={job.id} jobposting={job} />
+        ))}
       </div>
     </section>
   );

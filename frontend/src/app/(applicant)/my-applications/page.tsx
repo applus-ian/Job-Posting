@@ -20,7 +20,6 @@ export default function MyApplicationPage() {
         <SkeletonMyApplications />
       ) : (
         <>
-          <JobSearchBar />
           <ApplicationsTable columns={columns} data={data?.applications ?? []} />
         </>
       )}
