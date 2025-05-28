@@ -85,7 +85,7 @@ export function shortlistedColumn({ handleAction }: SavedApplicantColumnProps) {
     },
     {
       id: "title",
-      accessorFn: (row) => row.job_posting?.title ?? "-",
+      accessorFn: (row) => [row.job_posting?.title],
       header: ({ column }) => (
         <Button
           variant="ghost"
@@ -94,6 +94,7 @@ export function shortlistedColumn({ handleAction }: SavedApplicantColumnProps) {
           Job Applied <ArrowUpDown className="text-gray-400" size={10} />
         </Button>
       ),
+      filterFn: "arrIncludesSome",
     },
     {
       id: "expected_salary",
@@ -142,13 +143,43 @@ export function shortlistedColumn({ handleAction }: SavedApplicantColumnProps) {
         const application = row.job_posting?.applications?.find(
           (app) => app.applicant_id === row.applicant_id
         );
-        return application?.status ?? "-";
+        return application?.status ? [application.status] : [];
       },
       id: "status",
       header: "Status",
       cell: ({ row }) => {
-        return <CustomBadge label={row.getValue("status")} status={row.getValue("status")} />;
+        const statusArr = row.getValue("status") as string[];
+        const status = statusArr && statusArr[0] ? statusArr[0] : "-";
+        return <CustomBadge label={status} status={status} />;
       },
+      filterFn: "arrIncludesSome",
+    },
+    {
+      id: "category",
+      accessorFn: (row) => [row.job_posting?.category],
+      header: () => null,
+      cell: () => null,
+      filterFn: "arrIncludesSome",
+    },
+    {
+      id: "employment_type",
+      accessorFn: (row) => [row.job_posting?.employment_type],
+      header: () => null,
+      cell: () => null,
+      filterFn: "arrIncludesSome",
+    },
+    {
+      id: "employment_level",
+      accessorFn: (row) => [row.job_posting?.employment_level],
+      header: () => null,
+      cell: () => null,
+      filterFn: "arrIncludesSome",
+    },
+    {
+      id: "work_setup",
+      accessorFn: (row) => [row.job_posting?.work_setup],
+      header: () => null,
+      cell: () => null,
       filterFn: "arrIncludesSome",
     },
     {
