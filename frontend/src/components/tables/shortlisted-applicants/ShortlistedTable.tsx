@@ -25,6 +25,7 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
+import { SavedApplicantMultipleConfirmModal } from "@/components/savedapplicant/SavedApplicantMultipleConfirmModal";
 
 interface ShortlistedTableProps<T> {
   columns: ColumnDef<T, unknown>[];
@@ -33,6 +34,9 @@ interface ShortlistedTableProps<T> {
 export function ShortlistedTable<T>({ columns, data }: ShortlistedTableProps<T>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
+  const [openModal, setOpenModal] = React.useState(false);
+
   const hasActiveFilters = columnFilters.some(
     (filter) => filter.value !== undefined && filter.value !== ""
   );
@@ -50,10 +54,27 @@ export function ShortlistedTable<T>({ columns, data }: ShortlistedTableProps<T>)
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    enableRowSelection: true,
   });
+
+  const hasSelectedRows = table.getSelectedRowModel().rows.length > 0;
   return (
     <>
-      <div className="flex items-start justify-end">
+      <div className={`flex items-start ${hasSelectedRows ? "justify-between" : "justify-end"}`}>
+        {hasSelectedRows && (
+          <Button
+            onClick={() => {
+              const ids = table
+                .getSelectedRowModel()
+                .rows.map((row) => row.getValue("select") as number);
+
+              setSelectedIds(ids);
+              setOpenModal(true);
+            }}
+          >
+            Remove Selected
+          </Button>
+        )}
         <div className="flex gap-3">
           <Input
             className="w-[190px] sm:w-3xs"
@@ -73,70 +94,6 @@ export function ShortlistedTable<T>({ columns, data }: ShortlistedTableProps<T>)
                 <DialogTitle> Filters</DialogTitle>
                 <DialogDescription>Apply filters to refine your search.</DialogDescription>
               </DialogHeader>
-
-              {/* <div className="grid gap-4">
-                {table.getColumn("category") && (
-                  <DataTableFilter
-                    column={table.getColumn("category")}
-                    title="Category"
-                    options={[
-                      { label: "IT & Software", value: "IT & Software" },
-                      { label: "Marketing", value: "Marketing" },
-                      { label: "Human Resources", value: "Human Resources" },
-                      { label: "Customer Service", value: "Customer Service" },
-                      { label: "Management", value: "Management" },
-                    ]}
-                  />
-                )}
-                {table.getColumn("hidden_employment_type") && (
-                  <DataTableFilter
-                    column={table.getColumn("hidden_employment_type")}
-                    title="Employment Type"
-                    options={[
-                      { label: "Full-Time", value: "Full-Time" },
-                      { label: "Part-Time", value: "Part-Time" },
-                      { label: "Contract", value: "Contract" },
-                    ]}
-                  />
-                )}
-
-                {table.getColumn("hidden_employment_level") && (
-                  <DataTableFilter
-                    column={table.getColumn("hidden_employment_level")}
-                    title="Employment Level"
-                    options={[
-                      { label: "Entry-Level", value: "Entry-Level" },
-                      { label: "Mid-Level", value: "Mid-Level" },
-                      { label: "Senior-Level", value: "Senior-Level" },
-                    ]}
-                  />
-                )}
-
-                {table.getColumn("hidden_work_setup") && (
-                  <DataTableFilter
-                    column={table.getColumn("hidden_work_setup")}
-                    title="Work Setup"
-                    options={[
-                      { label: "Onsite", value: "Onsite" },
-                      { label: "Remote", value: "Remote" },
-                      { label: "Hybrid", value: "Hybrid" },
-                    ]}
-                  />
-                )}
-              </div>
-              {hasActiveFilters && (
-                <>
-                  <Separator />
-                  <Button
-                    variant="secondary"
-                    onClick={() => {
-                      setColumnFilters([]);
-                    }}
-                  >
-                    <X /> Clear Filters
-                  </Button>
-                </>
-              )} */}
             </DialogContent>
           </Dialog>
         </div>
@@ -146,6 +103,14 @@ export function ShortlistedTable<T>({ columns, data }: ShortlistedTableProps<T>)
         <DataTable table={table} columnsLength={columns.length} />
         <DataTablePagination table={table} />
       </div>
+
+      {selectedIds && (
+        <SavedApplicantMultipleConfirmModal
+          ids={selectedIds}
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+        />
+      )}
     </>
   );
 }

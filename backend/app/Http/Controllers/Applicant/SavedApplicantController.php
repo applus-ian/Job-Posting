@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Applicant;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Applicant\DeleteMultipleSavedApplicantsRequest;
 use App\Models\Applicant;
 use App\Models\JobPosting;
 use App\Models\SavedApplicant;
@@ -37,7 +38,15 @@ class SavedApplicantController extends Controller
         if (!$data) {
             return response()->json(['message' => 'Unable to process request'], 401);
         }
+        return response()->json($data, 201);
+    }
 
+    public function destroyMultiple(DeleteMultipleSavedApplicantsRequest $request)
+    {
+        $data = $this->savedApplicantService->unsaveMultipleApplicants($request->getIds());
+        if (!$data) {
+            return response()->json(['message' => 'Unable to process request'], 401);
+        }
         return response()->json($data, 201);
     }
 }

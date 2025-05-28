@@ -24,5 +24,12 @@ export function useSavedApplicantApi() {
     return response.data;
   };
 
-  return { getSavedApplicant, saveApplicant, unsaveApplicant };
+  const unsaveApplicantMultiple = async (ids: number[]) => {
+    const response = await axiosAuth.delete("/api/hr/saved-applicant/multiple", {
+      data: { ids },
+    });
+    return response.data;
+  };
+
+  return { getSavedApplicant, saveApplicant, unsaveApplicant, unsaveApplicantMultiple };
 }

@@ -109,6 +109,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::controller(SavedApplicantController::class)->prefix('saved-applicant')->group(function () {
             Route::get('/', 'index');
             Route::post('/{applicant}/{jobposting}', 'store');
+            Route::delete('/multiple', 'destroyMultiple');
             Route::delete('/{savedapplicant}', 'destroy');
         });
     });
