@@ -27,3 +27,7 @@ export const ApplyJobSchema = z.object({
   resume: pdfFileValidation,
   coverletter: pdfFileValidation,
 });
+
+export const ApplicationStatusSchema = z.object({
+  status: z.enum(["received", "reviewed", "interview", "offer", "hired"]),
+});

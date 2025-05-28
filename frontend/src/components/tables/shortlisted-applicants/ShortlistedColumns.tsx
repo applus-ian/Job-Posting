@@ -9,15 +9,18 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { ApplicantProfile } from "@/types/profile";
+import { ArrowUpDown, MoreHorizontal, User } from "lucide-react";
+import { SavedApplicant } from "@/types/savedapplicant";
+import CustomBadge from "@/components/badges/CustomBadge";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { formatDateTime } from "@/utils/dateFormatter";
 
-interface ApplicantProfileColumnProps {
-  handleAction: (actionKey: string, applicant: ApplicantProfile) => void;
+interface SavedApplicantColumnProps {
+  handleAction: (actionKey: string, savedapplicant: SavedApplicant) => void;
 }
 
-export function shortlistedColumn({ handleAction }: ApplicantProfileColumnProps) {
-  const columns: ColumnDef<ApplicantProfile>[] = [
+export function shortlistedColumn({ handleAction }: SavedApplicantColumnProps) {
+  const columns: ColumnDef<SavedApplicant>[] = [
     {
       id: "select",
       header: ({ table }) => (
@@ -42,48 +45,107 @@ export function shortlistedColumn({ handleAction }: ApplicantProfileColumnProps)
     },
     {
       accessorFn: (row) =>
-        `${row.first_name} ${row.middle_name ?? ""} ${row.last_name} ${row.suffix ?? ""}`.trim(),
+        `${row.applicant?.first_name ?? ""} ${row.applicant?.middle_name ?? ""} ${row.applicant?.last_name ?? ""} ${row.applicant?.suffix ?? ""}`.trim(),
       id: "full_name",
       header: ({ column }) => (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Full Name <ArrowUpDown className="text-gray-400" size={10} />
+          Applicant Name <ArrowUpDown className="text-gray-400 ml-1" size={10} />
         </Button>
       ),
+      cell: ({ row, getValue }) => {
+        const fullName = getValue() as string;
+        const email = row.original.applicant?.user?.email ?? "N/A";
+        const profileBaseUrl = "http://localhost:8000/storage/profile/";
+        const profilePath = row.original.applicant?.user?.profile ?? "";
+        const profileUrl = profilePath ? `${profileBaseUrl}${profilePath}` : "";
+
+        return (
+          <div className="flex items-center gap-2">
+            <Avatar className="w-10 h-10 rounded-full">
+              <AvatarImage src={profileUrl} alt="@profile" className="rounded-full object-cover" />
+              <AvatarFallback className="bg-muted">
+                <User className="rounded-lg text-muted-foreground" />
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <p>{fullName}</p>
+              <p className="text-xs text-gray-500">{email}</p>
+            </div>
+          </div>
+        );
+      },
+      filterFn: "includesString",
     },
     {
-      accessorKey: "professional_title",
+      accessorFn: (row) => row.job_posting?.title ?? "-",
+      id: "title",
       header: ({ column }) => (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Professional Title <ArrowUpDown className="text-gray-400" size={10} />
+          Job Applied <ArrowUpDown className="text-gray-400" size={10} />
         </Button>
       ),
     },
     {
-      id: "email",
-      accessorFn: (row) => row.user?.email,
+      id: "expected_salary",
+      accessorFn: (row) => {
+        const application = row.job_posting?.applications?.find(
+          (app) => app.applicant_id === row.applicant_id
+        );
+        return application?.expected_salary ?? "-";
+      },
       header: ({ column }) => (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email <ArrowUpDown className="text-gray-400" size={10} />
+          Expected Salary <ArrowUpDown className="text-gray-400" size={10} />
         </Button>
       ),
-      cell: ({ row }) => <span>{row.getValue("email")}</span>,
+      cell: ({ getValue }) => {
+        const salary = getValue() as string;
+        return <p className="text-xs text-gray-500">{`₱${salary}`}</p>;
+      },
     },
     {
-      accessorKey: "phone_number",
-      header: "Phone",
+      id: "created_at",
+      accessorFn: (row) => {
+        const application = row.job_posting?.applications?.find(
+          (app) => app.applicant_id === row.applicant_id
+        );
+        return application?.created_at ?? "-";
+      },
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Date Applied <ArrowUpDown className="text-gray-400" size={10} />
+        </Button>
+      ),
+      cell: ({ getValue }) => {
+        const date = getValue() as string;
+        return <p>{formatDateTime(date)}</p>;
+      },
     },
     {
-      accessorKey: "nationality",
-      header: "Nationality",
+      accessorFn: (row) => {
+        const application = row.job_posting?.applications?.find(
+          (app) => app.applicant_id === row.applicant_id
+        );
+        return application?.status ?? "-";
+      },
+      id: "status",
+      header: "Status",
+      cell: ({ row }) => {
+        return <CustomBadge label={row.getValue("status")} status={row.getValue("status")} />;
+      },
+      filterFn: "arrIncludesSome",
     },
     {
       id: "actions",
@@ -91,9 +153,9 @@ export function shortlistedColumn({ handleAction }: ApplicantProfileColumnProps)
         const applicant = row.original;
 
         const actions = [
-          { label: "View Profile", key: "view" },
-          { label: "Edit", key: "edit" },
-          { label: "Delete", key: "delete" },
+          { label: "View Applicant", key: "viewApplicant" },
+          { label: "View Application", key: "viewApplication" },
+          { label: "Remove from shortlist", key: "unsave" },
         ];
 
         return (

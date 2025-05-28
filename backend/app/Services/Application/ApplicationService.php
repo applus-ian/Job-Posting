@@ -52,7 +52,7 @@ class ApplicationService
 
     public function viewAllApplication()
     {
-        return ['applications' => Application::with(['applicant', 'applicant.user', 'jobPosting'])->get()];
+        return ['applications' => Application::with(['applicant', 'applicant.user', 'applicationStatus', 'jobPosting'])->get()];
     }
 
     public function applyJob(array $data, $jobposting, $user)
@@ -74,18 +74,24 @@ class ApplicationService
         $this->fileService->handleApplicationUpload(['file' => $data['resume']], $user, 'resume', $application);
         $this->fileService->handleApplicationUpload(['file' => $data['coverletter']], $user, 'coverletter', $application);
 
-        return ['message' => 'Application submitted successfully!'];
+        return ['message' => 'Application submitted successfully!', 'application' => $application];
     }
 
     public function updateApplicationStatus(array $data, $application)
     {
         $application->update(['status' => $data['status']]);
         $this->updateApplicationStatusTimeline($data, $application);
-        return ['message' => 'Application updated to ' . $data['status'] . '.'];
+        return ['message' => 'Application updated to ' . $data['status'] . '.', 'application' => $application];
     }
 
-    private function updateApplicationStatusTimeline(array $data, $application)
+    public function updateApplicationStatusTimeline(array $data, $application)
     {
-        $application->applicationStatus()->create($data);
+        $latestStatus = $application->applicationStatus()->latest()->first();
+
+        if ($latestStatus && $latestStatus->status === $data['status']) {
+            $latestStatus->update($data);
+        } else {
+            $application->applicationStatus()->create($data);
+        }
     }
 }

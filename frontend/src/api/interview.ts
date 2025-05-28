@@ -1,25 +1,25 @@
 import useAxiosAuth from "@/hooks/useAxiosAuth";
-import { Interview } from "@/types/interview";
+import { Feedback, InterviewFields } from "@/types/interview";
 
 export function useInterviewApi() {
   const axiosAuth = useAxiosAuth();
 
-  const scheduleInterview = async ({ id, fields }: { id: number; fields: Interview }) => {
+  const scheduleInterview = async ({ id, fields }: { id: number; fields: InterviewFields }) => {
     const response = await axiosAuth.post(`/api/hr/interview/schedule/${id}`, fields);
     return response.data;
   };
 
-  const updateScheduleInterview = async (fields: Interview) => {
+  const updateScheduleInterview = async (fields: InterviewFields) => {
     const response = await axiosAuth.put(`/api/hr/interview/schedule/${fields.id}`, fields);
     return response.data;
   };
 
-  const addFeedback = async ({ id, fields }: { id: number; fields: Interview }) => {
+  const addFeedback = async ({ id, fields }: { id: number; fields: Feedback }) => {
     const response = await axiosAuth.post(`/api/hr/interview/${id}/feedback`, fields);
     return response.data;
   };
 
-  const updateFeedback = async ({ id, fields }: { id: number; fields: Interview }) => {
+  const updateFeedback = async ({ id, fields }: { id: number; fields: Feedback }) => {
     const response = await axiosAuth.put(`/api/hr/interview/${id}/feedback/${fields.id}`, fields);
     return response.data;
   };

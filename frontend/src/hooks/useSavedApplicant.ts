@@ -7,13 +7,14 @@ export function useSavedApplicant(applicationId: number) {
   const queryClient = useQueryClient();
   const { saveApplicant, unsaveApplicant } = useSavedApplicantApi();
   const savedApplicantQueryKey = ["savedapplicants"];
+  const savedApplicantTableQueryKey = ["savedapplicants-table"];
   const applicationDetailQueryKey = ["application", applicationId];
 
   const saveApplicantMutation = useMutation({
     mutationFn: saveApplicant,
     onSuccess: () => {
-      [savedApplicantQueryKey, applicationDetailQueryKey].forEach((key) =>
-        queryClient.invalidateQueries({ queryKey: key })
+      [savedApplicantQueryKey, savedApplicantTableQueryKey, applicationDetailQueryKey].forEach(
+        (key) => queryClient.invalidateQueries({ queryKey: key })
       );
     },
     onError: () => {
@@ -24,8 +25,8 @@ export function useSavedApplicant(applicationId: number) {
   const unsaveApplicantMutation = useMutation({
     mutationFn: unsaveApplicant,
     onSuccess: () => {
-      [savedApplicantQueryKey, applicationDetailQueryKey].forEach((key) =>
-        queryClient.invalidateQueries({ queryKey: key })
+      [savedApplicantQueryKey, savedApplicantTableQueryKey, applicationDetailQueryKey].forEach(
+        (key) => queryClient.invalidateQueries({ queryKey: key })
       );
     },
     onError: () => {

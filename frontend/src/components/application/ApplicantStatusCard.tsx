@@ -1,6 +1,7 @@
 import { ApplicationStatus } from "@/types/application";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { CheckCircle2Icon } from "lucide-react";
+import { formatDateOnly } from "@/utils/dateFormatter";
 
 const statusDetails: Record<ApplicationStatus["status"], { title: string; description: string }> = {
   received: {
@@ -29,15 +30,6 @@ const statusDetails: Record<ApplicationStatus["status"], { title: string; descri
       "The hiring team has marked your application as hired. Further onboarding instructions will be provided by HR.",
   },
 };
-
-function formatDate(dateString: string) {
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
 
 export function ApplicantStatusCard({
   applicationstatus,
@@ -71,7 +63,7 @@ export function ApplicantStatusCard({
                     </div>
                   </div>
                   <div className="text-xs text-gray-400 dark:text-gray-500 min-w-max sm:text-right">
-                    {formatDate(created_at)}
+                    {formatDateOnly(created_at)}
                   </div>
                 </div>
               );

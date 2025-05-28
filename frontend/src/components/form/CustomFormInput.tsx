@@ -74,11 +74,11 @@ export const CustomFormInput = ({
               type={type}
               className={className}
               onChange={(e) => {
+                const value = e.target.value;
                 if (type === "number") {
-                  const value = e.target.value;
                   field.onChange(value === "" ? "" : Number(value));
                 } else {
-                  field.onChange(e);
+                  field.onChange(value);
                 }
               }}
               value={field.value}
