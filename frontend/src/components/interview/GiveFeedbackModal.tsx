@@ -45,7 +45,15 @@ export function GiveFeedbackModal({
   const isEditing = Boolean(feedback);
 
   return (
-    <Dialog open={openModal} onOpenChange={setOpenModal}>
+    <Dialog
+      open={openModal}
+      onOpenChange={(open) => {
+        setOpenModal(open);
+        if (!open) {
+          form.reset();
+        }
+      }}
+    >
       <DialogContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -109,7 +117,12 @@ export function GiveFeedbackModal({
             {error && <div className="text-sm text-red-500">{error}</div>}
             <DialogFooter className="mt-4">
               <DialogClose asChild>
-                <Button disabled={form.formState.isSubmitting} type="button" variant="outline">
+                <Button
+                  onClick={() => setOpenModal(false)}
+                  disabled={form.formState.isSubmitting}
+                  type="button"
+                  variant="outline"
+                >
                   Cancel
                 </Button>
               </DialogClose>

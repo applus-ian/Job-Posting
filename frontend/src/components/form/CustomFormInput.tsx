@@ -8,7 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { parse, format } from "date-fns";
 
 interface CustomFormInputProps {
   control: any;
@@ -75,18 +74,9 @@ export const CustomFormInput = ({
               type={type}
               className={className}
               onChange={(e) => {
-                let value = e.target.value;
-
+                const value = e.target.value;
                 if (type === "number") {
                   field.onChange(value === "" ? "" : Number(value));
-                } else if (type === "time") {
-                  try {
-                    const parsed = parse(value, "HH:mm", new Date());
-                    const formattedTime = format(parsed, "HH:mm");
-                    field.onChange(formattedTime);
-                  } catch {
-                    field.onChange(value);
-                  }
                 } else {
                   field.onChange(value);
                 }

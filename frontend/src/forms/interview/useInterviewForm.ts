@@ -20,12 +20,15 @@ export function useInterviewForm({ id, interview }: { id: number; interview: Int
       meeting_link: interview?.meeting_link ?? "",
       platform: interview?.platform ?? "",
       location: interview?.location ?? "",
+      status: interview?.status ?? "upcoming",
     },
   });
 
   const onSubmit: SubmitHandler<InterviewFields> = async (data) => {
     try {
       if (interview) {
+        // change the schedule_time time format
+        data.schedule_time = data.schedule_time.slice(0, 5);
         await updateInterviewMutation.mutateAsync({
           id: interview.id,
           ...data,
