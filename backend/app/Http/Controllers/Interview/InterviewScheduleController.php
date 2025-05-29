@@ -26,4 +26,8 @@ class InterviewScheduleController extends Controller
         $data = $this->interviewScheduleService->updateInterviewSchedule($request->validated(), $interview);
         return response()->json($data, 200);
     }
+    public function viewInterview(){
+        $data = $this->interviewScheduleService->getInterviewSchedule();
+        return response()->json($data, 200);
+    }
 }

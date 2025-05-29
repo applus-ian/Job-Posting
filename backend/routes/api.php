@@ -104,6 +104,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/schedule/{application}', 'scheduleInterview');
             Route::put('/schedule/{interview}', 'updateInterview');
             Route::apiResource('/{interview}/feedback', InterviewFeedbackController::class);
+            Route::get('/view', 'viewInterview');
         });
         // saved applicants 
         Route::controller(SavedApplicantController::class)->prefix('saved-applicant')->group(function () {

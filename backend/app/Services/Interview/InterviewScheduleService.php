@@ -2,6 +2,7 @@
 
 namespace App\Services\Interview;
 
+use App\Models\Interview;
 use App\Services\Application\ApplicationService;
 
 class InterviewScheduleService
@@ -29,6 +30,13 @@ class InterviewScheduleService
         return [
             'message' => 'Interview details updated successfully!',
             'application' => $interview->application,
+        ];
+    }
+
+    public function getInterviewSchedule(){
+        $interviews=Interview::with(['application', 'application.applicant.user', 'application.jobPosting'])->get(); 
+        return [
+            'interviews' => $interviews,
         ];
     }
 }
