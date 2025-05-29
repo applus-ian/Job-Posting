@@ -4,12 +4,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"; // ✅ Import missing MoreHorizontal
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"; // ✅ Import missing Dropdown components
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CustomBadge from "../badges/CustomBadge";
 import { ExternalLink } from "lucide-react";

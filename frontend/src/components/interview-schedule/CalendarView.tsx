@@ -13,16 +13,36 @@ import {
 import { ChevronRight, ChevronLeft, X } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { InterviewData } from "./sample-data";
-
-// Export these types so they can be imported in other files
-export type Interview = InterviewData;
+import { Interview } from "@/types/interview";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import CustomBadge from "../badges/CustomBadge";
 
 export type CalendarViewProps = {
   currentMonth: Date;
   interviews: Interview[];
   onMonthChange?: (date: Date) => void; // Added callback for month change
 };
+
+function getInterviewDateTime(interview: Interview) {
+  const dateStr = format(new Date(interview.schedule_date), "yyyy-MM-dd");
+  // Add "T" between date and time for valid ISO string
+  const isoString = `${dateStr}T${interview.schedule_time}`;
+  return new Date(isoString);
+}
+
+function getFullName(interview: Interview) {
+  const first = interview.application?.applicant?.first_name ?? "";
+  const middleName = interview.application?.applicant?.middle_name ?? "";
+  const middleInitial = middleName ? middleName.charAt(0).toUpperCase() + "." : "";
+  const last = interview.application?.applicant?.last_name ?? "";
+  return [first, middleInitial, last].filter(Boolean).join(" ");
+}
 
 export function CalendarView({ currentMonth, interviews, onMonthChange }: CalendarViewProps) {
   const router = useRouter();
@@ -50,14 +70,30 @@ export function CalendarView({ currentMonth, interviews, onMonthChange }: Calend
     return days;
   };
 
-  // Get interviews for a specific day
   const getInterviewsForDay = (day: Date) => {
-    return interviews.filter(
-      (interview) =>
-        interview.date.getDate() === day.getDate() &&
-        interview.date.getMonth() === day.getMonth() &&
-        interview.date.getFullYear() === day.getFullYear()
-    );
+    return (interviews || []).filter((interview) => {
+      // Format schedule_date as yyyy-MM-dd (assuming schedule_date is a date string or Date)
+      const dateStr = format(new Date(interview.schedule_date), "yyyy-MM-dd");
+
+      // Combine date and time strings to form full datetime string
+      // Assuming schedule_time is in "HH:mm:ss" format
+      const combined = `${dateStr} ${interview.schedule_time}`;
+
+      // Parse combined string as Date
+      const date = new Date(combined);
+
+      // Debug log if invalid
+      if (isNaN(date.getTime())) {
+        console.error("Invalid date parsed:", combined);
+      }
+
+      // Compare date parts to check if interview is on the given day
+      return (
+        date.getDate() === day.getDate() &&
+        date.getMonth() === day.getMonth() &&
+        date.getFullYear() === day.getFullYear()
+      );
+    });
   };
 
   // Handle month navigation
@@ -89,20 +125,45 @@ export function CalendarView({ currentMonth, interviews, onMonthChange }: Calend
   };
 
   const days = generateCalendarDays();
+  const currentYear = new Date().getFullYear();
 
   return (
     <div className="h-full flex flex-col">
       {/* Month navigation */}
-      <div className="flex justify-center items-center mb-2 md:mb-4 px-2 md:px-4 pt-2 md:pt-4">
+      <div className="flex justify-center items-center mb-2 w-full">
         <button
           onClick={handlePreviousMonth}
           className="px-2 md:px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
         >
           <ChevronLeft className="h-4 w-3 md:h-5 md:w-4" />
         </button>
-        <h2 className="text-base md:text-xl font-semibold mx-4">
-          {format(currentMonth, "MMMM yyyy")}
-        </h2>
+        <div className="flex ms-9 me-3 items-center">
+          <h1 className="text-base md:text-xl font-semibold">{format(currentMonth, "MMMM")}</h1>
+          {/* Year Dropdown */}
+          <Select
+            value={currentMonth.getFullYear().toString()}
+            onValueChange={(value) => {
+              const newYear = parseInt(value);
+              const updated = new Date(currentMonth);
+              updated.setFullYear(newYear);
+              onMonthChange?.(updated);
+            }}
+          >
+            <SelectTrigger className="rounded border border-gray-300 text-base md:text-xl border-none shadow-none">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="max-h-60 overflow-auto">
+              {Array.from({ length: currentYear - 2000 + 1 }, (_, i) => {
+                const year = 2000 + i;
+                return (
+                  <SelectItem key={year} value={year.toString()}>
+                    {year}
+                  </SelectItem>
+                );
+              })}
+            </SelectContent>
+          </Select>
+        </div>
         <button
           onClick={handleNextMonth}
           className="px-2 md:px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
@@ -112,15 +173,19 @@ export function CalendarView({ currentMonth, interviews, onMonthChange }: Calend
       </div>
 
       {/* Calendar grid */}
-      <div className="hidden sm:grid grid-cols-7 text-center border-b max-w-4xl mx-auto w-full">
-        {["MON", "TUE", "WED", "THUR", "FRI", "SAT", "SUN"].map((day) => (
-          <div key={day} className="text-xs py-2 font-medium text-gray-500">
-            {day}
+      <div className="grid grid-cols-7 text-center border-b w-full">
+        {["S", "M", "T", "W", "T", "F", "S"].map((day, index) => (
+          <div key={index} className="text-xs py-2 font-medium text-gray-500">
+            {/* Mobile (S, M, ...) and Desktop (SUN, MON, ...) */}
+            <span className="block sm:hidden">{day}</span>
+            <span className="hidden sm:block">
+              {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"][index]}
+            </span>
           </div>
         ))}
       </div>
 
-      <div className="hidden sm:grid grid-cols-7 divide-x divide-y flex-1 max-w-4xl mx-auto w-full">
+      <div className="grid grid-cols-7 divide-x divide-y flex-1 w-full">
         {days.map((day, i) => {
           const interviews = getInterviewsForDay(day);
           const hasInterviews = interviews.length > 0;
@@ -136,62 +201,30 @@ export function CalendarView({ currentMonth, interviews, onMonthChange }: Calend
               )}
               onClick={() => hasInterviews && handleDayClick(day)}
             >
-              <div className="text-xs p-1">{format(day, "d")}</div>
+              <div className="text-[10px] sm:text-xs p-1">{format(day, "d")}</div>
               <div className="flex flex-col gap-1 overflow-y-auto">
                 {interviews.map((interview, idx) => (
                   <div
                     key={idx}
                     className={cn(
-                      "text-blue-700 px-1 py-0.5 text-[10px] text-nowrap overflow-hidden whitespace-nowrap",
-                      interview.bgColor || "bg-blue-100"
+                      "text-dark px-3 py-0.5 text-[9px] sm:text-[10px] lg:text-xs overflow-hidden whitespace-nowrap rounded-full",
+                      interview.bgColor || "bg-orange-200"
                     )}
                   >
-                    {interview.time} - {interview.name}
+                    <span className="truncate max-w-[100%] inline-block align-middle">
+                      {getInterviewDateTime(interview).toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        minute: "2-digit",
+                        hour12: true,
+                      })}{" "}
+                      - {getFullName(interview)}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
           );
         })}
-      </div>
-
-      {/* Mobile view calendar list */}
-      <div className="flex flex-col sm:hidden overflow-y-auto flex-1 max-w-md mx-auto w-full">
-        {days
-          .filter(
-            (day) =>
-              day.getMonth() === currentMonth.getMonth() && getInterviewsForDay(day).length > 0
-          )
-          .map((day, i) => {
-            const interviews = getInterviewsForDay(day);
-
-            return (
-              <div key={i} className="border-b last:border-b-0">
-                <div className="p-2 bg-gray-50 font-medium text-sm">
-                  {format(day, "EEEE, MMMM d")}
-                </div>
-                <div className="divide-y">
-                  {interviews.map((interview, idx) => (
-                    <div
-                      key={idx}
-                      className="p-2 flex justify-between items-center"
-                      onClick={() => handleDayClick(day)}
-                    >
-                      <div className="text-sm">{interview.name}</div>
-                      <div className="text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-600">
-                        {interview.time}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        {days.filter(
-          (day) => day.getMonth() === currentMonth.getMonth() && getInterviewsForDay(day).length > 0
-        ).length === 0 && (
-          <div className="py-8 text-center text-gray-500">No interviews scheduled this month.</div>
-        )}
       </div>
 
       {/* Interview Details Modal */}
@@ -209,26 +242,33 @@ export function CalendarView({ currentMonth, interviews, onMonthChange }: Calend
 
             <div className="max-h-[40vh] overflow-y-auto p-3">
               {dayInterviews.map((interview, idx) => (
-                <div key={idx} className="py-2 px-1 border-b border-gray-100 last:border-0">
-                  <div className="flex justify-between items-center">
-                    <div className="font-medium text-sm">{interview.name}</div>
+                <div
+                  key={idx}
+                  className="py-2 px-1 border-b border-gray-100 last:border-0 cursor-pointer hover:bg-gray-100"
+                >
+                  <div
+                    className="flex justify-between items-center"
+                    onClick={() => {
+                      const applicationId = interview.application_id;
+                      const applicantId = interview.application?.applicant_id;
+                      router.push(
+                        `/hr/applications/${applicationId}/applicant/${applicantId}/view-application`
+                      );
+                    }}
+                  >
+                    <div className="font-medium text-sm">{getFullName(interview)}</div>
                     <div className="flex items-center">
                       {/* Time display moved closer to the button */}
                       <div className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded mr-2">
-                        {interview.time}
+                        {getInterviewDateTime(interview).toLocaleTimeString("en-US", {
+                          hour: "numeric",
+                          minute: "2-digit",
+                          hour12: true,
+                        })}
                       </div>
-                      {/* View Details Button - Allows users to see more information about the interview */}
-                      <button
-                        className="text-xs bg-orange-500 hover:bg-orange-400 text-white px-2 py-1 rounded-md transition-colors"
-                        onClick={(e) => {
-                          // Prevent the click from bubbling up to parent elements
-                          e.stopPropagation();
-                          // Navigate to interview details page
-                          router.push(`/view-application/${interview.id}`);
-                        }}
-                      >
-                        Interview Details
-                      </button>
+                      <div>
+                        <CustomBadge label={interview.status} status={interview.status} />
+                      </div>
                     </div>
                   </div>
                 </div>
