@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Application extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
-        'status',
+        'status',// acccepted value $table->enum('status', ['received', 'reviewed', 'interview', 'offer', 'hired'])->default('received');
         'expected_salary',
         'applicant_id',
         'job_posting_id',

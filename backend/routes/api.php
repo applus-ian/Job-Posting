@@ -18,6 +18,7 @@ use App\Http\Controllers\JobPosting\JobPostingController;
 use App\Http\Controllers\Interview\InterviewFeedbackController;
 use App\Http\Controllers\Interview\InterviewScheduleController;
 use App\Http\Controllers\JobPosting\SavedJobController;
+use App\Http\Controllers\hr\HrDashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -103,4 +104,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 // public routes
 Route::get('jobposting/open', [JobPostingController::class, 'getOpenJobs']);
+Route::get('/hr/dashboard', [HrDashboardController::class, 'HrDashBoard']);
+
+
 
