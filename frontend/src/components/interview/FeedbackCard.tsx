@@ -18,10 +18,10 @@ import {
 
 export function FeedbackCard({
   feedback,
-  interview,
+  interview = null,
 }: {
   feedback: Feedback[];
-  interview: Interview;
+  interview: Interview | null;
 }) {
   const [openModal, setOpenModal] = useState(false);
   const [editFeedback, setEditFeedback] = useState<Feedback | null>(null);
@@ -122,12 +122,14 @@ export function FeedbackCard({
         </CardContent>
       </Card>
 
-      <GiveFeedbackModal
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-        interview={interview}
-        feedback={editFeedback}
-      />
+      {interview && (
+        <GiveFeedbackModal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          interview={interview}
+          feedback={editFeedback}
+        />
+      )}
     </>
   );
 }

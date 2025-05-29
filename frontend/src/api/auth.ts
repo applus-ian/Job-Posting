@@ -27,7 +27,11 @@ export const logoutUser = async () => {
 };
 
 export const refreshToken = async () => {
-  const response = await axios.post("/api/auth/refresh-token");
+  const response = await axios.post("/api/auth/refresh-token", null, {
+    headers: {
+      Authorization: `Bearer ${refreshToken}`,
+    },
+  });
   return response.data;
 };
 

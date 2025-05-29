@@ -9,11 +9,6 @@ export const useAuthApi = () => {
     return response.data;
   };
 
-  const refreshToken = async () => {
-    const response = await axiosAuth.post("/api/auth/refresh-token");
-    return response.data;
-  };
-
   const changePassword = async (credentials: ChangePasswordData) => {
     const response = await axiosAuth.post("/api/auth/change-password", credentials);
     return response.data;
@@ -21,7 +16,6 @@ export const useAuthApi = () => {
 
   return {
     logoutUser,
-    refreshToken,
     changePassword,
   };
 };

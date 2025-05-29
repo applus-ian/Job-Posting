@@ -11,10 +11,10 @@ import { Edit } from "lucide-react";
 import { Button } from "../ui/button";
 
 export function InterviewSummaryCard({
-  application,
+  application = null,
   interview,
 }: {
-  application: Application;
+  application: Application | null;
   interview: Interview;
 }) {
   const [openInterviewModal, setOpenInterviewModal] = useState(false);
@@ -24,9 +24,11 @@ export function InterviewSummaryCard({
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle>Interview Summary</CardTitle>
-            <Button variant={"ghost"} onClick={() => setOpenInterviewModal(true)}>
-              <Edit className="w-4 h-4" />
-            </Button>
+            {application && (
+              <Button variant={"ghost"} onClick={() => setOpenInterviewModal(true)}>
+                <Edit className="w-4 h-4" />
+              </Button>
+            )}
           </div>
         </CardHeader>
         <CardContent>
@@ -71,13 +73,14 @@ export function InterviewSummaryCard({
           </div>
         </CardContent>
       </Card>
-
-      <InterviewScheduleModal
-        application={application}
-        openModal={openInterviewModal}
-        setOpenModal={setOpenInterviewModal}
-        interview={interview}
-      />
+      {application && (
+        <InterviewScheduleModal
+          application={application}
+          openModal={openInterviewModal}
+          setOpenModal={setOpenInterviewModal}
+          interview={interview}
+        />
+      )}
     </>
   );
 }

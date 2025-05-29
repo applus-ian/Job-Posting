@@ -39,14 +39,13 @@ export const authOptions: NextAuthOptions = {
         token.name = user.name;
         token.profile = user.profile || "";
         token.token = user.token;
+        token.refresh_token = user.refresh_token;
       }
       if (trigger === "update" && session?.user) {
-        if (session.user.name) {
-          token.name = session.user.name;
-        }
-        if (session.user.profile) {
-          token.profile = session.user.profile;
-        }
+        if (session.user.name) token.name = session.user.name;
+        if (session.user.profile) token.profile = session.user.profile;
+        if (session.user.token) token.token = session.user.token;
+        if (session.user.refresh_token) token.refresh_token = session.user.refresh_token;
       }
 
       return token;
@@ -58,6 +57,7 @@ export const authOptions: NextAuthOptions = {
         name: token.name,
         profile: token.profile || "",
         token: token.token,
+        refresh_token: token.refresh_token,
       };
       return session;
     },

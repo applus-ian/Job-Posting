@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal, ArrowUpDown, User } from "lucide-react";
 import CustomBadge from "../../badges/CustomBadge";
 import { useRouter } from "next/navigation";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Application } from "@/types/application";
 import { formatDateTime } from "@/utils/dateFormatter";
@@ -96,6 +95,7 @@ export function useAllApplicationColumns(): ColumnDef<Application>[] {
           </div>
         );
       },
+      filterFn: "arrIncludesSome",
     },
     {
       accessorKey: "created_at",
@@ -122,36 +122,29 @@ export function useAllApplicationColumns(): ColumnDef<Application>[] {
       filterFn: "arrIncludesSome",
     },
     {
-      id: "department",
-      accessorKey: "department",
-      header: () => null,
-      cell: () => null,
-      filterFn: "arrIncludesSome",
-    },
-    {
       id: "category",
-      accessorKey: "category",
+      accessorFn: (row) => row.job_posting?.category,
       header: () => null,
       cell: () => null,
       filterFn: "arrIncludesSome",
     },
     {
       id: "employment_type",
-      accessorKey: "employment_type",
+      accessorFn: (row) => row.job_posting?.employment_type,
       header: () => null,
       cell: () => null,
       filterFn: "arrIncludesSome",
     },
     {
       id: "employment_level",
-      accessorKey: "employment_level",
+      accessorFn: (row) => row.job_posting?.employment_level,
       header: () => null,
       cell: () => null,
       filterFn: "arrIncludesSome",
     },
     {
       id: "work_setup",
-      accessorKey: "work_setup",
+      accessorFn: (row) => row.job_posting?.work_setup,
       header: () => null,
       cell: () => null,
       filterFn: "arrIncludesSome",
