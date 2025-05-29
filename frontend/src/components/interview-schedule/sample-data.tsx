@@ -5,12 +5,10 @@ import { useRouter } from "next/navigation";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"; // ✅ Import missing MoreHorizontal
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"; // ✅ Import missing Dropdown components
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar";
 import CustomBadge from "../badges/CustomBadge";
 import { ExternalLink } from "lucide-react";
 
@@ -28,7 +26,7 @@ export interface InterviewData {
   address?: string;
   meetingLink?: string;
   profileImage?: string;
-}
+};
 
 // Optional: Interviewer type
 export interface InterviewerData {
@@ -70,6 +68,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "in-person",
     address: "123 Main Street, Suite 456, San Francisco, CA",
     bgColor: statusStyles["pending"],
+
   },
   {
     id: "int-003",
@@ -80,6 +79,7 @@ export const sampleInterviews: InterviewData[] = [
     jobTitle: "Project Manager",
     interviewType: "phone",
     bgColor: statusStyles["cancelled"],
+
   },
   {
     id: "int-004",
@@ -91,6 +91,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "video",
     meetingLink: "https://zoom.us/j/123456789",
     bgColor: statusStyles["upcoming"],
+
   },
   {
     id: "int-005",
@@ -102,6 +103,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "in-person",
     address: "456 Market Street, 10th Floor, New York, NY",
     bgColor: statusStyles["cancelled"],
+
   },
   {
     id: "int-006",
@@ -113,6 +115,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "video",
     meetingLink: "https://teams.microsoft.com/l/meetup-join/abc123",
     bgColor: statusStyles["upcoming"],
+
   },
   {
     id: "int-007",
@@ -124,6 +127,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "video",
     meetingLink: "https://meet.google.com/xyz-abcd-123",
     bgColor: statusStyles["upcoming"],
+
   },
   {
     id: "int-008",
@@ -135,6 +139,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "video",
     meetingLink: "https://zoom.us/j/987654321",
     bgColor: statusStyles["upcoming"],
+
   },
   {
     id: "int-009",
@@ -146,6 +151,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "in-person",
     address: "789 Tech Blvd, Building B, Austin, TX",
     bgColor: statusStyles["pending"],
+
   },
   {
     id: "int-010",
@@ -157,6 +163,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "video",
     meetingLink: "https://meet.google.com/def-xyz-abc",
     bgColor: statusStyles["upcoming"],
+
   },
   {
     id: "int-011",
@@ -168,6 +175,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "video",
     meetingLink: "https://teams.microsoft.com/l/meetup-join/xyz789",
     bgColor: statusStyles["upcoming"],
+
   },
   {
     id: "int-012",
@@ -178,6 +186,7 @@ export const sampleInterviews: InterviewData[] = [
     jobTitle: "Data Analyst",
     interviewType: "phone",
     bgColor: statusStyles["completed"],
+
   },
   {
     id: "int-013",
@@ -189,6 +198,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "video",
     meetingLink: "https://zoom.us/j/12345abcde",
     bgColor: statusStyles["upcoming"],
+
   },
   {
     id: "int-014",
@@ -200,6 +210,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "video",
     meetingLink: "https://meet.google.com/ghi-jkl-mno",
     bgColor: statusStyles["pending"],
+
   },
   {
     id: "int-015",
@@ -211,6 +222,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "in-person",
     address: "101 Tech Park Drive, Suite 300, Seattle, WA",
     bgColor: statusStyles["upcoming"],
+
   },
   {
     id: "int-016",
@@ -221,6 +233,7 @@ export const sampleInterviews: InterviewData[] = [
     jobTitle: "Security Analyst",
     interviewType: "phone",
     bgColor: statusStyles["cancelled"],
+
   },
   {
     id: "int-017",
@@ -232,6 +245,7 @@ export const sampleInterviews: InterviewData[] = [
     interviewType: "video",
     meetingLink: "https://teams.microsoft.com/l/meetup-join/def456",
     bgColor: statusStyles["upcoming"],
+
   },
 ];
 
@@ -285,7 +299,7 @@ export const sampleInterviewers: InterviewerData[] = [
 export function useInterviewColumns(): ColumnDef<InterviewData>[] {
   const router = useRouter();
   const handleViewInterview = (id: string) => {
-    router.push("/hr/applications/1/applicant/1/view-application");
+    router.push(`/hr/applications/1/applicant/1/view-application`);
   };
 
   return [
@@ -398,6 +412,6 @@ export function useInterviewColumns(): ColumnDef<InterviewData>[] {
           </Button>
         );
       },
-    },
+    }
   ];
-}
+};

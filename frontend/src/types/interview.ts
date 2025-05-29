@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { Application } from "./application";
 import { FeedbackSchema } from "@/schemas/interview";
+import { ApplicantProfile } from "./profile";
 
 export type Interview = {
   id: number;
@@ -15,6 +16,9 @@ export type Interview = {
   created_at: string;
   updated_at: string;
   feedback: Feedback[];
+  application?: Application;
+  Applicant?: ApplicantProfile;
+  bgColor?: string[];
 };
 
 export type Feedback = {
