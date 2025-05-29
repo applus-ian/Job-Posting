@@ -4,6 +4,11 @@ import { Feedback, InterviewFields } from "@/types/interview";
 export function useInterviewApi() {
   const axiosAuth = useAxiosAuth();
 
+  const allInterviews = async () => {
+    const response = await axiosAuth.get("/api/hr/interview/view");
+    return response.data;
+  };
+
   const scheduleInterview = async ({ id, fields }: { id: number; fields: InterviewFields }) => {
     const response = await axiosAuth.post(`/api/hr/interview/schedule/${id}`, fields);
     return response.data;
@@ -38,6 +43,7 @@ export function useInterviewApi() {
   };
 
   return {
+    allInterviews,
     scheduleInterview,
     updateScheduleInterview,
     addFeedback,
