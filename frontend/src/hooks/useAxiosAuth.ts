@@ -6,7 +6,7 @@ import { useRefreshToken } from "./useRefreshToken";
 
 const useAxiosAuth = () => {
   const { data: session } = useSession();
-  const handleRefreshToken = useRefreshToken();
+  const getRefreshToken = useRefreshToken();
 
   useEffect(() => {
     // set authentication bearer
@@ -27,7 +27,7 @@ const useAxiosAuth = () => {
         const prevRequest = error.config;
         if (error.response.status === 401 && !prevRequest.sent) {
           prevRequest.sent = true;
-          await handleRefreshToken();
+          await getRefreshToken();
           prevRequest.headers["Authorization"] = `Bearer ${session?.user.token}`;
           return axiosAuth(prevRequest);
         }
@@ -39,7 +39,7 @@ const useAxiosAuth = () => {
       axiosAuth.interceptors.request.eject(requestIntercept);
       axiosAuth.interceptors.response.eject(responseIntercept);
     };
-  }, [handleRefreshToken, session]);
+  }, [getRefreshToken, session]);
 
   return axiosAuth;
 };

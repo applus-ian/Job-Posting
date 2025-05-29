@@ -30,6 +30,10 @@ interface AllApplicationTableProps<T> {
   columns: ColumnDef<T, unknown>[];
   data: T[];
 }
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
 export function AllApplicationTable<T>({ columns, data }: AllApplicationTableProps<T>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -80,87 +84,77 @@ export function AllApplicationTable<T>({ columns, data }: AllApplicationTablePro
                   <DataTableFilter
                     column={table.getColumn("status")}
                     title="Status"
-                    options={[
-                      { label: "Submitted", value: "submitted" },
-                      { label: "Interview", value: "interview" },
-                      { label: "Withdrawn", value: "withdrawn" },
-                      { label: "Offered", value: "offered" },
-                      { label: "Hired", value: "hired" },
-                    ]}
+                    options={Array.from(
+                      new Set(data.map((item: any) => item.status).filter(Boolean))
+                    ).map((status) => ({
+                      label: capitalize(String(status)),
+                      value: String(status),
+                    }))}
                   />
                 )}
                 {table.getColumn("job_applied") && (
                   <DataTableFilter
                     column={table.getColumn("job_applied")}
                     title="Job Title"
-                    options={[
-                      { label: "Software Engineer", value: "Software Engineer" },
-                      { label: "Product Manager", value: "Product Manager" },
-                      { label: "Data Scientist", value: "Data Scientist" },
-                      { label: "UX/UI Designer", value: "UX/UI Designer" },
-                    ]}
+                    options={Array.from(
+                      new Set(data.map((item: any) => item.job_posting?.title).filter(Boolean))
+                    ).map((title) => ({
+                      label: String(title),
+                      value: String(title),
+                    }))}
                   />
                 )}
+
                 {table.getColumn("category") && (
                   <DataTableFilter
                     column={table.getColumn("category")}
                     title="Category"
-                    options={[
-                      { label: "IT & Software", value: "IT & Software" },
-                      { label: "Marketing", value: "Marketing" },
-                      { label: "Human Resources", value: "Human Resources" },
-                      { label: "Customer Service", value: "Customer Service" },
-                      { label: "Management", value: "Management" },
-                    ]}
-                  />
-                )}
-                {table.getColumn("department") && (
-                  <DataTableFilter
-                    column={table.getColumn("department")}
-                    title="Department"
-                    options={[
-                      { label: "Engineering", value: "Engineering" },
-                      { label: "Sales", value: "Sales" },
-                      { label: "Marketing", value: "Marketing" },
-                      { label: "Product", value: "Product" },
-                      { label: "Operations", value: "Operations" },
-                      { label: "Finance", value: "Finance" },
-                    ]}
+                    options={Array.from(
+                      new Set(data.map((item: any) => item.job_posting?.category).filter(Boolean))
+                    ).map((category) => ({
+                      label: String(category),
+                      value: String(category),
+                    }))}
                   />
                 )}
                 {table.getColumn("employment_type") && (
                   <DataTableFilter
                     column={table.getColumn("employment_type")}
                     title="Employment Type"
-                    options={[
-                      { label: "Full-Time", value: "Full-Time" },
-                      { label: "Part-Time", value: "Part-Time" },
-                      { label: "Contract", value: "Contract" },
-                    ]}
+                    options={Array.from(
+                      new Set(
+                        data.map((item: any) => item.job_posting?.employment_type).filter(Boolean)
+                      )
+                    ).map((employment_type) => ({
+                      label: capitalize(String(employment_type)),
+                      value: capitalize(String(employment_type)),
+                    }))}
                   />
                 )}
-
                 {table.getColumn("employment_level") && (
                   <DataTableFilter
                     column={table.getColumn("employment_level")}
                     title="Employment Level"
-                    options={[
-                      { label: "Entry-Level", value: "Entry-Level" },
-                      { label: "Mid-Level", value: "Mid-Level" },
-                      { label: "Senior-Level", value: "Senior-Level" },
-                    ]}
+                    options={Array.from(
+                      new Set(
+                        data.map((item: any) => item.job_posting?.employment_level).filter(Boolean)
+                      )
+                    ).map((employment_level) => ({
+                      label: capitalize(String(employment_level)),
+                      value: capitalize(String(employment_level)),
+                    }))}
                   />
                 )}
-
                 {table.getColumn("work_setup") && (
                   <DataTableFilter
                     column={table.getColumn("work_setup")}
                     title="Work Setup"
-                    options={[
-                      { label: "Onsite", value: "Onsite" },
-                      { label: "Remote", value: "Remote" },
-                      { label: "Hybrid", value: "Hybrid" },
-                    ]}
+                    options={Array.from(
+                      new Set(data.map((item: any) => item.job_posting?.work_setup).filter(Boolean))
+                    ).map((work_setup) => ({
+                      label: capitalize(String(work_setup)),
+                      value: capitalize(String(work_setup)),
+                    }))}
                   />
                 )}
               </div>

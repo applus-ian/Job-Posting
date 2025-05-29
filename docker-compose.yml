@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  employee-db:
+    image: mysql:8.0
+    container_name: employee-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: employeedb
+      MYSQL_USER: empuser
+      MYSQL_PASSWORD: emppass
+    ports:
+      - "3307:3306"
+    volumes:
+      - employee_data:/var/lib/mysql
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+
+  jobposting-db:
+    image: mysql:8.0
+    container_name: jobposting-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: jobpostingdb
+      MYSQL_USER: jobpostinguser
+      MYSQL_PASSWORD: jobpostingpass
+    ports:
+      - "3308:3306"
+    volumes:
+      - jobposting_data:/var/lib/mysql
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+
+  employee-management:
+    build:
+      context: ./employee-management      
+    image: mikeminoza/employee-management:latest
+    depends_on:
+      employee-db:
+        condition: service_healthy
+    ports:
+      - "8001:8001"
+    networks:
+      - backend
+    environment:
+      - DB_HOST=employee-db
+      - DB_PORT=3306
+      - DB_USER=empuser
+      - DB_PASS=emppass
+      - DB_NAME=employeedb
+
+  jobposting:
+    build:
+      context: ./jobposting               
+    image: mikeminoza/jobposting:latest
+    depends_on:
+      jobposting-db:
+        condition: service_healthy
+      employee-management:
+        condition: service_started
+    ports:
+      - "8002:8002"
+    networks:
+      - backend
+    environment:
+      - DB_HOST=jobposting-db
+      - DB_PORT=3306
+      - DB_USER=jobpostinguser
+      - DB_PASS=jobpostingpass
+      - DB_NAME=jobpostingdb
+      - EMPLOYEE_API_URL=http://employee-management:8001/api/employees
+
+volumes:
+  employee_data:
+  jobposting_data:
+
+networks:
+  backend:
+    driver: bridge

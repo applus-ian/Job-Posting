@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import CustomBadge from "../badges/CustomBadge";
-import { MapPin, DollarSign } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { Application } from "@/types/application";
 import Link from "next/link";
 import { formatDateTime } from "@/utils/dateFormatter";
@@ -54,13 +54,12 @@ export function ApplicationCard({ applications }: { applications: Application[] 
                     <span>{job.work_setup}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <DollarSign className="h-4 w-4" />
                     <span>
                       {job.salary_type === "monthly" &&
                         `₱${job.salary_min} - ₱${job.salary_max} / mo`}
                       {job.salary_type === "hourly" &&
                         `₱${job.salary_min} - ₱${job.salary_max} / hr`}
-                      {job.salary_type === "yearly" &&
+                      {job.salary_type === "annually" &&
                         `₱${job.salary_min} - ₱${job.salary_max} / yr`}
                     </span>
                   </div>

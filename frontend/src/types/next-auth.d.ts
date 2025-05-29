@@ -9,6 +9,7 @@ declare module "next-auth" {
       name: string;
       profile: string;
       token: string;
+      refresh_token: string;
     };
   }
 
@@ -18,6 +19,7 @@ declare module "next-auth" {
     name: string;
     profile: string;
     token: string;
+    refresh_token: string;
   }
 }
 
@@ -28,5 +30,6 @@ declare module "next-auth/jwt" {
     name: string;
     profile: string;
     token: string;
+    refresh_token: string;
   }
 }

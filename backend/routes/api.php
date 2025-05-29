@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\TokenAbility;
 use App\Http\Controllers\Applicant\AddressController;
 use App\Http\Controllers\Applicant\ApplicantInformationController;
 use App\Http\Controllers\Applicant\EducationHistoryController;
@@ -29,8 +30,10 @@ Route::prefix('auth')->group(function () {
         ->name('register');
     Route::controller(AuthenticatedSessionController::class)->group(function () {
         Route::post('/login', 'store')->middleware('guest')->name('login');
-        Route::post('/logout', 'destroy')->middleware(['auth:sanctum'])->name('logout');
-        Route::post('/refresh-token', 'update');
+        Route::middleware(['auth:sanctum'])->group(function () {
+            Route::post('/logout', 'destroy')->name('logout');
+            Route::post('/refresh-token', 'update')->middleware('ability:' . TokenAbility::ISSUE_ACCESS_TOKEN->value);
+        });
     });
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
         ->middleware('guest')

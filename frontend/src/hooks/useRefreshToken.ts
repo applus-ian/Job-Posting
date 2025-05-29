@@ -1,21 +1,38 @@
 "use client";
+import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
-import { refreshToken } from "@/api/auth";
+import { toast } from "react-toastify";
 
 export const useRefreshToken = () => {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
 
-  const handleRefreshToken = async () => {
+  const getRefreshToken = async () => {
     try {
-      const response = await refreshToken();
-      if (session) session.user.token = response?.token;
-      console.log(`Refresh token: ${response.token}`);
+      console.log(`Refresh Token: ${session?.user.refresh_token}`);
+      const response = await axios.post("/api/auth/refresh-token", null, {
+        headers: {
+          Authorization: `Bearer ${session?.user.refresh_token}`,
+        },
+      });
+
+      if (session && response.data.token) {
+        await update({
+          user: {
+            ...session.user,
+            token: response.data.token,
+          },
+        });
+
+        console.log(`New Token: ${session?.user.token}`);
+        console.log("Access token refreshed!");
+      }
     } catch (error) {
       console.error("Token refresh failed", error);
+      toast.info("Session expired, Login again");
       signOut();
     }
   };
 
-  return handleRefreshToken;
+  return getRefreshToken;
 };
