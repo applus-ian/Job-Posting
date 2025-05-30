@@ -29,5 +29,5 @@ export const ApplyJobSchema = z.object({
 });
 
 export const ApplicationStatusSchema = z.object({
-  status: z.enum(["received", "reviewed", "interview", "offer", "hired"]),
+  status: z.enum(["received", "reviewed", "interview", "offer", "hired", "rejected"]),
 });

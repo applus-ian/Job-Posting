@@ -11,7 +11,7 @@ export type Interview = {
   meeting_link?: string | null;
   platform?: string | null;
   location?: string | null;
-  status: "upcoming" | "completed" | "rescheduled" | "no-show" | "cancelled";
+  status: "upcoming" | "completed" | "rescheduled" | "no-show" | "cancelled" | "rejected";
   application_id: number;
   created_at: string;
   updated_at: string;
@@ -38,7 +38,7 @@ export type InterviewFields = {
   meeting_link?: string | null | undefined;
   platform?: string | null | undefined;
   location?: string | null | undefined;
-  status: "upcoming" | "completed" | "rescheduled" | "no-show" | "cancelled";
+  status: "upcoming" | "completed" | "rescheduled" | "no-show" | "cancelled" | "rejected";
 };
 
 export type InterviewScheduleModalProps = {

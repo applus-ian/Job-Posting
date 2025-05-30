@@ -165,6 +165,7 @@ export function InterviewScheduleModal({
                   { value: "rescheduled", label: "Rescheduled" },
                   { value: "no-show", label: "No-show" },
                   { value: "cancelled", label: "Cancelled" },
+                  { value: "rejected", label: "Reject" },
                 ]}
               />
               {error && <div className="text-sm text-red-500">{error}</div>}

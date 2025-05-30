@@ -50,7 +50,7 @@ export function ActionCard({ application }: { application: Application }) {
                 name="status"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Application Status</FormLabel>
+                    <FormLabel>Action</FormLabel>
                     <FormControl>
                       <Select
                         value={field.value}
@@ -73,6 +73,7 @@ export function ActionCard({ application }: { application: Application }) {
                           <SelectItem value="interview">Interview</SelectItem>
                           <SelectItem value="offer">Offer</SelectItem>
                           <SelectItem value="hired">Hired</SelectItem>
+                          <SelectItem value="rejected"><span className="text-red-500 font-medium">Reject</span></SelectItem>
                         </SelectContent>
                       </Select>
                     </FormControl>
