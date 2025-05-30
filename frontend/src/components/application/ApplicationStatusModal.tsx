@@ -38,6 +38,12 @@ const statusMessages = [
     description: "This applicant will be marked as hired. Congratulations!",
     confirmText: "Confirm Hire",
   },
+  {
+    status: "rejected",
+    title: "Reject Applicant?",
+    description: "This applicant will be marked as rejected. You can no longer proceed with their application.",
+    confirmText: "Confirm Rejection",
+  }
 ];
 
 export function ApplicationStatusModal({

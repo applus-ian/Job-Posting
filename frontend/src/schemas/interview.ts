@@ -20,7 +20,7 @@ export const InterviewSchema = z
       .optional()
       .nullable()
       .transform((val) => (val === "" ? null : val)),
-    status: z.enum(["upcoming", "completed", "rescheduled", "no-show", "cancelled"]),
+    status: z.enum(["upcoming", "completed", "rescheduled", "no-show", "cancelled", "rejected"]),
   })
   .superRefine((data, ctx) => {
     if (data.mode === "in_person") {

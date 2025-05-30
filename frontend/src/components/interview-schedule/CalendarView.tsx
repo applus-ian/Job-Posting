@@ -252,7 +252,7 @@ export function CalendarView({ currentMonth, interviews, onMonthChange }: Calend
                       const applicationId = interview.application_id;
                       const applicantId = interview.application?.applicant_id;
                       router.push(
-                        `/hr/applications/${applicationId}/applicant/${applicantId}/view-application`
+                        `/hr/applications/${applicantId}/applicant/${applicationId}/view-application`
                       );
                     }}
                   >

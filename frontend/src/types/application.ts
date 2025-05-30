@@ -37,7 +37,7 @@ export type ApplyJob = {
   coverletter: File[];
 };
 
-export type AppStatus = "received" | "reviewed" | "interview" | "offer" | "hired";
+export type AppStatus = "received" | "reviewed" | "interview" | "offer" | "hired" | "rejected";
 
 export type ApplicationStatusModalProps = {
   openModal: boolean;

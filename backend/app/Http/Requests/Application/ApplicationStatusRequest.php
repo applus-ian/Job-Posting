@@ -23,7 +23,7 @@ class ApplicationStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|string|in:received,reviewed,interview,offer,hired',
+            'status' => 'required|string|in:received,reviewed,interview,offer,hired,rejected',
         ];
     }
 }

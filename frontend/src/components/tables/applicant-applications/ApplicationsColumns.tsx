@@ -79,7 +79,7 @@ export function useApplicationColumns(viewApplicationType: string): ColumnDef<Ap
         const applicationId = row.original.id;
         const viewUrl =
           viewApplicationType === "hr"
-            ? `/hr/applications/${applicationId}/applicant/${applicantId}/view-application`
+            ? `/hr/applications/${applicantId}/applicant/${applicationId}/view-application`
             : `/my-applications/${applicationId}`;
 
         return (

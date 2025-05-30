@@ -19,6 +19,9 @@ const statusDetails: Record<ApplicationStatus["status"], { title: string }> = {
   hired: {
     title: "Candidate Hired",
   },
+  rejected: {
+    title: "Candidate Rejected",
+  },
 };
 
 export function HRStatusCard({ applicationstatus }: { applicationstatus: ApplicationStatus[] }) {

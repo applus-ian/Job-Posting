@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('application_statuses', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['received', 'reviewed', 'interview', 'offer', 'hired']);
+            $table->enum('status', ['received', 'reviewed', 'interview', 'offer', 'hired', 'rejected']);
             $table->foreignId('application_id')->constrained('applications')->onDelete('cascade');
             $table->timestamps();
         });
