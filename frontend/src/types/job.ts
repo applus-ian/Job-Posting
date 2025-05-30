@@ -17,11 +17,24 @@ export type JobPosting = {
   work_setup: string;
   status: "open" | "closed" | "draft";
   address_id?: number;
+  address: Address;
   created_at?: string;
   updated_at?: string;
   tags: JobTag[];
   applications?: Application[];
   address: Address;
+};
+
+export type Address = {
+  id?: number;
+  address: string;
+  country: string;
+  province: string;
+  city: string;
+  street: string;
+  zipcode: string;
+  created_at?: string;
+  updated_at?: string;
 };
 
 export type JobTag = {

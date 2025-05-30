@@ -13,6 +13,8 @@ import { Document } from "@/types/profile";
 import { useSavedJob } from "@/hooks/useSavedJob";
 import { SavedJob } from "@/types/savedjob";
 import { useEffect } from "react";
+import { UserSquare2, FileClock, CircleGauge, Wallet, Laptop2, MapPin } from "lucide-react";
+
 
 export default function JobDetail({
   jobposting,
@@ -135,7 +137,34 @@ export default function JobDetail({
               <span>
                 {jobposting.vacancies} {jobposting.vacancies === 1 ? "Vacant" : "Vacants"}
               </span>
-            </div>
+            </div>       
+
+            <div className="flex items-center">
+              <CircleGauge className="h-4 w-4 mr-2" />
+              <span>
+                {jobposting.employment_level} 
+              </span>
+            </div>   
+
+            {(jobposting.salary_min != null || jobposting.salary_max != null) && (
+              <div className="flex items-center">
+                <Wallet className="h-4 w-4 mr-2" />
+                <span>
+                  {jobposting.salary_min != null ? `₱${jobposting.salary_min}` : ""}
+                  {jobposting.salary_min != null && jobposting.salary_max != null && " - "}
+                  {jobposting.salary_max != null ? `₱${jobposting.salary_max}` : ""}
+                </span>
+              </div>
+            )}
+
+            <div className="flex items-center">
+              <MapPin className="h-4 w-4 mr-2" />
+              <span>
+                {jobposting.address
+                  ? `${jobposting.address.street}, ${jobposting.address.city}, ${jobposting.address.province}, ${jobposting.address.country}, ${jobposting.address.zipcode}`
+                  : "Address not available"}
+              </span>
+            </div>  
           </div>
         </CardHeader>
         <CardContent className="flex-grow overflow-y-auto space-y-6 px-6">
