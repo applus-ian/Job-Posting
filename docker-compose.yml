@@ -1,89 +1,87 @@
-version: '3.8'
 
 services:
-  employee-db:
+  # MySQL Database Service
+  mysql:
     image: mysql:8.0
-    container_name: employee-db
+    container_name: mysql_container
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: employeedb
-      MYSQL_USER: empuser
-      MYSQL_PASSWORD: emppass
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: jobposting_backend
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
-      - employee_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql 
     networks:
-      - backend
+      - app_network
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       retries: 5
 
-  jobposting-db:
-    image: mysql:8.0
-    container_name: jobposting-db
-    restart: always
+  # phpMyAdmin Service
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_container
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: jobpostingdb
-      MYSQL_USER: jobpostinguser
-      MYSQL_PASSWORD: jobpostingpass
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3308:3306"
+      - "8081:80"
+    networks:
+      - app_network
+
+  # Laravel Backend Service
+  backend:
+    build: ./backend
+    container_name: laravel_container
+    restart: unless-stopped
+    working_dir: /var/www
     volumes:
-      - jobposting_data:/var/lib/mysql
-    networks:
-      - backend
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      retries: 5
-
-  employee-management:
-    build:
-      context: ./employee-management      
-    image: mikeminoza/employee-management:latest
-    depends_on:
-      employee-db:
-        condition: service_healthy
+      - ./backend:/var/www
     ports:
-      - "8001:8001"
-    networks:
-      - backend
-    environment:
-      - DB_HOST=employee-db
-      - DB_PORT=3306
-      - DB_USER=empuser
-      - DB_PASS=emppass
-      - DB_NAME=employeedb
-
-  jobposting:
-    build:
-      context: ./jobposting               
-    image: mikeminoza/jobposting:latest
+      - "8000:8000"
     depends_on:
-      jobposting-db:
+      mysql:
         condition: service_healthy
-      employee-management:
-        condition: service_started
-    ports:
-      - "8002:8002"
     networks:
-      - backend
+      - app_network
     environment:
-      - DB_HOST=jobposting-db
-      - DB_PORT=3306
-      - DB_USER=jobpostinguser
-      - DB_PASS=jobpostingpass
-      - DB_NAME=jobpostingdb
-      - EMPLOYEE_API_URL=http://employee-management:8001/api/employees
+      DB_HOST: mysql
+      DB_DATABASE: jobposting_backend
+      DB_USERNAME: user
+      DB_PASSWORD: password
+    command: php artisan serve --host=0.0.0.0
 
-volumes:
-  employee_data:
-  jobposting_data:
+  # Next.js Frontend Service
+  frontend:
+    build: ./frontend
+    container_name: nextjs_container
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - app_network
+    command: npm run dev
+    environment:
+      - NODE_ENV=development  
+      - WATCHPACK_POLLING=true
+    
 
 networks:
-  backend:
-    driver: bridge
+  app_network:
+
+volumes:
+  mysql_data:

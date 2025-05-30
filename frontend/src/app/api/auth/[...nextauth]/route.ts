@@ -40,6 +40,7 @@ export const authOptions: NextAuthOptions = {
         token.profile = user.profile || "";
         token.token = user.token;
         token.refresh_token = user.refresh_token;
+        token.is_oauth = user.is_oauth;
       }
       if (trigger === "update" && session?.user) {
         if (session.user.name) token.name = session.user.name;
@@ -58,6 +59,7 @@ export const authOptions: NextAuthOptions = {
         profile: token.profile || "",
         token: token.token,
         refresh_token: token.refresh_token,
+        is_oauth: token.is_oauth,
       };
       return session;
     },
