@@ -18,7 +18,6 @@ class Applicant extends Model
         'nationality',
         'phone_number',
         'user_id',
-        'address_id',
     ];
 
     // accessor
@@ -41,7 +40,7 @@ class Applicant extends Model
 
     public function address()
     {
-        return $this->hasOne(Address::class);
+        return $this->hasOne(Address::class, 'applicant_id', 'id');
     }
 
     public function application()
@@ -72,11 +71,6 @@ class Applicant extends Model
     public function language()
     {
         return $this->hasMany(Language::class);
-    }
-
-    public function offer()
-    {
-        return $this->hasMany(Offer::class);
     }
 
     public function savedJob()

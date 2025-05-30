@@ -13,7 +13,8 @@ class Address extends Model
         'city',
         'street',
         'zipcode',
-        'applicant_id'
+        'applicant_id',
+        'job_posting_id'
     ];
 
     public function applicant()
@@ -23,6 +24,6 @@ class Address extends Model
 
     public function jobPosting()
     {
-        return $this->hasMany(JobPosting::class);
+        return $this->belongsTo(JobPosting::class);
     }
 }

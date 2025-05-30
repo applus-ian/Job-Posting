@@ -162,32 +162,62 @@ export function JobPostingForm({ jobposting }: { jobposting: JobPosting | null }
               </div>
             </div>
             <Separator />
-            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="address">Full Address</Label>
-                          <Input id="address" name="address" placeholder="e.g. 123 Main St, Springfield" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="country">Country</Label>
-                          <Input id="country" placeholder="Enter Country" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="province">Province</Label>
-                          <Input id="province" name="province" placeholder="Enter Province" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="city">City</Label>
-                          <Input id="city" name="city" placeholder="Enter City" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="street">Street</Label>
-                          <Input id="street" name="street" placeholder="Enter Street" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="zipcode">Zip Code</Label>
-                          <Input id="zipcode" name="zipcode" placeholder="Enter Zip Code" />
-                        </div>
-                      </div> */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <CustomFormInput
+                  control={form.control}
+                  name="address"
+                  label="Full Address"
+                  placeholder="Enter Full Address"
+                  isEditing={true}
+                />
+              </div>
+              <div className="space-y-2">
+                <CustomFormInput
+                  control={form.control}
+                  name="country"
+                  label="Country"
+                  placeholder="Enter Country"
+                  isEditing={true}
+                />
+              </div>
+              <div className="space-y-2">
+                <CustomFormInput
+                  control={form.control}
+                  name="province"
+                  label="Province"
+                  placeholder="Enter Province"
+                  isEditing={true}
+                />
+              </div>
+              <div className="space-y-2">
+                <CustomFormInput
+                  control={form.control}
+                  name="city"
+                  label="City"
+                  placeholder="Enter City"
+                  isEditing={true}
+                />
+              </div>
+              <div className="space-y-2">
+                <CustomFormInput
+                  control={form.control}
+                  name="street"
+                  label="Street"
+                  placeholder="Enter Street"
+                  isEditing={true}
+                />
+              </div>
+              <div className="space-y-2">
+                <CustomFormInput
+                  control={form.control}
+                  name="zipcode"
+                  label="Zip Code"
+                  placeholder="Enter Zip Code"
+                  isEditing={true}
+                />
+              </div>
+            </div>
             <Separator />
             <Label htmlFor="description">Job Description</Label>
             <div className="w-full overflow-hidden rounded-lg border bg-background shadow mt-0">

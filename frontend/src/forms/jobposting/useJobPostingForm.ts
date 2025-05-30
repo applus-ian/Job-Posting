@@ -27,6 +27,12 @@ export function useJobPostingForm(jobposting: JobPosting | null) {
       vacancies: jobposting?.vacancies ?? 0,
       description: jobposting?.description || "",
       status: jobposting?.status ?? "draft",
+      address: jobposting?.address.address || "",
+      country: jobposting?.address.country || "",
+      province: jobposting?.address.province || "",
+      city: jobposting?.address.city || "",
+      street: jobposting?.address.street || "",
+      zipcode: jobposting?.address.zipcode || "",
     },
   });
 

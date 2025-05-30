@@ -2,6 +2,7 @@
 
 namespace App\Services\JobPosting;
 
+use App\Models\Address;
 use App\Models\JobPosting;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,14 +18,14 @@ class JobPostingService
 
         return ['jobpostings' => $query->get()];
     }
-    
+
     public function fetchFeaturedJobPostings($limit = 3)
     {
-        $jobPostings = JobPosting::withCount('applications') 
-        ->where('status', 'open')
-        ->orderBy('applications_count', 'desc') 
-        ->take($limit) 
-        ->get();
+        $jobPostings = JobPosting::withCount('applications')
+            ->where('status', 'open')
+            ->orderBy('applications_count', 'desc')
+            ->take($limit)
+            ->get();
 
         return ['jobpostings' => $jobPostings];
     }
@@ -42,7 +43,12 @@ class JobPostingService
     public function createJobPosting(array $data)
     {
         // create job posting
-        $jobposting = JobPosting::create($data);
+        $jobposting = JobPosting::create(
+            collect($data)->only((new JobPosting)->getFillable())->toArray()
+        );
+
+        // create address
+        $this->createAddress($data, $jobposting);
         // If tags are passed in the request
         if (array_key_exists('tags', $data)) {
             // add new tags
@@ -56,6 +62,12 @@ class JobPostingService
                 ? 'Job saved as a draft. You can publish it later.'
                 : 'Job posted successfully and is now open!'
         ];
+    }
+
+    public function getJobposting($jobposting)
+    {
+        $jobposting->load('address');
+        return $jobposting;
     }
 
     public function updateJobPosting(array $data, $jobposting)
@@ -93,4 +105,12 @@ class JobPostingService
             $jobposting->tags()->create(['tag' => $tag]);
         }
     }
+
+    private function createAddress(array $data, $jobposting)
+    {
+        return $jobposting->address()->create(
+            collect($data)->only((new Address)->getFillable())->toArray()
+        );
+    }
+
 }

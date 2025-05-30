@@ -29,6 +29,11 @@ const statusDetails: Record<ApplicationStatus["status"], { title: string; descri
     description:
       "The hiring team has marked your application as hired. Further onboarding instructions will be provided by HR.",
   },
+  rejected: {
+    title: "Application Rejected",
+    description:
+      "We appreciate your interest, but the employer has decided not to move forward with your application at this time.",
+  },
 };
 
 export function ApplicantStatusCard({

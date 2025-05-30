@@ -23,10 +23,6 @@ return new class extends Migration {
             $table->string('employment_level');
             $table->string('work_setup');
             $table->enum('status', ['open', 'closed', 'draft']);
-            $table->foreignId('address_id')
-                ->nullable()
-                ->constrained('addresses')
-                ->onDelete('set null');
             $table->timestamps();
         });
     }

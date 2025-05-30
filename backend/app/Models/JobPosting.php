@@ -19,12 +19,11 @@ class JobPosting extends Model
         'employment_level',
         'work_setup',
         'status',
-        'address_id',
     ];
 
     public function address()
     {
-        return $this->hasOne(Address::class);
+        return $this->hasOne(Address::class, 'job_posting_id', 'id');
     }
 
     public function applications()
