@@ -2,7 +2,7 @@
 import { Badge } from "../ui/badge";
 import clsx from "clsx";
 
-const statusStyles = {
+export const statusStyles = {
   tag: {
     text: "text-[#FF6900]",
     bg: "bg-[#FFEEE3]",
@@ -42,6 +42,18 @@ const statusStyles = {
   upcoming: {
     text: "text-[#009398]",
     bg: "bg-[#B7F8FF]",
+  },
+  rejected: {
+    text: "text-[#FF0000]",
+    bg: "bg-[#FFE6E6]",
+  },
+  completed: {
+    text: "text-[#00730D]",
+    bg: "bg-[#B6FFB2]",
+  },
+  cancelled: {
+    text: "text-[#FF0000]",
+    bg: "bg-[#FFE6E6]",
   },
 };
 

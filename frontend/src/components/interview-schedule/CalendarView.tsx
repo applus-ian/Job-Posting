@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import CustomBadge from "../badges/CustomBadge";
+import { statusStyles } from "../badges/CustomBadge";
 
 export type CalendarViewProps = {
   currentMonth: Date;
@@ -208,7 +209,7 @@ export function CalendarView({ currentMonth, interviews, onMonthChange }: Calend
                     key={idx}
                     className={cn(
                       "text-dark px-3 py-0.5 text-[9px] sm:text-[10px] lg:text-xs overflow-hidden whitespace-nowrap rounded-full",
-                      interview.bgColor || "bg-orange-200"
+                      statusStyles[interview.status].bg || "bg-orange-200"
                     )}
                   >
                     <span className="truncate max-w-[100%] inline-block align-middle">
