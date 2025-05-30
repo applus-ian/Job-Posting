@@ -146,12 +146,16 @@ export default function JobDetail({
               </span>
             </div>   
 
-            <div className="flex items-center">
-              <Wallet className="h-4 w-4 mr-2" />
-              <span>
-                {jobposting.salary_min} 
-              </span>
-            </div>  
+            {(jobposting.salary_min != null || jobposting.salary_max != null) && (
+              <div className="flex items-center">
+                <Wallet className="h-4 w-4 mr-2" />
+                <span>
+                  {jobposting.salary_min != null ? `₱${jobposting.salary_min}` : ""}
+                  {jobposting.salary_min != null && jobposting.salary_max != null && " - "}
+                  {jobposting.salary_max != null ? `₱${jobposting.salary_max}` : ""}
+                </span>
+              </div>
+            )}
 
             <div className="flex items-center">
               <MapPin className="h-4 w-4 mr-2" />
