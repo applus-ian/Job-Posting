@@ -10,6 +10,7 @@ declare module "next-auth" {
       profile: string;
       token: string;
       refresh_token: string;
+      is_oauth: booelan;
     };
   }
 
@@ -20,6 +21,7 @@ declare module "next-auth" {
     profile: string;
     token: string;
     refresh_token: string;
+    is_oauth: booelan;
   }
 }
 
@@ -31,5 +33,6 @@ declare module "next-auth/jwt" {
     profile: string;
     token: string;
     refresh_token: string;
+    is_oauth: booelan;
   }
 }

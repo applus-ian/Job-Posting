@@ -32,7 +32,8 @@ class AuthenticatedSessionController extends Controller
             'email' => $user->email,
             'profile' => Storage::disk('profile')->url($user->profile),
             'token' => $token,
-            'refresh_token' => $refreshToken
+            'refresh_token' => $refreshToken,
+            'is_oauth' => (bool) ($user->google_id || $user->facebook_id),
         ]);
     }
 

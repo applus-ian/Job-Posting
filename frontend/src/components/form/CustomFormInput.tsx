@@ -39,7 +39,7 @@ export const CustomFormInput = ({
     name={name}
     render={({ field }) => (
       <FormItem className="w-full flex-1">
-        <FormLabel className="text-[rgba(0,0,0,0.7)] text-xs ms-1">{label}</FormLabel>
+        <FormLabel className="text-xs ms-1">{label}</FormLabel>
         <FormControl>
           {variant === "textarea" ? (
             <Textarea
