@@ -13,40 +13,7 @@ class InterviewScheduleService
 
     public function createInterviewSchedule(array $data, $application)
     {
-        $scheduleDate = $data['schedule_date']; // format: 'YYYY-MM-DD'
-        $scheduleTime = $data['schedule_time']; // format: 'HH:MM:SS'
-
-        $exists = \App\Models\Interview::where('schedule_date', $scheduleDate)
-                    ->where('schedule_time', $scheduleTime)
-                    ->exists();
-
-        if ($exists) {
-            throw new \Exception('The selected time is already taken by another scheduled interview for another applicant.');
-        }
-
-        $targetTimestamp = strtotime($scheduleTime);
-
-        $interviews = \App\Models\Interview::where('schedule_date', $scheduleDate)
-            ->whereBetween('schedule_time', [
-                date('H:i:s', $targetTimestamp - 1800), 
-                date('H:i:s', $targetTimestamp + 1800), 
-            ])
-            ->get();
-
-        foreach ($interviews as $interview) {
-            $existingTimestamp = strtotime($interview->schedule_time);
-            $differenceInMinutes = abs($targetTimestamp - $existingTimestamp) / 60;
-
-            if ($differenceInMinutes < 30) {
-                $conflictTime = date('g:i A', strtotime($interview->schedule_time));
-                $suggestedTime = date('g:i A', strtotime($interview->schedule_time) + 1800); 
-
-                throw new \Exception(
-                    "The selected time is too close to another interview scheduled at {$conflictTime}. " .
-                    "Please choose a time after {$suggestedTime}."
-                );
-            }
-        }
+        $this->validateSchedule($data['schedule_date'], $data['schedule_time']);
 
         $application->status = 'interview';
         $application->save();
@@ -63,23 +30,38 @@ class InterviewScheduleService
 
     public function updateInterviewSchedule(array $data, $interview)
     {
-        $scheduleDate = $data['schedule_date'];
-        $scheduleTime = $data['schedule_time'];
-        $targetTimestamp = strtotime($scheduleTime);
+        $this->validateSchedule($data['schedule_date'], $data['schedule_time'], $interview->id);
+        $interview->update($data);
 
-        // 1. Check for exact match — excluding the current interview
-        $exists = \App\Models\Interview::where('schedule_date', $scheduleDate)
-                    ->where('schedule_time', $scheduleTime)
-                    ->where('id', '!=', $interview->id)
-                    ->exists();
+        return [
+            'message' => 'Interview details updated successfully!',
+            'application' => $interview->application,
+        ];
+    }
 
-        if ($exists) {
+    public function getInterviewSchedule()
+    {
+        $interviews = Interview::with(['application', 'application.applicant.user', 'application.jobPosting'])->get();
+        return ['interviews' => $interviews];
+    }
+
+    private function validateSchedule(string $scheduleDate, string $scheduleTime, int $ignoreId = null): void
+    {
+        $query = Interview::where('schedule_date', $scheduleDate)
+            ->where('schedule_time', $scheduleTime);
+
+        if ($ignoreId) {
+            $query->where('id', '!=', $ignoreId);
+        }
+
+        if ($query->exists()) {
             throw new \Exception('The selected time is already taken by another scheduled interview for another applicant.');
         }
 
-        // 2. Check for 30-minute buffer — excluding the current interview
-        $conflicts = \App\Models\Interview::where('schedule_date', $scheduleDate)
-            ->where('id', '!=', $interview->id)
+        $targetTimestamp = strtotime($scheduleTime);
+
+        $conflicts = Interview::where('schedule_date', $scheduleDate)
+            ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
             ->whereBetween('schedule_time', [
                 date('H:i:s', $targetTimestamp - 1800),
                 date('H:i:s', $targetTimestamp + 1800),
@@ -100,21 +82,6 @@ class InterviewScheduleService
                 );
             }
         }
-
-        // 3. Proceed with update
-        $interview->update($data);
-
-        return [
-            'message' => 'Interview details updated successfully!',
-            'application' => $interview->application,
-        ];
     }
 
-
-
-    public function getInterviewSchedule()
-    {
-        $interviews = Interview::with(['application', 'application.applicant.user', 'application.jobPosting'])->get();
-        return ['interviews' => $interviews];
-    }
 }

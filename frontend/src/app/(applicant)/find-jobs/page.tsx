@@ -10,6 +10,7 @@ export default function FindJobPage() {
   const { data, isLoading, isError } = useJobPostingsQuery("open");
 
   if (isError) return <div>Error loading job postings</div>;
+
   return (
     <>
       <HeaderNav />

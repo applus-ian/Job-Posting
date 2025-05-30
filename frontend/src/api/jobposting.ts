@@ -11,9 +11,9 @@ export function useJobPostingApi() {
   };
 
   const getFeaturedJobs = async () => {
-    const response= await axios.get("/api/jobposting/featured");
+    const response = await axios.get("/api/jobposting/featured");
     return response.data;
-  }
+  };
 
   const jobPostingWithSaved = async () => {
     const response = await axiosAuth.get("/api/jobposting/open/saved");

@@ -24,6 +24,7 @@ class ApplicationService
         // if ($application->status === 'received') {
         //     $this->updateApplicationStatus(['status' => 'reviewed'], $application);
         // } $isSaved = false;
+
         $applicant = $application->applicant;
         $jobposting = $application->jobPosting;
         $isSaved = false;
@@ -80,6 +81,10 @@ class ApplicationService
     public function updateApplicationStatus(array $data, $application)
     {
         $application->update(['status' => $data['status']]);
+        // update the interview status to rejected if application rejected
+        if ($data['status'] === 'rejected' && $application->interview) {
+            $application->interview->update(['status' => 'rejected']);
+        }
         $this->updateApplicationStatusTimeline($data, $application);
         return ['message' => 'Application updated to ' . $data['status'] . '.', 'application' => $application];
     }

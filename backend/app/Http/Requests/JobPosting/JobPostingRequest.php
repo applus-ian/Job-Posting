@@ -42,6 +42,12 @@ class JobPostingRequest extends FormRequest
             'address_id' => 'nullable|exists:addresses,id',
             'tags' => 'nullable|array',
             'tags.*' => 'string|max:50',
+            'address' => 'required|string',
+            'country' => 'required|string',
+            'province' => 'required|string',
+            'city' => 'required|string',
+            'street' => 'required|string',
+            'zipcode' => 'required|string',
         ];
     }
 }

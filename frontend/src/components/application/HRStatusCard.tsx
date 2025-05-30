@@ -1,6 +1,6 @@
 import { ApplicationStatus } from "@/types/application";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
-import { CheckCircle2Icon } from "lucide-react";
+import { CheckCircle2Icon, XCircleIcon } from "lucide-react";
 import { formatDateTime } from "@/utils/dateFormatter";
 
 const statusDetails: Record<ApplicationStatus["status"], { title: string }> = {
@@ -17,10 +17,10 @@ const statusDetails: Record<ApplicationStatus["status"], { title: string }> = {
     title: "Job Offer Extended",
   },
   hired: {
-    title: "Candidate Hired",
+    title: "Applicant Hired",
   },
   rejected: {
-    title: "Candidate Rejected",
+    title: "Applicant Rejected",
   },
 };
 
@@ -43,10 +43,18 @@ export function HRStatusCard({ applicationstatus }: { applicationstatus: Applica
                   className="relative flex flex-col sm:flex-row sm:items-start sm:justify-between text-sm gap-2"
                 >
                   <div className="grid gap-1">
-                    <CheckCircle2Icon
-                      size={20}
-                      className="absolute left-0 translate-x-[-34px] z-10 top-1 text-green-600"
-                    />
+                    {status === "rejected" ? (
+                      <XCircleIcon
+                        size={20}
+                        className="absolute left-0 translate-x-[-34px] z-10 top-1 text-red-600"
+                      />
+                    ) : (
+                      <CheckCircle2Icon
+                        size={20}
+                        className="absolute left-0 translate-x-[-34px] z-10 top-1 text-green-600"
+                      />
+                    )}
+
                     <div className="text-sm">{statusInfo.title}</div>
                   </div>
                   <div className="text-xs text-gray-400 dark:text-gray-500 min-w-max sm:text-right">
